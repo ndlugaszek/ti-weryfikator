@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 st.title("🎓 Asystent Weryfikacji Zadań - Technologie Informacyjne")
-st.caption("Model: Gemini 2.0 Flash + Code Execution | Baza: Arkusze, CSV, PDF-y kursowe")
+st.caption("Model: Gemini 3.8 Flash + Code Execution | Baza: Arkusze, CSV, PDF-y kursowe")
 
 # Pobranie klucza API (ze Secrets Hugging Face lub wpisanego ręcznie w sidebarze)
 api_key = os.environ.get("GEMINI_API_KEY")
@@ -164,7 +164,7 @@ if user_prompt:
         with st.spinner("Przetwarzanie i weryfikacja kodem..."):
             try:
                 model = genai.GenerativeModel(
-                    model_name="gemini-2.0-flash",
+                    model_name="gemini-3.8-flash",
                     system_instruction=SYSTEM_PROMPT,
                     tools="code_execution"
                 )

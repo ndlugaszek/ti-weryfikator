@@ -11,4 +11,4 @@ pinned: false
 
 # Asystent Weryfikacji Zadań - TI
 Aplikacja weryfikująca odpowiedzi do zadań i quizów z Technologii Informacyjnych.
-Model: Gemini 2.0 Flash + Code Execution.
+Model: Gemini 3.8 Flash + Code Execution.
