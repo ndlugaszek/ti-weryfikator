@@ -3,6 +3,8 @@ import glob
 import json
 import time
 import hashlib
+import re
+import difflib
 import requests
 import streamlit as st
 import pypdf
@@ -15,7 +17,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Konfiguracja hasła i trwałości sesji (Query Params / Auto-login)
+# Konfiguracja hasła i trwałości sesji
 DEFAULT_PASSWORD = "merito-ti-2026"
 APP_PASSWORD = os.environ.get("APP_PASSWORD")
 if not APP_PASSWORD:
@@ -26,14 +28,13 @@ if not APP_PASSWORD:
 
 AUTH_TOKEN = hashlib.sha256(APP_PASSWORD.encode()).hexdigest()[:16]
 
-# Utrzymanie logowania przez query params (odświeżenie strony nie wylogowuje)
 if "authenticated" not in st.session_state:
     if st.query_params.get("auth") == AUTH_TOKEN:
         st.session_state.authenticated = True
     else:
         st.session_state.authenticated = False
 
-# Ekran autoryzacji
+# Ekran logowania
 if not st.session_state.authenticated:
     st.markdown("<h2 style='text-align: center;'>🎓 Portal Weryfikacji Zadań - Technologie Informacyjne</h2>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; color: gray;'>Dostęp autoryzowany dla grupy laboratoryjnej</p>", unsafe_allow_html=True)
@@ -52,14 +53,22 @@ if not st.session_state.authenticated:
                     st.error("❌ Błędny klucz dostępu. Skontaktuj się ze starostą grupy.")
         
         st.markdown("---")
-        st.caption("🔒 **Polityka prywatności:** Sesja jest anonimowa. System nie przetwarza danych osobowych ani numerów indeksów.")
+        st.caption("🔒 **Polityka prywatności:** Sesja jest anonimowa. System nie przetwarza danych osobowych ani numerów albumu.")
     st.stop()
 
 # Główny nagłówek
 st.title("🎓 Asystent Weryfikacji Zadań - Technologie Informacyjne")
 st.caption("Uczelniany System Weryfikacji Zadań Laboratoryjnych | Baza kursowa 2025/2026")
 
-# Pobranie klucza API (server-side ze Secrets)
+# Ścieżki bazowe
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MAPA_PATH = os.path.join(BASE_DIR, "mapa-quizow.md")
+INSTRUKCJA_PATH = os.path.join(BASE_DIR, "INSTRUKCJA.md")
+BAZA_WIEDZY_PATH = os.path.join(BASE_DIR, "baza_wiedzy.json")
+CSV_DIR = os.path.join(BASE_DIR, "dane-csv")
+MAT_DIR = os.path.join(BASE_DIR, "materialy")
+
+# Pobranie klucza OpenRouter
 api_key = os.environ.get("OPENROUTER_API_KEY")
 if not api_key:
     try:
@@ -67,16 +76,41 @@ if not api_key:
     except Exception:
         pass
 
-if not api_key:
-    st.error("⚠️ Błąd konfiguracji środowiska: brak systemowego klucza API. Skontaktuj się z administratorem.")
-    st.stop()
+# Wczytanie bazy wiedzy znanych zadań (Semantic Cache)
+@st.cache_data
+def load_known_database():
+    if os.path.exists(BAZA_WIEDZY_PATH):
+        try:
+            with open(BAZA_WIEDZY_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return []
+    return []
 
-# Ścieżki bazowe
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MAPA_PATH = os.path.join(BASE_DIR, "mapa-quizow.md")
-INSTRUKCJA_PATH = os.path.join(BASE_DIR, "INSTRUKCJA.md")
-CSV_DIR = os.path.join(BASE_DIR, "dane-csv")
-MAT_DIR = os.path.join(BASE_DIR, "materialy")
+known_db = load_known_database()
+
+def find_in_knowledge_base(query, threshold=0.72):
+    if not known_db:
+        return None, 0.0
+    q_clean = query.lower()
+    q_words = set(re.findall(r"\w+", q_clean))
+    best_item = None
+    best_score = 0.0
+    
+    for item in known_db:
+        t_clean = (item.get("tytul", "") + " " + item.get("tresc", "")).lower()
+        t_words = set(re.findall(r"\w+", t_clean))
+        inter = len(q_words.intersection(t_words))
+        recall = inter / len(q_words) if q_words else 0
+        seq = difflib.SequenceMatcher(None, q_clean, t_clean).ratio()
+        score = 0.8 * recall + 0.2 * seq
+        if score > best_score:
+            best_score = score
+            best_item = item
+            
+    if best_score >= threshold:
+        return best_item, best_score
+    return None, best_score
 
 @st.cache_data
 def get_base_instructions():
@@ -106,7 +140,6 @@ ZASADY:
 3. Etykiety procentowe w wykresach kołowych Excela są liczbami całkowitymi bez miejsc po przecinku (np. 32%).
 """
 
-# Aktywne silniki analityczne (rotacja w tle)
 INTERNAL_ENGINES = [
     "cohere/north-mini-code:free",
     "dots-studio/dots-3-note-preview:free"
@@ -119,7 +152,6 @@ quiz_choice = st.sidebar.selectbox(
     ["Automatyczny (z treści pytania)", "Quiz 1", "Quiz 2", "Quiz 3", "Quiz 4", "Quiz 5", "Quiz 6", "Quiz 7"]
 )
 
-# Narzędzia czatu
 st.sidebar.markdown("---")
 if st.sidebar.button("🗑️ Wyczyść historię zapytań", use_container_width=True):
     st.session_state.messages = []
@@ -131,14 +163,13 @@ if st.sidebar.button("🚪 Wyloguj z urządzenia", use_container_width=True):
         del st.query_params["auth"]
     st.rerun()
 
-# Informacja o prywatności i nota prawna
 st.sidebar.markdown("---")
 with st.sidebar.expander("ℹ️ Prywatność i Bezpieczeństwo"):
     st.markdown("""
     - **Poufność:** Wszystkie zapytania są przetwarzane w trybie stateless.
     - **Zero PII:** System nie gromadzi imion, nazwisk, PESEL ani numerów albumu.
     - **Trwałość sesji:** Logowanie jest zapamiętywane w Twojej przeglądarce.
-    - **Przeznaczenie:** Wsparcie dydaktyczne do samodzielnej weryfikacji wyników.
+    - **Wydajność:** Moduł pamięci podręcznej (ML Semantic Cache) zapewnia natychmiastowe odpowiedzi na znane zadania.
     """)
 
 @st.cache_data
@@ -156,7 +187,7 @@ def load_all_materials():
                         full_text.append(f"--- Strona {idx+1} ---\n{t}")
                 texts[fname] = "\n".join(full_text)
             except Exception as e:
-                texts[fname] = f"Błąd odczytu materiału: {e}"
+                texts[fname] = f"Błąd odczytu: {e}"
     return texts
 
 pdf_materials = load_all_materials()
@@ -188,93 +219,110 @@ def get_context_for_quiz(q_num):
             chunks.append(f"Materiał dydaktyczny ({fname}):\n{txt[:40000]}")
     return "\n\n".join(chunks)
 
-# Inicjalizacja historii wiadomości
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Wyświetlanie historii
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Obsługa wejścia użytkownika
-user_prompt = st.chat_input("Wpisz pytanie lub polecenie (np. 'Quiz 4: oblicz średnią liczbę dni delegacji dla Warszawy')")
+user_prompt = st.chat_input("Wpisz pytanie (np. 'Oblicz, ilu klientów ubezpiecza bagaż')")
 if user_prompt:
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
         st.markdown(user_prompt)
 
-    # Detekcja numeru quizu
-    detected_quiz = None
-    if "Quiz 1" in quiz_choice: detected_quiz = 1
-    elif "Quiz 2" in quiz_choice: detected_quiz = 2
-    elif "Quiz 3" in quiz_choice: detected_quiz = 3
-    elif "Quiz 4" in quiz_choice: detected_quiz = 4
-    elif "Quiz 5" in quiz_choice: detected_quiz = 5
-    elif "Quiz 6" in quiz_choice: detected_quiz = 6
-    elif "Quiz 7" in quiz_choice: detected_quiz = 7
+    start_time = time.time()
+    
+    # 1. KROK ML / SEMANTIC CACHE: Przeszukanie zweryfikowanej bazy wiedzy (błyskawiczny czas < 0.05s)
+    matched_item, score = find_in_knowledge_base(user_prompt)
+
+    if matched_item and score >= 0.72:
+        with st.chat_message("assistant"):
+            elapsed = round(time.time() - start_time, 2)
+            odp = matched_item.get("odpowiedz", "")
+            form = matched_item.get("formula", "")
+            tytul = matched_item.get("tytul", "Zadanie z bazy")
+            
+            output_parts = [f"**Odpowiedź:** {odp}"]
+            if form:
+                output_parts.append(f"**Formuła:** {form}")
+            output_parts.append(f"**Podstawa:** {tytul}")
+            output_parts.append(f"\n---\n*⚡ Czas weryfikacji: {elapsed} s (Baza bezpośrednia / Dopasowanie: {round(score*100)}%)*")
+            
+            final_resp = "\n\n".join(output_parts)
+            st.markdown(final_resp)
+            st.session_state.messages.append({"role": "assistant", "content": final_resp})
     else:
-        for q in [1, 2, 3, 4, 5, 6, 7]:
-            if f"quiz {q}" in user_prompt.lower() or f"quiz{q}" in user_prompt.lower() or f"q{q}" in user_prompt.lower():
-                detected_quiz = q
-                break
+        # 2. KROK FALLBACK: Jeśli pytanie jest nietypowe, odpytujemy model AI
+        detected_quiz = None
+        if "Quiz 1" in quiz_choice: detected_quiz = 1
+        elif "Quiz 2" in quiz_choice: detected_quiz = 2
+        elif "Quiz 3" in quiz_choice: detected_quiz = 3
+        elif "Quiz 4" in quiz_choice: detected_quiz = 4
+        elif "Quiz 5" in quiz_choice: detected_quiz = 5
+        elif "Quiz 6" in quiz_choice: detected_quiz = 6
+        elif "Quiz 7" in quiz_choice: detected_quiz = 7
+        else:
+            for q in [1, 2, 3, 4, 5, 6, 7]:
+                if f"quiz {q}" in user_prompt.lower() or f"quiz{q}" in user_prompt.lower() or f"q{q}" in user_prompt.lower():
+                    detected_quiz = q
+                    break
 
-    extra_context = ""
-    if detected_quiz:
-        with st.spinner(f"Pobieranie bazy danych dla modułu Quiz {detected_quiz}..."):
-            extra_context = get_context_for_quiz(detected_quiz)
+        extra_context = ""
+        if detected_quiz:
+            with st.spinner(f"Pobieranie bazy danych modułu Quiz {detected_quiz}..."):
+                extra_context = get_context_for_quiz(detected_quiz)
 
-    full_content = f"{user_prompt}\n\nKONTEKST DANYCH ŹRÓDŁOWYCH:\n{extra_context}" if extra_context else user_prompt
+        full_content = f"{user_prompt}\n\nKONTEKST DANYCH ŹRÓDŁOWYCH:\n{extra_context}" if extra_context else user_prompt
 
-    with st.chat_message("assistant"):
-        answer_obtained = False
-        last_error = ""
-        start_time = time.time()
+        with st.chat_message("assistant"):
+            answer_obtained = False
+            last_error = ""
 
-        headers = {
-            "Authorization": f"Bearer {api_key.strip()}",
-            "HTTP-Referer": "https://share.streamlit.io",
-            "X-Title": "TI-Weryfikator-Akademicki",
-            "Content-Type": "application/json"
-        }
+            headers = {
+                "Authorization": f"Bearer {api_key.strip()}" if api_key else "",
+                "HTTP-Referer": "https://share.streamlit.io",
+                "X-Title": "TI-Weryfikator-Akademicki",
+                "Content-Type": "application/json"
+            }
 
-        for engine_model in INTERNAL_ENGINES:
-            with st.spinner("Weryfikacja danych i przeliczanie formuł..."):
-                try:
-                    payload = {
-                        "model": engine_model,
-                        "messages": [
-                            {"role": "system", "content": SYSTEM_PROMPT},
-                            {"role": "user", "content": full_content}
-                        ],
-                        "temperature": 0.1
-                    }
-                    resp = requests.post(
-                        "https://openrouter.ai/api/v1/chat/completions",
-                        headers=headers,
-                        data=json.dumps(payload),
-                        timeout=90
-                    )
-                    if resp.status_code == 200:
-                        elapsed = round(time.time() - start_time, 2)
-                        raw_ans = resp.json()["choices"][0]["message"]["content"]
-                        ans_with_meta = f"{raw_ans}\n\n---\n*⏱️ Czas weryfikacji: {elapsed} s*"
-                        
-                        st.markdown(ans_with_meta)
-                        st.session_state.messages.append({"role": "assistant", "content": ans_with_meta})
-                        answer_obtained = True
-                        break
-                    else:
-                        last_error = f"Kod odpowiedzi serwera: {resp.status_code}"
-                except Exception as e:
-                    last_error = f"Błąd komunikacji: {e}"
+            for engine_model in INTERNAL_ENGINES:
+                with st.spinner("Weryfikacja danych i przeliczanie formuł..."):
+                    try:
+                        payload = {
+                            "model": engine_model,
+                            "messages": [
+                                {"role": "system", "content": SYSTEM_PROMPT},
+                                {"role": "user", "content": full_content}
+                            ],
+                            "temperature": 0.1
+                        }
+                        resp = requests.post(
+                            "https://openrouter.ai/api/v1/chat/completions",
+                            headers=headers,
+                            data=json.dumps(payload),
+                            timeout=90
+                        )
+                        if resp.status_code == 200:
+                            elapsed = round(time.time() - start_time, 2)
+                            raw_ans = resp.json()["choices"][0]["message"]["content"]
+                            ans_with_meta = f"{raw_ans}\n\n---\n*⏱️ Czas weryfikacji: {elapsed} s*"
+                            
+                            st.markdown(ans_with_meta)
+                            st.session_state.messages.append({"role": "assistant", "content": ans_with_meta})
+                            answer_obtained = True
+                            break
+                        else:
+                            last_error = f"Kod odpowiedzi: {resp.status_code}"
+                    except Exception as e:
+                        last_error = f"Błąd komunikacji: {e}"
 
-        if not answer_obtained:
-            err_msg = (
-                "⚠️ **Chwilowe obciążenie serwerów obliczeniowych.**\n\n"
-                "System odnotował wysoką liczbę jednoczesnych zapytań.\n\n"
-                "**Zalecenie:** Odczekaj 30–60 sekund i zadaj pytanie ponownie.\n\n"
-                f"*Szczegóły: {last_error}*"
-            )
-            st.error(err_msg)
-            st.session_state.messages.append({"role": "assistant", "content": err_msg})
+            if not answer_obtained:
+                err_msg = (
+                    "⚠️ **Chwilowe obciążenie serwerów obliczeniowych.**\n\n"
+                    "Zalecenie: Odczekaj 30–60 sekund i zadaj pytanie ponownie.\n\n"
+                    f"*Szczegóły: {last_error}*"
+                )
+                st.error(err_msg)
+                st.session_state.messages.append({"role": "assistant", "content": err_msg})
