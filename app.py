@@ -12,9 +12,9 @@ st.set_page_config(
 )
 
 st.title("🎓 Asystent Weryfikacji Zadań - TI")
-st.caption("Backend: OpenRouter (:free) | 100% Darmowy | Baza: CSV, Arkusze, PDF")
+st.caption("Backend: OpenRouter (Autonomiczny dobór modelu :free) | 100% Darmowy | Baza: CSV, Arkusze, PDF")
 
-# Klucz API OpenRouter
+# Pobranie klucza OpenRouter
 api_key = os.environ.get("OPENROUTER_API_KEY")
 if not api_key:
     api_key = st.sidebar.text_input("Podaj OPENROUTER_API_KEY:", type="password")
@@ -24,7 +24,6 @@ if not api_key:
     st.info("Klucz pobierzesz za darmo z: https://openrouter.ai/keys")
     st.stop()
 
-# Ścieżki
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MAPA_PATH = os.path.join(BASE_DIR, "mapa-quizow.md")
 INSTRUKCJA_PATH = os.path.join(BASE_DIR, "INSTRUKCJA.md")
@@ -59,22 +58,19 @@ ZASADY:
 3. Etykiety procentowe w wykresach kołowych Excela są liczbami całkowitymi bez miejsc po przecinku (np. 32%).
 """
 
-# Wybór modelu i quizu w sidebarze
-st.sidebar.header("Konfiguracja")
-FREE_MODELS = [
-    "nvidia/nemotron-3.5-lightning:free",
-    "google/gemma-4-31b-it:free",
-    "nvidia/nemotron-3-ultra-550b-a55b:free",
+# Sprawdzone, stabilne modele free z automatycznym przełączaniem
+ACTIVE_MODELS = [
     "cohere/north-mini-code:free",
-    "thinkingmachines/inkling:free",
     "dots-studio/dots-3-note-preview:free"
 ]
-selected_model = st.sidebar.selectbox("Model OpenRouter (wyłącznie :free):", FREE_MODELS)
 
+st.sidebar.header("Ustawienia")
 quiz_choice = st.sidebar.selectbox(
     "Wybierz quiz:",
     ["Automatyczny (z pytania)", "Quiz 1", "Quiz 2", "Quiz 3", "Quiz 4", "Quiz 5", "Quiz 6", "Quiz 7"]
 )
+st.sidebar.markdown("---")
+st.sidebar.caption("Aktywne modele: `cohere/north-mini-code:free` z automatycznym fallbackiem do `dots-studio/dots-3-note-preview:free`.")
 
 @st.cache_data
 def load_all_materials():
@@ -158,37 +154,50 @@ if user_prompt:
     full_content = f"{user_prompt}\n\nDODATKOWY KONTEKST DANYCH:\n{extra_context}" if extra_context else user_prompt
 
     with st.chat_message("assistant"):
-        with st.spinner(f"Odpytywanie {selected_model}..."):
-            try:
-                headers = {
-                    "Authorization": f"Bearer {api_key.strip()}",
-                    "HTTP-Referer": "https://share.streamlit.io",
-                    "X-Title": "TI-Weryfikator",
-                    "Content-Type": "application/json"
-                }
-                payload = {
-                    "model": selected_model,
-                    "messages": [
-                        {"role": "system", "content": SYSTEM_PROMPT},
-                        {"role": "user", "content": full_content}
-                    ],
-                    "temperature": 0.1
-                }
-                resp = requests.post(
-                    "https://openrouter.ai/api/v1/chat/completions",
-                    headers=headers,
-                    data=json.dumps(payload),
-                    timeout=90
-                )
-                if resp.status_code == 200:
-                    ans = resp.json()["choices"][0]["message"]["content"]
-                    st.markdown(ans)
-                    st.session_state.messages.append({"role": "assistant", "content": ans})
-                else:
-                    err = f"❌ Błąd OpenRouter ({resp.status_code}): {resp.text}"
-                    st.error(err)
-                    st.session_state.messages.append({"role": "assistant", "content": err})
-            except Exception as e:
-                err = f"❌ Błąd zapytania: {e}"
-                st.error(err)
-                st.session_state.messages.append({"role": "assistant", "content": err})
+        answer_obtained = False
+        last_error = ""
+
+        headers = {
+            "Authorization": f"Bearer {api_key.strip()}",
+            "HTTP-Referer": "https://share.streamlit.io",
+            "X-Title": "TI-Weryfikator",
+            "Content-Type": "application/json"
+        }
+
+        for model_name in ACTIVE_MODELS:
+            with st.spinner(f"Przetwarzanie zapytania ({model_name})..."):
+                try:
+                    payload = {
+                        "model": model_name,
+                        "messages": [
+                            {"role": "system", "content": SYSTEM_PROMPT},
+                            {"role": "user", "content": full_content}
+                        ],
+                        "temperature": 0.1
+                    }
+                    resp = requests.post(
+                        "https://openrouter.ai/api/v1/chat/completions",
+                        headers=headers,
+                        data=json.dumps(payload),
+                        timeout=90
+                    )
+                    if resp.status_code == 200:
+                        ans = resp.json()["choices"][0]["message"]["content"]
+                        st.markdown(ans)
+                        st.session_state.messages.append({"role": "assistant", "content": ans})
+                        answer_obtained = True
+                        break
+                    else:
+                        last_error = f"{model_name}: HTTP {resp.status_code} - {resp.text}"
+                except Exception as e:
+                    last_error = f"{model_name}: błąd połączenia ({e})"
+
+        if not answer_obtained:
+            err_msg = (
+                "⚠️ **Chwilowe przeciążenie darmowych serwerów AI.**\n\n"
+                "Wszyscy dostawcy darmowych modeli zwrócili limit (HTTP 429) lub błąd połączenia.\n\n"
+                "**Rozwiązanie:** Odczekaj 30–60 sekund i zadaj pytanie ponownie.\n\n"
+                f"*Szczegóły techniczne: {last_error}*"
+            )
+            st.error(err_msg)
+            st.session_state.messages.append({"role": "assistant", "content": err_msg})
