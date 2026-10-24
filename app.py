@@ -62,10 +62,12 @@ ZASADY:
 # Wybór modelu i quizu w sidebarze
 st.sidebar.header("Konfiguracja")
 FREE_MODELS = [
-    "meta-llama/llama-3.3-70b-instruct:free",
-    "google/gemini-2.0-flash-exp:free",
-    "qwen/qwen-2.5-72b-instruct:free",
-    "deepseek/deepseek-r1:free"
+    "nvidia/nemotron-3.5-lightning:free",
+    "google/gemma-4-31b-it:free",
+    "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "cohere/north-mini-code:free",
+    "thinkingmachines/inkling:free",
+    "dots-studio/dots-3-note-preview:free"
 ]
 selected_model = st.sidebar.selectbox("Model OpenRouter (wyłącznie :free):", FREE_MODELS)
 
