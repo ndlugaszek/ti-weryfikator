@@ -170,8 +170,9 @@ ZASADY:
    Odpowiedź: [dokładny wynik/wartość]
    Ocena: poprawna / błędna / niejednoznaczna (jeśli podano propozycję użytkownika)
    Podstawa: [arkusz, komórki, strona PDF, formuła lub zarys obliczenia]
-2. Dokładnie analizuj załączone dane tabelaryczne CSV i PDF.
-3. Etykiety procentowe w wykresach kołowych Excela są liczbami całkowitymi bez miejsc po przecinku (np. 32%).
+2. Nazwy funkcji Excela podawaj WYŁĄCZNIE w języku polskim: =DZIŚ(), =DATA(), =MIESIĄC(), =ROK(), =DZIEŃ(), =SUMA(), =ŚREDNIA(), =JEŻELI(), =ZAOKR(). Zakaz nazw angielskich (TODAY, DATE, MONTH, SUM, IF).
+3. Dokładnie analizuj załączone dane tabelaryczne CSV i PDF.
+4. Etykiety procentowe w wykresach kołowych Excela są liczbami całkowitymi bez miejsc po przecinku (np. 32%).
 """
 
 INTERNAL_ENGINES = [

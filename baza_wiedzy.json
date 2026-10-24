@@ -1125,6 +1125,71 @@
   {
     "quiz": "Quiz 6",
     "klucze": [
+      "2022-09-05",
+      "8 dni wcześniej",
+      "e7",
+      "e8"
+    ],
+    "pytanie": "W komórce E7 wpisana jest data 2022-09-05. Jaką formułę należy wpisać do komórki E8, by obliczyć, jaka data była 8 dni wcześniej?",
+    "odpowiedz": "=E7-8",
+    "formula": "=E7-8",
+    "uzasadnienie": "Odejmowanie dni w Excelu: =E7-8.",
+    "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 6",
+    "klucze": [
+      "zawsze wyświetlała się data, która będzie za 18 dni",
+      "za 18 dni"
+    ],
+    "pytanie": "Jaką formułę należy wpisać, aby w komórce zawsze wyświetlała się data, która będzie za 18 dni?",
+    "odpowiedz": "=DZIŚ()+18",
+    "formula": "=DZIŚ()+18",
+    "uzasadnienie": "Wyłącznie polska nazwa: =DZIŚ()+18 (nie =TODAY()+18).",
+    "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 6",
+    "klucze": [
+      "k6 wpisana jest data zbliżającego się zebrania",
+      "za ile dni będzie zebranie",
+      "k6"
+    ],
+    "pytanie": "W komórce K6 wpisana jest data zbliżającego się zebrania zarządu firmy. Jaką formułę należy wpisać, aby obliczyć, za ile dni będzie zebranie?",
+    "odpowiedz": "=K6-DZIŚ()",
+    "formula": "=K6-DZIŚ()",
+    "uzasadnienie": "Wyłącznie polska nazwa: =K6-DZIŚ() (nie =K6-TODAY()).",
+    "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 6",
+    "klucze": [
+      "numerach: dnia, miesiąca i roku",
+      "otrzymać z nich datę",
+      "b3;b2;b1",
+      "b1;b2;b3"
+    ],
+    "pytanie": "W załączonym wycinku arkusza znajdują się informacje o numerach: dnia, miesiąca i roku. Jaką formułę należy wpisać, aby otrzymać z nich datę.",
+    "odpowiedz": "=DATA(B3;B2;B1)",
+    "formula": "=DATA(B3;B2;B1)",
+    "uzasadnienie": "Wyłącznie polska funkcja: =DATA(B3;B2;B1) (kolejność: rok; miesiąc; dzień).",
+    "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 6",
+    "klucze": [
+      "numer aktualnego miesiąca",
+      "aktualnego miesiąca"
+    ],
+    "pytanie": "Jaką formułę należy wpisać, aby obliczyć numer aktualnego miesiąca?",
+    "odpowiedz": "=MIESIĄC(DZIŚ())",
+    "formula": "=MIESIĄC(DZIŚ())",
+    "uzasadnienie": "Wyłącznie polskie nazwy: =MIESIĄC(DZIŚ()) (nie =MONTH(TODAY())).",
+    "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 6",
+    "klucze": [
       "2021-12-16",
       "4 dni wcześniej",
       "e7",
@@ -1162,19 +1227,6 @@
     "odpowiedz": "=D1-D2",
     "formula": "=D1-D2",
     "uzasadnienie": "Różnica dwóch dat w Excelu zwraca liczbę dni między nimi.",
-    "typ": "formula"
-  },
-  {
-    "quiz": "Quiz 6",
-    "klucze": [
-      "numerach: dnia, miesiąca i roku",
-      "otrzymać z nich datę",
-      "b1;b2;b3"
-    ],
-    "pytanie": "W załączonym wycinku arkusza znajdują się informacje o numerach: dnia, miesiąca i roku. Jaką formułę należy wpisać, aby otrzymać z nich datę.",
-    "odpowiedz": "=DATA(B1;B2;B3) (lub =DATA(B3;B2;B1) w zależności od ułożenia: ROK; MIESIĄC; DZIEŃ)",
-    "formula": "=DATA(B1;B2;B3)",
-    "uzasadnienie": "Składnia Excela: DATA(rok; miesiąc; dzień).",
     "typ": "formula"
   },
   {
