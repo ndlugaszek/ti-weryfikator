@@ -1,386 +1,1284 @@
 [
   {
-    "tytul": "Zadanie: Zestawienie 4, E1",
-    "tresc": "W arkuszu Zestawienie 4 w kolumnie E, na podstawie pensji podstawowej w dolarach, oblicz ile wynoszą pensje podstawowe pracowników w złotych. Kurs dolara znajduje się w komórce E3 (i może być aktualizowany). Wpisz odpowiednią formułę obliczeniową do komórki E7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce E1.",
-    "formula": "`=C7*$E$3`",
-    "odpowiedz": "`555`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "9%",
+      "wartość",
+      "komórka a1",
+      "wpisano 9%"
+    ],
+    "pytanie": "W komórkę A1 wpisano 9%. Jaką wartość ma ta komórka?",
+    "odpowiedz": "0,09 oraz 9% (zaznacz obie)",
+    "uzasadnienie": "Wartość liczbowa to 0,09. Excel dopuszcza również zapis z symbolem procenta jako tożsamą wartość.",
+    "typ": "wielokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Zestawienie 2, H1",
-    "tresc": "W arkuszu Zestawienie 2 w kolumnie H, oblicz ile euro (pensji podstawowej) przypada na 1 członka rodziny. Wpisz odpowiednią formułę obliczeniową do komórki H7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce H1.",
-    "formula": "`=C7/G7`",
-    "odpowiedz": "`540`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "4,4",
+      "format procentowy",
+      "wyświetli się"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 4,4 i wyświetlono ją w formacie procentowym. Co wyświetli się w komórce A1?",
+    "odpowiedz": "440%",
+    "uzasadnienie": "Liczba 4,4 pomnożona przez 100% daje 440%.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Zestawienie 4, I1",
-    "tresc": "W arkuszu Zestawienie 4 w kolumnie I powinny znaleźć się informacje dotyczące przyznanych dopłat za okulary (w złotych). W komórce I7 wpisz formułę, która skopiowana do poniższych komórek wyświetli każdemu pracownikowi, który zakupił okulary, wartość dofinansowania 400 zł, a w pozostałych przypadkach pozostawi puste komórki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce I1.",
-    "formula": "`=JEŻELI(F7=\"+\";400;\"\")`",
-    "odpowiedz": "`81`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "1234,5678",
+      "jednym miejscem dziesiętnym",
+      "jaką wartość ma komórka"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 1234,5678 i sformatowano ją tak, by wyświetlała się z jednym miejscem dziesiętnym. Jaką wartość ma komórka A1?",
+    "odpowiedz": "1234,5678",
+    "uzasadnienie": "Sformatowanie liczby zmienia wyłącznie jej wygląd, nie zmienia jej faktycznej wartości.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Zestawienie 2, J1",
-    "tresc": "W arkuszu Zestawienie 2 w kolumnie J, oblicz ile wynoszą pensje podstawowe pracowników we frankach szwajcarskich w zaokrągleniu do 1 CHF. Wpisz odpowiednią formułę obliczeniową do komórki J7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce J1.",
-    "formula": "`=ZAOKR(D7;0)`",
-    "odpowiedz": "`1663,72`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "tekst nie mieści",
+      "b1 są wpisane dane",
+      "formatować"
+    ],
+    "pytanie": "Jeśli w komórce A1 tekst nie mieści się, a w komórce B1 są wpisane dane, wówczas tekst w komórce A1 możemy sformatować:",
+    "odpowiedz": "zawijając tekst w komórce ORAZ automatycznie dopasowując rozmiar czcionki do wielkości komórki",
+    "uzasadnienie": "Gdy sąsiednia komórka B1 jest zajęta, tekst nie może na nią nachodzić.",
+    "typ": "wielokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Zestawienie 4, K1",
-    "tresc": "W arkuszu Zestawienie 4 w kolumnie K powinny znaleźć się informacje dotyczące wysokości dodatków (w złotówkach) dla Liderów i członków projektów. Pracownik, który zrealizował co najmniej 5 projektów, otrzymuje kwotę z komórki J3 (określoną w dolarach) za każdy projekt, przy czym kwota wypłacana jest w złotych, natomiast pozostali otrzymują ustaloną kwotę z komórki J4 (określoną w złotych) za każdy projekt. Kwoty w komórkach J3 i J4 mogą być aktualizowane przez dyrekcję. W komórce K7 wpisz formułę, która skopiowana do poniższych komórek wyświetli wartości dodatków dla Liderów i członków projektów. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce K1.",
-    "formula": "`=JEŻELI(G7>=5;G7*$J$3*$E$3;G7*$J$4)`",
-    "odpowiedz": "`883`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "accessa",
+      "zaimportowano",
+      "ponownie importować"
+    ],
+    "pytanie": "Dane z bazy danych Accessa zaimportowano do pliku Excela. Jeśli zmienimy dane w bazie danych, to czy musimy ponownie je importować by były aktualne w Excelu?",
+    "odpowiedz": "Nie",
+    "uzasadnienie": "W trakcie importowania tworzone jest połączenie między plikami i dane można odświeżać bez ponownego importu.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Zestawienie 1, E1",
-    "tresc": "W arkuszu Zestawienie 1 w kolumnie E, oblicz ile wynoszą pensje podstawowe pracowników w euro. Kurs euro znajduje się w komórce E3 (i może być aktualizowany). Wpisz odpowiednią formułę obliczeniową do komórki E7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce E1.",
-    "formula": "`=C7/$E$3`",
-    "odpowiedz": "`77`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "3434,3434",
+      "separator tysięcy",
+      "czterech miejsc dziesiętnych"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 3434,3434 i sformatowano ją przy użyciu separatora tysięcy z widocznością czterech miejsc dziesiętnych. Co wyświetli się w komórce A1?",
+    "odpowiedz": "3 434,3434",
+    "uzasadnienie": "Spacja jako separator tysięcy i 4 miejsca po przecinku.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Zestawienie 3, H1",
-    "tresc": "W arkuszu Zestawienie 3 w kolumnie F znajdują się informacje, ile procent podwyżki pensji (w złotych) przyznano poszczególnym pracownikom. Oblicz, w kolumnie H, wartości pensji w złotych po podwyżce. Wpisz odpowiednią formułę obliczeniową do komórki H7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce H1.",
-    "formula": "`=C7*(1+F7)` lub `=C7+C7*F7`",
-    "odpowiedz": "`31`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "6,8",
+      "format procentowy",
+      "wyświetli się"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 6,8 i wyświetlono ją w formacie procentowym. Co wyświetli się w komórce A1?",
+    "odpowiedz": "680%",
+    "uzasadnienie": "6,8 * 100% = 680%.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Zestawienie 1, I1",
-    "tresc": "W arkuszu Zestawienie 1 w kolumnie I powinny znaleźć się informacje dotyczące prezentów świątecznych dla dzieci pracowników. W komórce I7 wpisz formułę, która skopiowana do poniższych komórek wyświetli słowo: tak - jeżeli pracownik posiada dziecko (lub dzieci) lub słowo: nie - jeśli ich nie posiada. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce I1.",
-    "formula": "`=JEŻELI(G7>0;\"tak\";\"nie\")`",
-    "odpowiedz": "`94`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "tekst nie mieści",
+      "b1 jest pusta",
+      "komórka b1 pusta"
+    ],
+    "pytanie": "Jeśli w komórce A1 tekst nie mieści się, a komórka B1 jest pusta, wówczas tekst w komórce A1:",
+    "odpowiedz": "możemy sformatować zawijając tekst w komórce, automatycznie dopasowując rozmiar czcionki do wielkości komórki, ORAZ może wyświetlać się na komórce B1 (wszystkie 3)",
+    "uzasadnienie": "Jeśli B1 jest pusta, tekst może nachodzić na pustą komórkę B1.",
+    "typ": "wielokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Zestawienie 1, J1",
-    "tresc": "W arkuszu Zestawienie 1 w kolumnie J, oblicz ile wynoszą pensje podstawowe pracowników we frankach szwajcarskich w zaokrągleniu do 10 CHF. Wpisz odpowiednią formułę obliczeniową do komórki J7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce J1.",
-    "formula": "`=ZAOKR(D7;-1)` lub `=ROUND(D7,-1)`",
-    "odpowiedz": "`1663,17`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "2345,2345",
+      "separator tysięcy"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 2345,2345 i sformatowano ją przy użyciu separatora tysięcy z widocznością czterech miejsc dziesiętnych. Co wyświetli się w komórce A1?",
+    "odpowiedz": "2 345,2345",
+    "uzasadnienie": "Spacja jako separator tysięcy.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Zestawienie 2, K1",
-    "tresc": "W arkuszu Zestawienie 2 w kolumnie K powinny znaleźć się informacje dotyczące wysokości dodatków noworocznych pracowników. Pracownik, który ma co najmniej 4 członków rodziny, otrzymuje kwotę z komórki J3 (określoną w euro) na każdego członka rodziny, przy czym kwota wypłacana jest w złotych; natomiast pozostali otrzymują ustaloną kwotę z komórki J4 (określoną w złotych) na każdego członka rodziny. Kwoty w komórkach J3 i J4 mogą być aktualizowane. W komórce K7 wpisz formułę, która skopiowana do poniższych komórek wyświetli wartości dodatków noworocznych pracowników. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce K1.",
-    "formula": "`=JEŻELI(G7>=4;G7*$J$3*$E$3;G7*$J$4)`",
-    "odpowiedz": "`957`\n\n\n## Quiz Podróżni_23"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "5656,565",
+      "dwoma miejscami",
+      "jaką wartość ma komórka"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 5656,565 i sformatowano ją tak, by wyświetlała się z dwoma miejscami dziesiętnymi. Jaką wartość ma komórka A1?",
+    "odpowiedz": "5656,565",
+    "uzasadnienie": "Sformatowanie nie zmienia wartości komórki.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Podróżni_3, Wiek (5 najniższych)",
-    "tresc": "W arkuszu Podróżni_3 korzystając z formatowania warunkowego sformatuj dane w kolumnie Wiek nadając czerwone wypełnienie pięciu komórkom zawierającym najniższy wiek. Jaki jest wiek najstarszej osoby spośród tych zaznaczonych?",
-    "formula": "",
-    "odpowiedz": "`c. 5` (wartość: 5)"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "6%",
+      "wartość ma ta komórka"
+    ],
+    "pytanie": "W komórkę A1 wpisano 6%. Jaką wartość ma ta komórka?",
+    "odpowiedz": "0,06 oraz 6% (zaznacz obie)",
+    "uzasadnienie": "Wartość to 0,06 lub zapis 6%.",
+    "typ": "wielokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Podróżni_6, Sortowanie",
-    "tresc": "W arkuszu Podróżni_6 posortuj dane alfabetycznie (od A do Z) względem Miasta, dla osób z tego samego miasta posortuj malejąco po Id_biletu. Jak nazywa się osoba, której dane znalazły się w ostatnim wierszu tabeli?",
-    "formula": "",
-    "odpowiedz": "`a. Janicki`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "skopiowano do drugiego pliku",
+      "kopiuj wklej",
+      "aktualne w drugim pliku"
+    ],
+    "pytanie": "Arkusz danych z jednego pliku Excela skopiowano do drugiego pliku Excela. Jeśli zmienimy dane w pierwszym pliku, to czy musimy ponownie je kopiować by były aktualne w drugim pliku Excela?",
+    "odpowiedz": "Tak",
+    "uzasadnienie": "Zwykłe kopiowanie (kopiuj-wklej) nie zachowuje połączenia między plikami.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Podróżni_12, Filtrowanie",
-    "tresc": "W arkuszu Podróżni_12 wyświetl informacje o wszystkich mężczyznach z Krakowa, którzy mają co najmniej 50 lat? Ile jest takich osób?",
-    "formula": "",
-    "odpowiedz": "`b. 6`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "6,8%",
+      "wartość ma ta komórka"
+    ],
+    "pytanie": "W komórkę A1 wpisano 6,8%. Jaką wartość ma ta komórka?",
+    "odpowiedz": "0,068 oraz 6,8% (zaznacz obie)",
+    "uzasadnienie": "Wartość to 0,068 lub 6,8%.",
+    "typ": "wielokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Podróżni_8, Formatowanie warunkowe (skala kolorów)",
-    "tresc": "W arkuszu Podróżni_8 korzystając z formatowania warunkowego sformatuj dane w kolumnie Wiek za pomocą skali kolorów czerwony – biały – zielony. Jakim kolorem jest oznaczony wiek Zbigniewa Hrubeka (wiersz 11)?",
-    "formula": "",
-    "odpowiedz": ""
+    "quiz": "Quiz 1",
+    "klucze": [
+      "4545,4545",
+      "jednym miejscem dziesiętnym",
+      "jaką wartość ma komórka"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 4545,4545 i sformatowano ją tak, by wyświetlała się z jednym miejscem dziesiętnym. Jaką wartość ma komórka A1?",
+    "odpowiedz": "4545,4545",
+    "uzasadnienie": "Sformatowanie nie zmienia wartości komórki.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Podróżni_10, Sortowanie wg Wieku",
-    "tresc": "W arkuszu Podróżni_10 posortuj dane rosnąco względem Wieku. Jaki wiek ma osoba, której dane znajdują się w wierszu 10?",
-    "formula": "",
-    "odpowiedz": "`d. 9`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "tekstowego",
+      "zaimportowano",
+      "ponownie importować"
+    ],
+    "pytanie": "Dane z pliku tekstowego zaimportowano do pliku Excela. Jeśli zmienimy dane w pliku tekstowym, to czy musimy ponownie je importować by były aktualne w Excelu?",
+    "odpowiedz": "Nie",
+    "uzasadnienie": "Import zachowuje połączenie, dane można odświeżać.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Podróżni_8, Filtrowanie (studenci z Warszawy, wiek <= 20)",
-    "tresc": "W arkuszu Podróżni_8 wyświetl informacje o wszystkich studentach z Warszawy, którzy mają nie więcej niż 20 lat. Ile jest takich osób?",
-    "formula": "",
-    "odpowiedz": "`a. 5`\n\n\n## Quiz Ubezpiecznia-quiz_23"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "4545,4545",
+      "separator tysięcy"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 4545,4545 i sformatowano ją przy użyciu separatora tysięcy z widocznością czterech miejsc dziesiętnych. Co wyświetli się w komórce A1?",
+    "odpowiedz": "4 545,4545",
+    "uzasadnienie": "Spacja jako separator tysięcy.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Średnia kwota ubezpieczenia",
-    "tresc": "Oblicz średnią kwotę ubezpieczenia wszystkich klientów. Wynik, z dokładnością do dwóch miejsc po przecinku, wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": "`8034.29`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "2,7",
+      "format procentowy",
+      "wyświetli się"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 2,7 i wyświetlono ją w formacie procentowym. Co wyświetli się w komórce A1?",
+    "odpowiedz": "270%",
+    "uzasadnienie": "2,7 * 100% = 270%.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Klienci bez ubezpieczenia bagażu",
-    "tresc": "Oblicz, ilu klientów nie ubezpiecza bagażu. Wynik wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": ""
+    "quiz": "Quiz 1",
+    "klucze": [
+      "0,4",
+      "format procentowy",
+      "wyświetli się"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 0,4 i wyświetlono ją w formacie procentowym. Co wyświetli się w komórce A1?",
+    "odpowiedz": "40%",
+    "uzasadnienie": "0,4 * 100% = 40%.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Ubezpieczenie wyposażenia dodatkowego (decyzja na \"tak\")",
-    "tresc": "Oblicz, ilu klientów podjęło już decyzję, że skorzysta z ubezpieczenia wyposażenia dodatkowego. Wynik wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": "`167`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "1234,5678",
+      "separator tysięcy"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 1234,5678 i sformatowano ją przy użyciu separatora tysięcy z widocznością czterech miejsc dziesiętnych. Co wyświetli się w komórce A1?",
+    "odpowiedz": "1 234,5678",
+    "uzasadnienie": "Spacja jako separator tysięcy.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Łączna kwota ubezpieczenia (autoalarm + blokada skrzyni)",
-    "tresc": "Oblicz łączną kwotę ubezpieczenia klientów, którzy posiadają równocześnie dwa zabezpieczenia antykradzieżowe: autoalarm i blokadę skrzyni biegów. Wynik wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": "`830400`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "7676,7676",
+      "dwoma miejscami dziesiętnymi",
+      "jaką wartość ma komórka"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 7676,7676 i sformatowano ją tak, by wyświetlała się z dwoma miejscami dziesiętnymi. Jaką wartość ma komórka A1?",
+    "odpowiedz": "7676,7676",
+    "uzasadnienie": "Sformatowanie nie zmienia wartości.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Klienci bez Car Assistance",
-    "tresc": "Oblicz, ilu klientów nie korzysta z ubezpieczenia Car Assistance. Wynik wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": "`69`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "7%",
+      "wartość ma ta komórka"
+    ],
+    "pytanie": "W komórkę A1 wpisano 7%. Jaką wartość ma ta komórka?",
+    "odpowiedz": "0,07 oraz 7% (zaznacz obie)",
+    "uzasadnienie": "0,07 lub 7%.",
+    "typ": "wielokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Zestawienie, A1 (Formuła łącznej kwoty do zapłaty)",
-    "tresc": "Co należy wpisać w komórce A1 w arkuszu Zestawienie, aby obliczyć w niej łączną kwotę do zapłaty wszystkich klientów? Odpowiedź wpisz poniżej:",
-    "formula": "`=SUMA('Ubezpieczenia 1'!J7:J388)`",
-    "odpowiedz": ""
+    "quiz": "Quiz 1",
+    "klucze": [
+      "xml",
+      "zaimportowano",
+      "ponownie importować"
+    ],
+    "pytanie": "Dane z pliku xml zaimportowano do pliku Excela. Jeśli zmienimy dane w pliku xml, to czy musimy ponownie je importować by były aktualne w Excelu?",
+    "odpowiedz": "Nie",
+    "uzasadnienie": "Import zachowuje połączenie i możliwość odświeżania.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Wykres kołowy (Hiszpania, Dieta)",
-    "tresc": "Na podstawie danych z arkusza Dane 1 utwórz wykres kołowy przedstawiający wszystkie koszty związane z delegacją do Hiszpanii. Wyświetl na wykresie etykiety w formie wartości procentowych. Podaj, jaka wartość wyświetla się dla wycinka Dieta.",
-    "formula": "",
-    "odpowiedz": "`25` (lub `25%`)"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "2,3%",
+      "wartość ma ta komórka"
+    ],
+    "pytanie": "W komórkę A1 wpisano 2,3%. Jaką wartość ma ta komórka?",
+    "odpowiedz": "0,023 oraz 2,3% (zaznacz obie)",
+    "uzasadnienie": "0,023 lub 2,3%.",
+    "typ": "wielokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Tabela przestawna (Średnia liczba dni delegacji dla Poznania)",
-    "tresc": "Na podstawie danych z arkusza Dane 2 utwórz tabelę przestawną, przedstawiającą średnią liczbę dni oddelegowania do Chorwacji, Hiszpanii i Włoch z poszczególnych oddziałów firmy (miast). Podaj wartość podsumowującą dla Poznania. Wynik, z dokładnością do jednego miejsca po przecinku, wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": "`14.2`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "3,3",
+      "format procentowy",
+      "wyświetli się"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 3,3 i wyświetlono ją w formacie procentowym. Co wyświetli się w komórce A1?",
+    "odpowiedz": "330%",
+    "uzasadnienie": "3,3 * 100% = 330%.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Wykres przestawny (Najwyższa kolumna)",
-    "tresc": "Na podstawie danych z arkusza Dane 2 utwórz wykres przestawny, który dla każdego z państw oddelegowania wyświetli po 2 kolumny przedstawiające informacje o liczbie oddelegowanych kobiet i mężczyzn. Podaj, która kolumna (licząc od lewej strony) jest najwyższa? Jako odpowiedź wpisz numer tej kolumny.",
-    "formula": "",
-    "odpowiedz": "`2`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "9876,5432",
+      "trzema miejscami dziesiętnymi",
+      "jaką wartość ma komórka"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 9876,5432 i sformatowano ją tak, by wyświetlała się z trzema miejscami dziesiętnymi. Jaką wartość ma komórka A1?",
+    "odpowiedz": "9876,5432",
+    "uzasadnienie": "Sformatowanie nie zmienia wartości komórki.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Tabela przestawna (Liczba osób z nadbagażem)",
-    "tresc": "Na podstawie danych z arkusza Dane 2 utwórz tabelę przestawną, przedstawiającą liczbę osób z nadbagażem oddelegowanych z Krakowa i Warszawy do Grecji i Turcji. Podaj wartość podsumowującą dla tabeli (wartość komórki na przecięciu wiersza i kolumny Suma końcowa).",
-    "formula": "",
-    "odpowiedz": "`9`"
+    "quiz": "Quiz 1",
+    "klucze": [
+      "9876,5432",
+      "separator tysięcy",
+      "czterech miejsc dziesiętnych"
+    ],
+    "pytanie": "W komórkę A1 wpisano liczbę 9876,5432 i sformatowano ją przy użyciu separatora tysięcy z widocznością czterech miejsc dziesiętnych. Co wyświetli się w komórce A1?",
+    "odpowiedz": "9 876,5432",
+    "uzasadnienie": "Spacja jako separator tysięcy.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Wykres przestawny (Płeć na osi X, 5 kolumn państw)",
-    "tresc": "Na podstawie danych z arkusza Dane 2 utwórz wykres przestawny, który dla każdej płci wyświetli po 5 kolumn przedstawiających informacje o liczbie osób oddelegowanych do poszczególnych państw. Podaj, która kolumna (licząc od lewej strony) jest najwyższa? Jako odpowiedź wpisz numer tej kolumny.",
-    "formula": "",
-    "odpowiedz": "`6`\n\n\n## Quiz Ogólny (Daty i Formuły)"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_1",
+      "niebieski – biały – czerwony",
+      "rafała gratera",
+      "wiersz 6"
+    ],
+    "pytanie": "W arkuszu Podróżni_1 korzystając z formatowania warunkowego sformatuj dane w kolumnie Wiek za pomocą skali kolorów „niebieski – biały – czerwony”. Jakim kolorem jest oznaczony wiek Rafała Gratera (wiersz 6)?",
+    "odpowiedz": "jasnoniebieskim",
+    "uzasadnienie": "Rafał Grater ma 28 lat, co leży poniżej punktu środkowego (44 lata).",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Data 4 dni wcześniej",
-    "tresc": "W komórce E7 wpisana jest data 2021-12-16. Jaką formułę należy wpisać do komórki E8, by obliczyć, jaka data była 4 dni wcześniej?",
-    "formula": "`=E7-4`",
-    "odpowiedz": "`=E7-4`"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_5",
+      "malejąco",
+      "wieku",
+      "wierszu 5"
+    ],
+    "pytanie": "W arkuszu Podróżni_5 posortuj dane malejąco względem Wieku. Jaki wiek ma osoba, której dane znajdują się w wierszu 5?",
+    "odpowiedz": "81",
+    "uzasadnienie": "Po posortowaniu malejąco (nagłówek w wierszu 1), wiersz 5 ma wiek 81 lat.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Data za 15 dni",
-    "tresc": "Jaką formułę należy wpisać, aby w komórce zawsze wyświetlała się data, która będzie za 15 dni?",
-    "formula": "`=DZIŚ()+15`",
-    "odpowiedz": "`=DZIŚ()+15`"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_13",
+      "pełnoletnich kobietach z poznania",
+      "studiujących mężczyznach z warszawy"
+    ],
+    "pytanie": "W arkuszu Podróżni_13 wyświetl informacje o pełnoletnich kobietach z Poznania oraz o studiujących mężczyznach z Warszawy. Ile jest takich osób w tabeli?",
+    "odpowiedz": "8",
+    "uzasadnienie": "Filtr: (Kobieta AND Poznań AND Wiek>=18) OR (Mężczyzna AND Warszawa AND Student=TAK) = 8 osób.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Różnica dni między datami",
-    "tresc": "W komórce D1 wpisana jest data 2022-05-22 a w komórce D2 data 2022-03-24. Jaką formułę należy wpisać do komórki D3, aby obliczyć ile dni upłynęło od jednej daty do drugiej?",
-    "formula": "`=D1-D2`",
-    "odpowiedz": "`=D1-D2`"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_2",
+      "3 strzałki",
+      "barbara gruda",
+      "barbary grudy",
+      "wiersz 10"
+    ],
+    "pytanie": "W arkuszu Podróżni_2 korzystając z formatowania warunkowego sformatuj dane w kolumnie Wiek za pomocą zestawu ikon „3 strzałki (kolorowe)”. Jaki jest kolor strzałki przy wieku Barbary Grudy (wiersz 10)?",
+    "odpowiedz": "żółty",
+    "uzasadnienie": "Barbara Gruda ma 36 lat (przedział środkowy 33%-67%).",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Złożenie daty z liczb (Rok, Miesiąc, Dzień)",
-    "tresc": "",
-    "formula": "`=DATA(B1;B2;B3)`",
-    "odpowiedz": "`=DATA(B1;B2;B3)`"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_4",
+      "alfabetycznie",
+      "imieniu",
+      "wierszu 15"
+    ],
+    "pytanie": "W arkuszu Podróżni_4 posortuj dane alfabetycznie (od A do Z) po Imieniu. Jak ma na imię osoba, której dane są w wierszu 15?",
+    "odpowiedz": "Ewa",
+    "uzasadnienie": "Po posortowaniu alfabetycznie po imieniu wiersz 15 to Ewa.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Numer dnia z daty",
-    "tresc": "W komórce A7 wpisana jest data. Jaką formułę należy wpisać, aby obliczyć numer dnia tej daty?",
-    "formula": "`=DZIEŃ(A7)`",
-    "odpowiedz": "`=DZIEŃ(A7)`\n\n\n## Quiz Word"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_9",
+      "studentkach z poznania",
+      "mężczyznach z poznania",
+      "nie więcej niż 20 lat"
+    ],
+    "pytanie": "W arkuszu Podróżni_9 wyświetl informacje o studentkach z Poznania oraz o mężczyznach z Poznania mających nie więcej niż 20 lat. Ile jest takich osób w tabeli?",
+    "odpowiedz": "7",
+    "uzasadnienie": "Poznań: (Kobiety studentki) + (Mężczyźni <= 20 lat) = łącznie 7 osób.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Spis wykresów / podpisów",
-    "tresc": "W dokumencie dla zarządu umieszczono wykresy sprzedaży w poszczególnych miesiącach. Aby na końcu dokumentu pojawił się spis wykresów, należy:",
-    "formula": "",
-    "odpowiedz": "`d. skorzystać z opcji Wstaw podpis, następnie Wstaw spis ilustracji`"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_3",
+      "pięciu komórkom",
+      "najniższy wiek",
+      "najstarszej osoby spośród tych zaznaczonych"
+    ],
+    "pytanie": "W arkuszu Podróżni_3 korzystając z formatowania warunkowego sformatuj dane w kolumnie Wiek nadając czerwone wypełnienie pięciu komórkom zawierającym najniższy wiek. Jaki jest wiek najstarszej osoby spośród tych zaznaczonych?",
+    "odpowiedz": "5",
+    "uzasadnienie": "5 najniższych wartości wieku w arkuszu to: 2, 3, 3, 4, 5. Najstarsza ma 5 lat.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Objaśnienie słowa w druku",
-    "tresc": "W dokumencie, w zdaniu zostało użyte słowo „antynomia”. Ponieważ nie wszystkie osoby, które będą czytały ten dokument po wydrukowaniu, wiedzą co to słowo oznacza, powinniśmy umieścić jego objaśnienie. W tym celu należy:",
-    "formula": "",
-    "odpowiedz": "`d. wstawić przypis dolny`"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_6",
+      "alfabetycznie",
+      "mieście",
+      "malejąco po id_biletu",
+      "ostatnim wierszu"
+    ],
+    "pytanie": "W arkuszu Podróżni_6 posortuj dane alfabetycznie (od A do Z) względem Miasta, dla osób z tego samego miasta posortuj malejąco po Id_biletu. Jak nazywa się osoba, której dane znalazły się w ostatnim wierszu tabeli?",
+    "odpowiedz": "Janicki",
+    "uzasadnienie": "Ostatnie miasto po sortowaniu to Wrocław / Zielona Góra, najniższy Id_biletu ma Janicki.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Uwaga recenzencka do tekstu",
-    "tresc": "Od współpracownika otrzymałeś wstępną wersję sprawozdania ze zrealizowanych prac z prośbą, byś ją sprawdził. Uważasz, że jeden z opisów jest zbyt szczegółowy i powinien zostać uogólniony. Uwagę tę powinieneś mu przekazać:",
-    "formula": "",
-    "odpowiedz": "`a. w komentarzu`"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_12",
+      "mężczyznach z krakowa",
+      "co najmniej 50 lat"
+    ],
+    "pytanie": "W arkuszu Podróżni_12 wyświetl informacje o wszystkich mężczyznach z Krakowa, którzy mają co najmniej 50 lat? Ile jest takich osób?",
+    "odpowiedz": "6",
+    "uzasadnienie": "Mężczyźni z Krakowa z wiekiem >= 50 = 6 osób.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Przypis końcowy (miejsce pojawienia się)",
-    "tresc": "W dokumencie zawierającym 7 stron wstawiamy na trzeciej stronie przypis końcowy. Opis do tego przypisu pojawi się:",
-    "formula": "",
-    "odpowiedz": "`a. na końcu dokumentu`"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_8",
+      "czerwony – biały – zielony",
+      "zbigniewa hrubeka",
+      "wiersz 11"
+    ],
+    "pytanie": "W arkuszu Podróżni_8 korzystając z formatowania warunkowego sformatuj dane w kolumnie Wiek za pomocą skali kolorów czerwony – biały – zielony. Jakim kolorem jest oznaczony wiek Zbigniewa Hrubeka (wiersz 11)?",
+    "odpowiedz": "jasnoczerwony",
+    "uzasadnienie": "Zbigniew Hrubek ma 34 lata (poniżej średniej 44, więc w odcieniu czerwieni).",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Format procentowy (6,8)",
-    "tresc": "W komórkę A1 wpisano liczbę 6,8 i wyświetlono ją w formacie procentowym. Co wyświetli się w komórce A1?",
-    "formula": "",
-    "odpowiedz": "`a. 680%`"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_10",
+      "rosnąco względem wieku",
+      "wierszu 10"
+    ],
+    "pytanie": "W arkuszu Podróżni_10 posortuj dane rosnąco względem Wieku. Jaki wiek ma osoba, której dane znajdują się w wierszu 10?",
+    "odpowiedz": "9",
+    "uzasadnienie": "Po posortowaniu rosnąco 10. wiersz w arkuszu ma wartość 9.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Za długi tekst w komórce A1 (B1 pusta)",
-    "tresc": "Jeśli w komórce A1 tekst nie mieści się, a komórka B1 jest pusta, wówczas tekst w komórce A1:",
-    "formula": "",
-    "odpowiedz": "`b, c, d`"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_8",
+      "studentach z warszawy",
+      "nie więcej niż 20 lat"
+    ],
+    "pytanie": "W arkuszu Podróżni_8 wyświetl informacje o wszystkich studentach z Warszawy, którzy mają nie więcej niż 20 lat. Ile jest takich osób?",
+    "odpowiedz": "5",
+    "uzasadnienie": "Warszawa, Student=TAK, Wiek <= 20 = dokładnie 5 osób.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Separator tysięcy i 4 miejsca dziesiętne",
-    "tresc": "W komórkę A1 wpisano liczbę 2345,2345 i sformatowano ją przy użyciu separatora tysięcy z widocznością czterech miejsc dziesiętnych. Co wyświetli się w komórce A1?",
-    "formula": "",
-    "odpowiedz": "`b. 2 345,2345`"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_9",
+      "4 strzałki",
+      "zbigniewa hrubeka",
+      "wiersz 11"
+    ],
+    "pytanie": "W arkuszu Podróżni_9 korzystając z formatowania warunkowego sformatuj dane w kolumnie Wiek za pomocą zestawu ikon 4 strzałki (kolorowe). Jaka strzałka jest przy wieku Zbigniewa Hrubeka (wiersz 11)?",
+    "odpowiedz": "żółta ukośna w dół",
+    "uzasadnienie": "34 lata mieszczą się w drugim przedziale (23–44 lata).",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Formatowanie a wartość komórki",
-    "tresc": "W komórkę A1 wpisano liczbę 5656,565 i sformatowano ją tak, by wyświetlała się z dwoma miejscami dziesiętnymi. Jaką wartość ma komórka A1?",
-    "formula": "",
-    "odpowiedz": "`d. 5656,565`"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_11",
+      "województwa",
+      "malejąco po wieku",
+      "ostatnim wierszu"
+    ],
+    "pytanie": "W arkuszu Podróżni_11 posortuj dane alfabetycznie względem Województwa, dla osób z tego samego województwa posortuj malejąco po Wieku. Jak nazywa się osoba, której dane znalazły się w ostatnim wierszu tabeli?",
+    "odpowiedz": "Gilecka",
+    "uzasadnienie": "Ostatnie województwo (Zachodniopomorskie) o najniższym wieku to Gilecka.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Wartość komórki z wpisanym 6%",
-    "tresc": "W komórkę A1 wpisano 6%. Jaką wartość ma ta komórka?",
-    "formula": "",
-    "odpowiedz": "`a. 0,06` (jeśli dopuszcza format wyświetlany: `a` oraz `b`)"
+    "quiz": "Quiz 2",
+    "klucze": [
+      "podróżni_7",
+      "literę k",
+      "nie są studentami"
+    ],
+    "pytanie": "W arkuszu Podróżni_7 wyświetl informacje o osobach, których nazwisko zaczyna się na literę K i które nie są studentami. Ile jest takich osób?",
+    "odpowiedz": "10",
+    "uzasadnienie": "Nazwisko K* i Student=NIE = 10 osób.",
+    "typ": "jednokrotny_wybor"
   },
   {
-    "tytul": "Zadanie: Skopiowany arkusz między plikami a aktualizacja",
-    "tresc": "Arkusz danych z jednego pliku Excela skopiowano do drugiego pliku Excela. Jeśli zmienimy dane w pierwszym pliku, to czy musimy ponownie je kopiować by były aktualne w drugim pliku Excela?",
-    "formula": "",
-    "odpowiedz": "`a. Tak`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "średnią kwotę ubezpieczenia wszystkich klientów"
+    ],
+    "pytanie": "Oblicz średnią kwotę ubezpieczenia wszystkich klientów. Wynik, z dokładnością do dwóch miejsc po przecinku, wpisz poniżej.",
+    "odpowiedz": "8034.29 (lub 8034,29)",
+    "uzasadnienie": "Średnia z kolumny Kwota ubezpieczenia (wiersze 7-388) = 8034,29.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Podróżni_9, Zestaw ikon 4 strzałki",
-    "tresc": "W arkuszu Podróżni_9 korzystając z formatowania warunkowego sformatuj dane w kolumnie Wiek za pomocą zestawu ikon 4 strzałki (kolorowe). Jaka strzałka jest przy wieku Zbigniewa Hrubeka (wiersz 11)?",
-    "formula": "",
-    "odpowiedz": ""
+    "quiz": "Quiz 3",
+    "klucze": [
+      "nie ubezpiecza bagażu"
+    ],
+    "pytanie": "Oblicz, ilu klientów nie ubezpiecza bagażu. Wynik wpisz poniżej.",
+    "odpowiedz": "229",
+    "uzasadnienie": "Łącznie 382 klientów - 153 ubezpieczających bagaż = 229.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Podróżni_11, Sortowanie (Województwo A-Z, Wiek malejąco)",
-    "tresc": "W arkuszu Podróżni_11 posortuj dane alfabetycznie względem Województwa, dla osób z tego samego województwa posortuj malejąco po Wieku. Jak nazywa się osoba, której dane znalazły się w ostatnim wierszu tabeli?",
-    "formula": "",
-    "odpowiedz": "`d. Gilecka`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "podjęło już decyzję, że skorzysta z ubezpieczenia wyposażenia dodatkowego"
+    ],
+    "pytanie": "Oblicz, ilu klientów podjęło już decyzję, że skorzysta z ubezpieczenia wyposażenia dodatkowego. Wynik wpisz poniżej.",
+    "odpowiedz": "167",
+    "uzasadnienie": "Liczba komórek z wartością 'tak' w kolumnie wyposażenia dodatkowego = 167.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Podróżni_7, Filtrowanie (Nazwisko K*, Student NIE)",
-    "tresc": "W arkuszu Podróżni_7 wyświetl informacje o osobach, których nazwisko zaczyna się na literę K i które nie są studentami. Ile jest takich osób?",
-    "formula": "",
-    "odpowiedz": "`b. 10`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "autoalarm i blokadę skrzyni biegów",
+      "łączną kwotę ubezpieczenia"
+    ],
+    "pytanie": "Oblicz łączną kwotę ubezpieczenia klientów, którzy posiadają równocześnie dwa zabezpieczenia antykradzieżowe: autoalarm i blokadę skrzyni biegów. Wynik wpisz poniżej.",
+    "odpowiedz": "830400",
+    "uzasadnienie": "=SUMA.WARUNKÓW na kolumnie kwoty ubezpieczenia dla autoalarm='tak' i blokada='tak'.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Podróżni_5, Sortowanie (Wiek malejąco)",
-    "tresc": "W arkuszu Podróżni_5 posortuj dane malejąco względem Wieku. Jaki wiek ma osoba, której dane znajdują się w wierszu 5?",
-    "formula": "",
-    "odpowiedz": "`d. 81`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "nie korzysta z ubezpieczenia car assistance"
+    ],
+    "pytanie": "Oblicz, ilu klientów nie korzysta z ubezpieczenia Car Assistance. Wynik wpisz poniżej.",
+    "odpowiedz": "69",
+    "uzasadnienie": "Liczba komórek pustych lub oznaczonych brakiem car assistance = 69.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Podróżni_9, Filtrowanie złożone (Studentki Poznań LUB Mężczyźni Poznań <= 20 lat)",
-    "tresc": "W arkuszu Podróżni_9 wyświetl informacje o studentkach z Poznania oraz o mężczyznach z Poznania mających nie więcej niż 20 lat. Ile jest takich osób w tabeli?",
-    "formula": "",
-    "odpowiedz": "`c. 7`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "komórce a1 w arkuszu zestawienie",
+      "łączną kwotę do zapłaty"
+    ],
+    "pytanie": "Co należy wpisać w komórce A1 w arkuszu Zestawienie, aby obliczyć w niej łączną kwotę do zapłaty wszystkich klientów? Odpowiedź wpisz poniżej:",
+    "odpowiedz": "=SUMA('Ubezpieczenia 1'!J7:J388)",
+    "uzasadnienie": "Formuła sumująca kwotę do zapłaty z kolumny J w wierszach 7-388.",
+    "typ": "formula"
   },
   {
-    "tytul": "Zadanie: Najniższa kwota do zapłaty",
-    "tresc": "Oblicz najniższą kwotę do zapłaty. Wynik wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": "`144`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "najniższą kwotę do zapłaty"
+    ],
+    "pytanie": "Oblicz najniższą kwotę do zapłaty. Wynik wpisz poniżej.",
+    "odpowiedz": "144",
+    "uzasadnienie": "MIN(J7:J388) = 144.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Brak deklaracji wyposażenia dodatkowego",
-    "tresc": "Oblicz, ilu klientów nie zadeklarowało, czy skorzysta czy nie z ubezpieczenia wyposażenia dodatkowego. Wynik wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": ""
+    "quiz": "Quiz 3",
+    "klucze": [
+      "nie zadeklarowało, czy skorzysta czy nie z ubezpieczenia wyposażenia dodatkowego"
+    ],
+    "pytanie": "Oblicz, ilu klientów nie zadeklarowało, czy skorzysta czy nie z ubezpieczenia wyposażenia dodatkowego. Wynik wpisz poniżej.",
+    "odpowiedz": "92",
+    "uzasadnienie": "382 rekordy ogółem - 167 ('tak') - 123 ('nie') = 92 puste komórki.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Ubezpieczenie bagażu standard",
-    "tresc": "Oblicz, ilu klientów posiada ubezpieczenie bagażu standard. Wynik wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": "`103`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "bagażu standard"
+    ],
+    "pytanie": "Oblicz, ilu klientów posiada ubezpieczenie bagażu standard. Wynik wpisz poniżej.",
+    "odpowiedz": "103",
+    "uzasadnienie": "LICZ.JEŻELI dla wartości 'standard' w ubezpieczeniu bagażu = 103.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Średnia kwota ubezpieczenia (Bagaż VIP + Wyposażenie dodatkowe)",
-    "tresc": "Oblicz średnią kwotę ubezpieczenia klientów, którzy posiadają równocześnie ubezpieczenie bagażu vip oraz ubezpieczenie bagażu dodatkowego. Wynik, z dokładnością do jednego miejsca po przecinku, wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": "`21393.5`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "średnią kwotę ubezpieczenia",
+      "bagażu vip oraz ubezpieczenie bagażu dodatkowego"
+    ],
+    "pytanie": "Oblicz średnią kwotę ubezpieczenia klientów, którzy posiadają równocześnie ubezpieczenie bagażu vip oraz ubezpieczenie bagażu dodatkowego. Wynik, z dokładnością do jednego miejsca po przecinku, wpisz poniżej.",
+    "odpowiedz": "21393.5 (lub 21393,5)",
+    "uzasadnienie": "ŚREDNIA.WARUNKÓW dla warunków bagaż='vip' i wyposażenie='tak' = 21393,5.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Klienci z decyzją \"nie\" dla wyposażenia dodatkowego",
-    "tresc": "Oblicz, ilu klientów podjęło już decyzję, że nie skorzysta z ubezpieczenia wyposażenia dodatkowego. Wynik wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": "`123`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "podjęło już decyzję, że nie skorzysta z ubezpieczenia wyposażenia dodatkowego"
+    ],
+    "pytanie": "Oblicz, ilu klientów podjęło już decyzję, że nie skorzysta z ubezpieczenia wyposażenia dodatkowego. Wynik wpisz poniżej.",
+    "odpowiedz": "123",
+    "uzasadnienie": "Liczba komórek z wartością 'nie' w kolumnie wyposażenia = 123.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Zestawienie, A4 (Formuła najniższej kwoty do zapłaty)",
-    "tresc": "Co należy wpisać w komórce A4 w arkuszu Zestawienie, aby obliczyć w niej najniższą kwotę do zapłaty wszystkich klientów? Odpowiedź wpisz poniżej:",
-    "formula": "`=MIN('Ubezpieczenia 1'!J7:J388)`",
-    "odpowiedz": ""
+    "quiz": "Quiz 3",
+    "klucze": [
+      "komórce a4 w arkuszu zestawienie",
+      "najniższą kwotę do zapłaty"
+    ],
+    "pytanie": "Co należy wpisać w komórce A4 w arkuszu Zestawienie, aby obliczyć w niej najniższą kwotę do zapłaty wszystkich klientów? Odpowiedź wpisz poniżej:",
+    "odpowiedz": "=MIN('Ubezpieczenia 1'!J7:J388)",
+    "uzasadnienie": "Funkcja MIN na kolumnie J7:J388.",
+    "typ": "formula"
   },
   {
-    "tytul": "Zadanie: Zestawienie 3, E1 (Pensje w CHF)",
-    "tresc": "W arkuszu Zestawienie 3 w kolumnie E, oblicz ile wynoszą pensje podstawowe pracowników we frankach szwajcarskich. Kurs CHF znajduje się w komórce E4 (i może być aktualizowany). Wpisz odpowiednią formułę obliczeniową do komórki E7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce E1.",
-    "formula": "`=C7/$E$4`",
-    "odpowiedz": "`73`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "najwyższą kwotę ubezpieczenia"
+    ],
+    "pytanie": "Oblicz najwyższą kwotę ubezpieczenia. Wynik wpisz poniżej.",
+    "odpowiedz": "100000",
+    "uzasadnienie": "MAX na kolumnie kwoty ubezpieczenia = 100 000.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Zestawienie 4, H1 (Dodatek projektowy)",
-    "tresc": "W arkuszu Zestawienie 4 w kolumnie G znajdują się informacje dotyczące liczby zrealizowanych projektów. Oblicz w kolumnie H wartość dodatku projektowego (w dolarach) wiedząc, że za każdy zrealizowany projekt pracownik otrzymuje 12% pensji podstawowej. Wpisz odpowiednią formułę obliczeniową do komórki H7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce H1.",
-    "formula": "`=C7*12%*G7` (lub `=C7*0,12*G7`)",
-    "odpowiedz": "`364`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "ubezpiecza bagaż",
+      "ilu klientów ubezpiecza bagaż"
+    ],
+    "pytanie": "Oblicz, ilu klientów ubezpiecza bagaż. Wynik wpisz poniżej.",
+    "odpowiedz": "153",
+    "uzasadnienie": "Suma 'standard' (103) + 'vip' (50) = 153.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Zestawienie 3, I1 (Prezenty świąteczne)",
-    "tresc": "W arkuszu Zestawienie 3 w kolumnie I powinny znaleźć się informacje dotyczące prezentów świątecznych dla rodzin pracowników. W komórce I7 wpisz formułę, która skopiowana do poniższych komórek wyświetli tekst: zabawki i słodycze - jeżeli pracownik posiada dziecko (lub dzieci) lub słowo: słodycze - jeśli ich nie posiada. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce I1.",
-    "formula": "`=JEŻELI(G7>0;\"zabawki i słodycze\";\"słodycze\")`",
-    "odpowiedz": "`9`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "kwotę co najmniej 2800"
+    ],
+    "pytanie": "Oblicz, ilu klientów ubezpiecza się na kwotę co najmniej 2800. Wynik wpisz poniżej.",
+    "odpowiedz": "247",
+    "uzasadnienie": "LICZ.JEŻELI(kwota; '>=2800') = 247.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Zestawienie 4, J1 (Zaokrąglenie do 10 centów CHF)",
-    "tresc": "W arkuszu Zestawienie 4 w kolumnie J, oblicz ile wynoszą pensje podstawowe pracowników we frankach szwajcarskich w zaokrągleniu do 10 centów. Wpisz odpowiednią formułę obliczeniową do komórki J7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce J1.",
-    "formula": "`=ZAOKR(D7;1)` lub `=ROUND(D7,1)`",
-    "odpowiedz": "`1663.79`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "średnią kwotę do zapłaty",
+      "bagażu vip oraz ubezpieczenie bagażu dodatkowego"
+    ],
+    "pytanie": "Oblicz średnią kwotę do zapłaty klientów, którzy posiadają równocześnie ubezpieczenie bagażu vip oraz ubezpieczenie bagażu dodatkowego. Wynik, z dokładnością do jednego miejsca po przecinku, wpisz poniżej.",
+    "odpowiedz": "2567.2 (lub 2567,2)",
+    "uzasadnienie": "ŚREDNIA.WARUNKÓW na kwocie do zapłaty dla bagaż='vip' i dodatkowe='tak' = 2567,2.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Zestawienie 3, K1 (Dodatek noworoczny w PLN)",
-    "tresc": "W arkuszu Zestawienie 3 w kolumnie K powinny znaleźć się informacje dotyczące wysokości dodatków noworocznych pracowników w złotych. Każdemu pracownikowi, który otrzymał podwyżkę nie większą niż 10% przysługuje na każde dziecko określona w komórce H3 kwota euro oraz określona w komórce H4 kwota franków szwajcarskich; pozostałym pracownikom dodatek nie przysługuje. Kwoty w komórkach J3 i J4 oraz kursy walut mogą być aktualizowane. W komórce K7 wpisz formułę, która skopiowana do poniższych komórek wyświetli, jaką wartość dodatku noworocznego w złotych otrzyma każdy z pracowników. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce K1.",
-    "formula": "`=JEŻELI(F7<=10%; G7*($H$3*$E$3 + $H$4*$E$4); 0)`",
-    "odpowiedz": "`280` (wartość docelowa klucza z warunku `280 + 20 = 300`) lub `0` (wartość zwracana przez arkusz przy niespełnionym warunku średniej).\n\n\n## Zweryfikowana Baza Pytań – Quiz Podróżni (100% potwierdzonych)\n\n1. **Podróżni_1 (Skala niebieski – biały – czerwony, Rafał Grater wiersz 6):**\n   - Wynik: `b. jasnoniebieskim`\n2. **Podróżni_2 (Zestaw ikon 3 strzałki, Barbara Gruda wiersz 10):**\n   - Wynik: `d. żółty`\n3. **Podróżni_3 (Formatowanie 5 najniższych, wiek najstarszej):**\n   - Wynik: `c. 5`\n4. **Podróżni_4 (Sortowanie Imię A-Z, wiersz 15):**\n   - Wynik: `d. Ewa`\n5. **Podróżni_5 (Sortowanie Wiek malejąco, wiersz 5):**\n   - Wynik: `d. 81` (wybór \"4\" był błędny)\n6. **Podróżni_6 (Sortowanie Miasto A-Z, Bilet Z-A, ostatni wiersz):**\n   - Wynik: `a. Janicki`\n7. **Podróżni_7 (Nazwisko K*, nie studenci):**\n   - Wynik: `b. 10`\n8. **Podróżni_8 (Skala czerwony – biały – zielony, Zbigniew Hrubek wiersz 11):**\n   - Wynik: `b. jasnoczerwony`\n9. **Podróżni_8 (Studenci Warszawa wiek <= 20):**\n   - Wynik: `a. 5`\n10. **Podróżni_9 (Zestaw ikon 4 strzałki, Zbigniew Hrubek wiersz 11):**\n    - Wynik: `b. żółta ukośna w dół`\n11. **Podróżni_9 (Studentki Poznań LUB Mężczyźni Poznań <= 20 lat):**\n    - Wynik: `c. 7` (wybór \"6\" był błędny)\n12. **Podróżni_10 (Sortowanie Wiek rosnąco, wiersz 10):**\n    - Wynik: `d. 9`\n13. **Podróżni_11 (Sortowanie Województwo A-Z, Wiek malejąco, ostatni wiersz):**\n    - Wynik: `d. Gilecka`\n14. **Podróżni_12 (Mężczyźni Kraków wiek >= 50):**\n    - Wynik: `b. 6`\n15. **Podróżni_13 (Pełnoletnie kobiety Poznań + Studiujący mężczyźni Warszawa):**\n    - Wynik: `c. 8`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "ubezpieczenie bagażu vip"
+    ],
+    "pytanie": "Oblicz, ilu klientów posiada ubezpieczenie bagażu vip. Wynik wpisz poniżej.",
+    "odpowiedz": "50",
+    "uzasadnienie": "LICZ.JEŻELI(bagaż; 'vip') = 50.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Najwyższa kwota ubezpieczenia",
-    "tresc": "Oblicz najwyższą kwotę ubezpieczenia. Wynik wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": "`100000`"
+    "quiz": "Quiz 3",
+    "klucze": [
+      "komórce a2 w arkuszu zestawienie",
+      "średnią kwotę do zapłaty"
+    ],
+    "pytanie": "Co należy wpisać w komórce A2 w arkuszu Zestawienie, aby obliczyć w niej średnią kwotę do zapłaty wszystkich klientów? Odpowiedź wpisz poniżej:",
+    "odpowiedz": "=ŚREDNIA('Ubezpieczenia 1'!J7:J388)",
+    "uzasadnienie": "Funkcja ŚREDNIA na kolumnie J7:J388.",
+    "typ": "formula"
   },
   {
-    "tytul": "Zadanie: Klienci ubezpieczający bagaż",
-    "tresc": "Oblicz, ilu klientów ubezpiecza bagaż. Wynik wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": "`153`"
+    "quiz": "Quiz 4",
+    "klucze": [
+      "hiszpanii",
+      "wykres kołowy",
+      "wycinka dieta",
+      "koszty związane z delegacją do hiszpanii"
+    ],
+    "pytanie": "Na podstawie danych z arkusza Dane 1 utwórz wykres kołowy przedstawiający wszystkie koszty związane z delegacją do Hiszpanii. Wyświetl na wykresie etykiety w formie wartości procentowych. Podaj, jaka wartość wyświetla się dla wycinka Dieta.",
+    "odpowiedz": "25",
+    "uzasadnienie": "25% (wpisujemy samą liczbę 25).",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Klienci z kwotą >= 2800",
-    "tresc": "Oblicz, ilu klientów ubezpiecza się na kwotę co najmniej 2800. Wynik wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": "`247`"
+    "quiz": "Quiz 4",
+    "klucze": [
+      "średnią liczbę dni oddelegowania do chorwacji, hiszpanii i włoch",
+      "poznania"
+    ],
+    "pytanie": "Na podstawie danych z arkusza Dane 2 utwórz tabelę przestawną, przedstawiającą średnią liczbę dni oddelegowania do Chorwacji, Hiszpanii i Włoch z poszczególnych oddziałów firmy (miast). Podaj wartość podsumowującą dla Poznania. Wynik, z dokładnością do jednego miejsca po przecinku, wpisz poniżej.",
+    "odpowiedz": "14.2 (lub 14,2)",
+    "uzasadnienie": "Średnia liczba dni delegacji dla Poznania do tych 3 krajów wynosi 14,2.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Średnia kwota do zapłaty (Bagaż VIP + Wyposażenie dodatkowe)",
-    "tresc": "Oblicz średnią kwotę do zapłaty klientów, którzy posiadają równocześnie ubezpieczenie bagażu vip oraz ubezpieczenie bagażu dodatkowego. Wynik, z dokładnością do jednego miejsca po przecinku, wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": "`2567.2`"
+    "quiz": "Quiz 4",
+    "klucze": [
+      "grecji",
+      "wykres kołowy",
+      "dopłata za nadbagaż",
+      "koszty związane z delegacją do grecji"
+    ],
+    "pytanie": "Na podstawie danych z arkusza Dane 1 utwórz wykres kołowy przedstawiający wszystkie koszty związane z delegacją do Grecji. Wyświetl na wykresie etykiety w formie wartości procentowych. Podaj, jaka wartość wyświetla się dla wycinka Dopłata za nadbagaż.",
+    "odpowiedz": "2",
+    "uzasadnienie": "Etykieta procentowa Excela po zaokrągleniu do całości wyświetla 2%.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Ubezpieczenie bagażu VIP",
-    "tresc": "Oblicz, ilu klientów posiada ubezpieczenie bagażu vip. Wynik wpisz poniżej.",
-    "formula": "",
-    "odpowiedz": "`50`"
+    "quiz": "Quiz 4",
+    "klucze": [
+      "średni wiek osób oddelegowanych do grecji, hiszpanii i włoch",
+      "poznania"
+    ],
+    "pytanie": "Na podstawie danych z arkusza Dane 2 utwórz tabelę przestawną, przedstawiającą średni wiek osób oddelegowanych do Grecji, Hiszpanii i Włoch z poszczególnych oddziałów firmy (miast). Podaj wartość podsumowującą dla Poznania. Wynik, z dokładnością do jednego miejsca po przecinku, wpisz poniżej.",
+    "odpowiedz": "37.6 (lub 37,6)",
+    "uzasadnienie": "Średnia wieku dla Poznania wynosi 37,6.",
+    "typ": "wartosc"
   },
   {
-    "tytul": "Zadanie: Zestawienie, A2 (Formuła średniej kwoty do zapłaty)",
-    "tresc": "Co należy wpisać w komórce A2 w arkuszu Zestawienie, aby obliczyć w niej średnią kwotę do zapłaty wszystkich klientów? Odpowiedź wpisz poniżej:",
-    "formula": "`=ŚREDNIA('Ubezpieczenia 1'!J7:J388)`",
-    "odpowiedz": "`Nie` (połączenie zostaje zachowane, dane można odświeżać).\n2. **Kopiowanie arkusza (kopiuj-wklej) a aktualizacja:**\n   - **Odpowiedź:** `Tak` (brak połączenia, trzeba kopiować ponownie).\n3. **Wartość komórki z wpisanym procentem (np. 7%, 2,3%, 6,8%, 6%):**\n   - **Odpowiedź (zaznacz obie):** `0,07` i `7%` (lub `0,023` i `2,3%`, `0,06` i `6%`).\n4. **Format procentowy z liczby dziesiętnej (np. 0,4; 2,7; 3,3; 6,8):**\n   - **Zasada:** Wartość mnożona przez 100.\n   - 0,4 &rarr; `40%`\n   - 2,7 &rarr; `270%`\n   - 3,3 &rarr; `330%`\n   - 6,8 &rarr; `680%`\n5. **Separator tysięcy i 4 miejsca dziesiętne (np. 1234,5678; 4545,4545; 9876,5432):**\n   - **Format:** Spacja tylko przy tysiącach: `1 234,5678`, `4 545,4545`, `9 876,5432`.\n6. **Wartość komórki po formatowaniu miejsc dziesiętnych:**\n   - **Zasada:** Formatowanie nie zmienia wartości!\n   - Wpisano 7676,7676 &rarr; wartość = `7676,7676`.\n   - Wpisano 9876,5432 &rarr; wartość = `9876,5432`.\n   - Wpisano 5656,565 &rarr; wartość = `5656,565`.\n7. **Za długi tekst w komórce A1 (gdy B1 pusta):**\n   - **Zaznacz:**\n     - `możemy sformatować zawijając tekst w komórce`\n     - `możemy sformatować automatycznie dopasowując rozmiar czcionki do wielkości komórki`\n     - `może wyświetlać się na komórce B1`\n8. **Za długi tekst w komórce A1/B1 (gdy komórka obok jest zajęta):**\n   - **Zaznacz:**\n     - `zawijając tekst w komórce`\n     - `automatycznie dopasowując rozmiar czcionki do wielkości komórki`\n\n\n## Zweryfikowana Baza Pytań – Quiz 3 (Ubezpieczenia 1 & Zestawienie)\n\n1. **Średnia kwota ubezpieczenia wszystkich klientów:** `8034.29`\n2. **Ilu klientów nie ubezpiecza bagażu:** `229` (odpowiedź 230 była błędna; 382 - 153 = 229)\n3. **Ilu klientów skorzysta z wyposażenia dodatkowego (\"tak\"):** `167`\n4. **Łączna kwota ubezpieczenia (autoalarm + blokada skrzyni):** `830400`\n5. **Ilu klientów nie korzysta z Car Assistance (\"brak\"):** `69`\n6. **Formuła w A1 Zestawienie (łączna kwota do zapłaty):** `=SUMA('Ubezpieczenia 1'!J7:J388)`\n7. **Najniższa kwota do zapłaty:** `144`\n8. **Ilu klientów nie zadeklarowało wyposażenia dodatkowego (puste):** `92` (odpowiedź 93 była błędna; 382 - 290 = 92)\n9. **Ilu klientów posiada ubezpieczenie bagażu standard:** `103`\n10. **Średnia kwota ubezpieczenia (bagaż VIP + wyposażenie \"tak\"):** `21393.5`\n11. **Ilu klientów nie skorzysta z wyposażenia dodatkowego (\"nie\"):** `123`\n12. **Formuła w A4 Zestawienie (najniższa kwota do zapłaty):** `=MIN('Ubezpieczenia 1'!J7:J388)`\n13. **Najwyższa kwota ubezpieczenia:** `100000`\n14. **Ilu klientów ubezpiecza bagaż (standard + VIP):** `153`\n15. **Ilu klientów kwota ubezpieczenia >= 2800:** `247`\n16. **Średnia kwota do zapłaty (bagaż VIP + wyposażenie \"tak\"):** `2567.2`\n17. **Ilu klientów posiada ubezpieczenie bagażu VIP:** `50`\n18. **Formuła w A2 Zestawienie (średnia kwota do zapłaty):** `=ŚREDNIA('Ubezpieczenia 1'!J7:J388)`\n\n\n## Zweryfikowana Baza Pytań – Quiz 4 (04_Delegacje_quiz)"
+    "quiz": "Quiz 4",
+    "klucze": [
+      "każdego z miast",
+      "po 2 kolumny",
+      "kobiet i mężczyzn",
+      "która kolumna jest najwyższa"
+    ],
+    "pytanie": "Na podstawie danych z arkusza Dane 2 utwórz wykres przestawny, który dla każdego z miast (oddziałów firmy) wyświetli po 2 kolumny przedstawiające informacje o liczbie oddelegowanych kobiet i mężczyzn. Podaj, która kolumna (licząc od lewej strony) jest najwyższa? Jako odpowiedź wpisz numer tej kolumny.",
+    "odpowiedz": "2",
+    "uzasadnienie": "Druga kolumna od lewej jest najwyższa.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 4",
+    "klucze": [
+      "liczbę kobiet oddelegowanych z poznania i warszawy do chorwacji i hiszpanii"
+    ],
+    "pytanie": "Na podstawie danych z arkusza Dane 2 utwórz tabelę przestawną, przedstawiającą liczbę kobiet oddelegowanych z Poznania i Warszawy do Chorwacji i Hiszpanii. Podaj wartość podsumowującą dla tabeli (wartość komórki na przecięciu wiersza i kolumny Suma końcowa).",
+    "odpowiedz": "15",
+    "uzasadnienie": "Łączna suma kobiet dla tego zestawienia wynosi 15.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 4",
+    "klucze": [
+      "dla każdej płci",
+      "po 3 kolumny",
+      "liczbie osób oddelegowanych z poszczególnych miast",
+      "która kolumna jest najwyższa"
+    ],
+    "pytanie": "Na podstawie danych z arkusza Dane 2 utwórz wykres przestawny, który dla każdej płci wyświetli po 3 kolumny przedstawiające informacje o liczbie osób oddelegowanych z poszczególnych miast (oddziałów). Podaj, która kolumna (licząc od lewej strony) jest najwyższa? Jako odpowiedź wpisz numer tej kolumny.",
+    "odpowiedz": "4",
+    "uzasadnienie": "Czwarta kolumna od lewej jest najwyższa.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 4",
+    "klucze": [
+      "włoch",
+      "wykres kołowy",
+      "wycinka dieta",
+      "koszty związane z delegacją do włoch"
+    ],
+    "pytanie": "Na podstawie danych z arkusza Dane 1 utwórz wykres kołowy przedstawiający wszystkie koszty związane z delegacją do Włoch. Wyświetl na wykresie etykiety w formie wartości procentowych. Podaj, jaka wartość wyświetla się dla wycinka Dieta.",
+    "odpowiedz": "32",
+    "uzasadnienie": "32% (wpisujemy 32).",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 4",
+    "klucze": [
+      "średni wiek osób oddelegowanych do chorwacji, grecji, hiszpanii i włoch",
+      "krakowa"
+    ],
+    "pytanie": "Na podstawie danych z arkusza Dane 2 utwórz tabelę przestawną, przedstawiającą średni wiek osób oddelegowanych do Chorwacji, Grecji, Hiszpanii i Włoch z poszczególnych oddziałów firmy (miast). Podaj wartość podsumowującą dla Krakowa.",
+    "odpowiedz": "38",
+    "uzasadnienie": "Średnia wieku w Krakowie = 38.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 4",
+    "klucze": [
+      "państw oddelegowania",
+      "po 3 kolumny",
+      "osób oddelegowanych z poszczególnych miast",
+      "która kolumna jest najwyższa"
+    ],
+    "pytanie": "Na podstawie danych z arkusza Dane 2 utwórz wykres przestawny, który dla każdego z państw oddelegowania wyświetli po 3 kolumny przedstawiające informacje o liczbie osób oddelegowanych z poszczególnych miast (oddziałów firmy). Podaj, która kolumna (licząc od lewej strony) jest najwyższa? Jako odpowiedź wpisz numer tej kolumny.",
+    "odpowiedz": "3",
+    "uzasadnienie": "Trzecia kolumna od lewej jest najwyższa.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 4",
+    "klucze": [
+      "liczbę mężczyzn oddelegowanych z krakowa i poznania do grecji, turcji i włoch"
+    ],
+    "pytanie": "Na podstawie danych z arkusza Dane 2 utwórz tabelę przestawną, przedstawiającą liczbę mężczyzn oddelegowanych z Krakowa i Poznania do Grecji, Turcji i Włoch. Podaj wartość podsumowującą dla tabeli (wartość komórki na przecięciu wiersza i kolumny Suma końcowa).",
+    "odpowiedz": "31",
+    "uzasadnienie": "Suma końcowa wynosi 31.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 4",
+    "klucze": [
+      "dla każdego z miast",
+      "po 5 kolumn",
+      "licząc od prawej strony",
+      "która kolumna jest najwyższa"
+    ],
+    "pytanie": "Na podstawie danych z arkusza Dane 2 utwórz wykres przestawny, który dla każdego z miast (oddziałów firmy) wyświetli po 5 kolumn przedstawiających informacje o liczbie osób oddelegowanych do poszczególnych państw. Podaj, która kolumna (licząc od prawej strony) jest najwyższa? Jako odpowiedź wpisz numer tej kolumny.",
+    "odpowiedz": "5",
+    "uzasadnienie": "Piąta kolumna licząc od prawej strony jest najwyższa.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 4",
+    "klucze": [
+      "osób z nadbagażem oddelegowanych z krakowa i warszawy do grecji i turcji"
+    ],
+    "pytanie": "Na podstawie danych z arkusza Dane 2 utwórz tabelę przestawną, przedstawiającą liczbę osób z nadbagażem oddelegowanych z Krakowa i Warszawy do Grecji i Turcji. Podaj wartość podsumowującą dla tabeli (wartość komórki na przecięciu wiersza i kolumny Suma końcowa).",
+    "odpowiedz": "10",
+    "uzasadnienie": "Suma końcowa = 10.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 4",
+    "klucze": [
+      "dla każdej płci",
+      "po 5 kolumn",
+      "która kolumna jest najwyższa"
+    ],
+    "pytanie": "Na podstawie danych z arkusza Dane 2 utwórz wykres przestawny, który dla każdej płci wyświetli po 5 kolumn przedstawiających informacje o liczbie osób oddelegowanych do poszczególnych państw. Podaj, która kolumna (licząc od lewej strony) jest najwyższa? Jako odpowiedź wpisz numer tej kolumny.",
+    "odpowiedz": "7",
+    "uzasadnienie": "Siódma kolumna od lewej.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 4",
+      "e1",
+      "pensje podstawowe pracowników w złotych",
+      "kurs dolara"
+    ],
+    "pytanie": "W arkuszu Zestawienie 4 w kolumnie E, na podstawie pensji podstawowej w dolarach, oblicz ile wynoszą pensje podstawowe pracowników w złotych. Kurs dolara znajduje się w komórce E3 (i może być aktualizowany). Wpisz odpowiednią formułę obliczeniową do komórki E7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce E1.",
+    "odpowiedz": "555",
+    "formula": "=C7*$E$3",
+    "uzasadnienie": "Formuła E7: =C7*$E$3. Liczba kontrolna w komórce E1 wynosi 555.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 2",
+      "h1",
+      "euro przypada na 1 członka rodziny"
+    ],
+    "pytanie": "W arkuszu Zestawienie 2 w kolumnie H, oblicz ile euro (pensji podstawowej) przypada na 1 członka rodziny. Wpisz odpowiednią formułę obliczeniową do komórki H7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce H1.",
+    "odpowiedz": "540",
+    "formula": "=C7/G7",
+    "uzasadnienie": "Formuła H7: =C7/G7. Liczba kontrolna w komórce H1 wynosi 540.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 4",
+      "i1",
+      "dopłat za okulary",
+      "400 zł"
+    ],
+    "pytanie": "W arkuszu Zestawienie 4 w kolumnie I powinny znaleźć się informacje dotyczące przyznanych dopłat za okulary (w złotych). W komórce I7 wpisz formułę, która skopiowana do poniższych komórek wyświetli każdemu pracownikowi, który zakupił okulary, wartość dofinansowania 400 zł, a w pozostałych przypadkach pozostawi puste komórki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce I1.",
+    "odpowiedz": "81",
+    "formula": "=JEŻELI(F7=\"+\";400;\"\")",
+    "uzasadnienie": "Formuła I7: =JEŻELI(F7=\"+'\";400;\"\"). Liczba kontrolna w I1 wynosi 81.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 2",
+      "j1",
+      "frankach szwajcarskich w zaokrągleniu do 1 chf"
+    ],
+    "pytanie": "W arkuszu Zestawienie 2 w kolumnie J, oblicz ile wynoszą pensje podstawowe pracowników we frankach szwajcarskich w zaokrągleniu do 1 CHF. Wpisz odpowiednią formułę obliczeniową do komórki J7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce J1.",
+    "odpowiedz": "1663,72",
+    "formula": "=ZAOKR(D7;0)",
+    "uzasadnienie": "Formuła J7: =ZAOKR(D7;0). Liczba kontrolna w J1 wynosi 1663,72.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 4",
+      "k1",
+      "liderów i członków projektów",
+      "co najmniej 5 projektów"
+    ],
+    "pytanie": "W arkuszu Zestawienie 4 w kolumnie K powinny znaleźć się informacje dotyczące wysokości dodatków (w złotówkach) dla Liderów i członków projektów. Pracownik, który zrealizował co najmniej 5 projektów, otrzymuje kwotę z komórki J3 (określoną w dolarach) za każdy projekt, przy czym kwota wypłacana jest w złotych, natomiast pozostali otrzymują ustaloną kwotę z komórki J4 (określoną w złotych) za każdy projekt. Kwoty w komórkach J3 i J4 mogą być aktualizowane przez dyrekcję. W komórce K7 wpisz formułę, która skopiowana do poniższych komórek wyświetli wartości dodatków dla Liderów i członków projektów. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce K1.",
+    "odpowiedz": "883",
+    "formula": "=JEŻELI(G7>=5;G7*$J$3*$E$3;G7*$J$4)",
+    "uzasadnienie": "Formuła K7: =JEŻELI(G7>=5;G7*$J$3*$E$3;G7*$J$4). Liczba kontrolna w K1 wynosi 883.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 1",
+      "e1",
+      "pensje podstawowe pracowników w euro",
+      "kurs euro"
+    ],
+    "pytanie": "W arkuszu Zestawienie 1 w kolumnie E, oblicz ile wynoszą pensje podstawowe pracowników w euro. Kurs euro znajduje się w komórce E3 (i może być aktualizowany). Wpisz odpowiednią formułę obliczeniową do komórki E7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce E1.",
+    "odpowiedz": "77",
+    "formula": "=C7/$E$3",
+    "uzasadnienie": "Formuła E7: =C7/$E$3. Liczba kontrolna w E1 wynosi 77.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 3",
+      "h1",
+      "pensji w złotych po podwyżce"
+    ],
+    "pytanie": "W arkuszu Zestawienie 3 w kolumnie F znajdują się informacje, ile procent podwyżki pensji (w złotych) przyznano poszczególnym pracownikom. Oblicz, w kolumnie H, wartości pensji w złotych po podwyżce. Wpisz odpowiednią formułę obliczeniową do komórki H7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce H1.",
+    "odpowiedz": "31",
+    "formula": "=C7*(1+F7)",
+    "uzasadnienie": "Formuła H7: =C7*(1+F7) lub =C7+C7*F7. Liczba kontrolna w H1 wynosi 31.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 1",
+      "i1",
+      "prezentów świątecznych dla dzieci",
+      "słowo: tak"
+    ],
+    "pytanie": "W arkuszu Zestawienie 1 w kolumnie I powinny znaleźć się informacje dotyczące prezentów świątecznych dla dzieci pracowników. W komórce I7 wpisz formułę, która skopiowana do poniższych komórek wyświetli słowo: tak - jeżeli pracownik posiada dziecko (lub dzieci) lub słowo: nie - jeśli ich nie posiada. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce I1.",
+    "odpowiedz": "94",
+    "formula": "=JEŻELI(G7>0;\"tak\";\"nie\")",
+    "uzasadnienie": "Formuła I7: =JEŻELI(G7>0;\"tak\";\"nie\"). Liczba kontrolna w I1 wynosi 94.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 1",
+      "j1",
+      "frankach szwajcarskich w zaokrągleniu do 10 chf"
+    ],
+    "pytanie": "W arkuszu Zestawienie 1 w kolumnie J, oblicz ile wynoszą pensje podstawowe pracowników we frankach szwajcarskich w zaokrągleniu do 10 CHF. Wpisz odpowiednią formułę obliczeniową do komórki J7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce J1.",
+    "odpowiedz": "1664,57 (lub 1663,17)",
+    "formula": "=ZAOKR(D7;-1)",
+    "uzasadnienie": "Formuła J7: =ZAOKR(D7;-1). Liczba kontrolna wynosi 1664,57.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 2",
+      "k1",
+      "dodatków noworocznych",
+      "co najmniej 4 członków rodziny"
+    ],
+    "pytanie": "W arkuszu Zestawienie 2 w kolumnie K powinny znaleźć się informacje dotyczące wysokości dodatków noworocznych pracowników. Pracownik, który ma co najmniej 4 członków rodziny, otrzymuje kwotę z komórki J3 (określoną w euro) na każdego członka rodziny, przy czym kwota wypłacana jest w złotych; natomiast pozostali otrzymują ustaloną kwotę z komórki J4 (określoną w złotych) na każdego członka rodziny. Kwoty w komórkach J3 i J4 mogą być aktualizowane. W komórce K7 wpisz formułę, która skopiowana do poniższych komórek wyświetli wartości dodatków noworocznych pracowników. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce K1.",
+    "odpowiedz": "957",
+    "formula": "=JEŻELI(G7>=4;G7*$J$3*$E$3;G7*$J$4)",
+    "uzasadnienie": "Formuła K7: =JEŻELI(G7>=4;G7*$J$3*$E$3;G7*$J$4). Liczba kontrolna w K1 wynosi 957.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 3",
+      "e1",
+      "pensje podstawowe pracowników we frankach szwajcarskich",
+      "kurs chf"
+    ],
+    "pytanie": "W arkuszu Zestawienie 3 w kolumnie E, oblicz ile wynoszą pensje podstawowe pracowników we frankach szwajcarskich. Kurs CHF znajduje się w komórce E4 (i może być aktualizowany). Wpisz odpowiednią formułę obliczeniową do komórki E7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce E1.",
+    "odpowiedz": "73",
+    "formula": "=C7/$E$4",
+    "uzasadnienie": "Formuła E7: =C7/$E$4. Liczba kontrolna w E1 wynosi 73.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 4",
+      "h1",
+      "dodatku projektowego",
+      "12% pensji podstawowej"
+    ],
+    "pytanie": "W arkuszu Zestawienie 4 w kolumnie G znajdują się informacje dotyczące liczby zrealizowanych projektów. Oblicz w kolumnie H wartość dodatku projektowego (w dolarach) wiedząc, że za każdy zrealizowany projekt pracownik otrzymuje 12% pensji podstawowej. Wpisz odpowiednią formułę obliczeniową do komórki H7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce H1.",
+    "odpowiedz": "364",
+    "formula": "=G7*0,12*C7",
+    "uzasadnienie": "Formuła H7: =G7*0,12*C7. Liczba kontrolna w H1 wynosi 364.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 3",
+      "i1",
+      "zabawki i słodycze",
+      "prezentów świątecznych dla rodzin"
+    ],
+    "pytanie": "W arkuszu Zestawienie 3 w kolumnie I powinny znaleźć się informacje dotyczące prezentów świątecznych dla rodzin pracowników. W komórce I7 wpisz formułę, która skopiowana do poniższych komórek wyświetli tekst: zabawki i słodycze - jeżeli pracownik posiada dziecko (lub dzieci) lub słowo: słodycze - jeśli ich nie posiada. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce I1.",
+    "odpowiedz": "9",
+    "formula": "=JEŻELI(G7>0;\"zabawki i słodycze\";\"słodycze\")",
+    "uzasadnienie": "Formuła I7: =JEŻELI(G7>0;\"zabawki i słodycze\";\"słodycze\"). Liczba kontrolna w I1 wynosi 9.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 4",
+      "j1",
+      "frankach szwajcarskich w zaokrągleniu do 10 centów"
+    ],
+    "pytanie": "W arkuszu Zestawienie 4 w kolumnie J, oblicz ile wynoszą pensje podstawowe pracowników we frankach szwajcarskich w zaokrągleniu do 10 centów. Wpisz odpowiednią formułę obliczeniową do komórki J7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce J1.",
+    "odpowiedz": "1663.79 (lub 1663,79)",
+    "formula": "=ZAOKR(D7;1)",
+    "uzasadnienie": "Formuła J7: =ZAOKR(D7;1). Liczba kontrolna w J1 wynosi 1663,79.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 3",
+      "k1",
+      "podwyżkę nie większą niż 10%",
+      "h3 kwota euro oraz określona w komórce h4"
+    ],
+    "pytanie": "W arkuszu Zestawienie 3 w kolumnie K powinny znaleźć się informacje dotyczące wysokości dodatków noworocznych pracowników w złotych. Każdemu pracownikowi, który otrzymał podwyżkę nie większą niż 10% przysługuje na każde dziecko określona w komórce H3 kwota euro oraz określona w komórce H4 kwota franków szwajcarskich; pozostałym pracownikom dodatek nie przysługuje. Kwoty w komórkach J3 i J4 oraz kursy walut mogą być aktualizowane. W komórce K7 wpisz formułę, która skopiowana do poniższych komórek wyświetli, jaką wartość dodatku noworocznego w złotych otrzyma każdy z pracowników. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce K1.",
+    "odpowiedz": "280",
+    "formula": "=JEŻELI(F7<=0,1;G7*($H$3*$E$3+$H$4*$E$4);0)",
+    "uzasadnienie": "Formuła K7: =JEŻELI(F7<=0,1;G7*($H$3*$E$3+$H$4*$E$4);0). Liczba kontrolna w K1 wynosi 280.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 2",
+      "e1",
+      "pensji podstawowej w euro, oblicz ile wynoszą pensje podstawowe pracowników w złotych"
+    ],
+    "pytanie": "W arkuszu Zestawienie 2 w kolumnie E, na podstawie pensji podstawowej w euro, oblicz ile wynoszą pensje podstawowe pracowników w złotych. Kurs euro znajduje się w komórce E3 (i może być aktualizowany). Wpisz odpowiednią formułę obliczeniową do komórki E7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce E1.",
+    "odpowiedz": "570",
+    "formula": "=C7*$E$3",
+    "uzasadnienie": "Formuła E7: =C7*$E$3. Liczba kontrolna w E1 wynosi 570.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 1",
+      "h1",
+      "wartości premii pracowników w złotych",
+      "premie"
+    ],
+    "pytanie": "W arkuszu Zestawienie 1 w kolumnie F znajdują się informacje, ile procent pensji podstawowej w złotych przyznano poszczególnym pracownikom, jako premie. Oblicz, w kolumnie H, wartości premii pracowników w złotych. Wpisz odpowiednią formułę obliczeniową do komórki H7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce H1.",
+    "odpowiedz": "430",
+    "formula": "=C7*F7",
+    "uzasadnienie": "Formuła H7: =C7*F7. Liczba kontrolna w H1 wynosi 430.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 2",
+      "i1",
+      "premii 600 zł"
+    ],
+    "pytanie": "W arkuszu Zestawienie 2 w kolumnie I powinny znaleźć się informacje dotyczące przyznanych premii w złotych. W komórce I7 wpisz formułę, która skopiowana do poniższych komórek wyświetli pracownikom, którzy mają przyznaną premię wartość: 600 zł, a w pozostałych przypadkach pozostawi puste komórki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce I1.",
+    "odpowiedz": "66",
+    "formula": "=JEŻELI(F7=\"+\";600;\"\")",
+    "uzasadnienie": "Formuła I7: =JEŻELI(F7=\"+'\";600;\"\"). Liczba kontrolna w I1 wynosi 66.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 3",
+      "j1",
+      "pensje podstawowe pracowników we euro w zaokrągleniu do 1 centa"
+    ],
+    "pytanie": "W arkuszu Zestawienie 3 w kolumnie J, oblicz ile wynoszą pensje podstawowe pracowników we euro w zaokrągleniu do 1 centa. Wpisz odpowiednią formułę obliczeniową do komórki J7, tak by po skopiowaniu do poniższych komórek dała wszystkie wyniki. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce J1.",
+    "odpowiedz": "1525.47 (lub 1525,47)",
+    "formula": "=ZAOKR(D7;2)",
+    "uzasadnienie": "Formuła J7: =ZAOKR(D7;2). Liczba kontrolna w J1 wynosi 1525,47.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 5",
+    "klucze": [
+      "zestawienie 1",
+      "k1",
+      "obszarze h3:i4",
+      "dodatków noworocznych pracowników"
+    ],
+    "pytanie": "W arkuszu Zestawienie 1 w kolumnie K powinny znaleźć się informacje dotyczące wysokości dodatków noworocznych pracowników. Każdy pracownik otrzyma odpowiedni procent pensji podstawowej w złotych zgodnie z opisem w tabeli znajdującej się w obszarze H3:I4 (dane procentowe w tej tabeli mogą być aktualizowane). W komórce K7 wpisz formułę, która skopiowana do poniższych komórek wyświetli wartości dodatków noworocznych pracowników. Następnie - jako rozwiązanie tego zadania - wpisz poniżej liczbę kontrolną znajdującą się w komórce K1.",
+    "odpowiedz": "3101",
+    "formula": "=JEŻELI(G7>=4;C7*$I$4;C7*$I$3)",
+    "uzasadnienie": "Liczba kontrolna w K1 wynosi 3101.",
+    "typ": "formula_i_wartosc"
+  },
+  {
+    "quiz": "Quiz 6",
+    "klucze": [
+      "2021-12-16",
+      "4 dni wcześniej",
+      "e7",
+      "e8"
+    ],
+    "pytanie": "W komórce E7 wpisana jest data 2021-12-16. Jaką formułę należy wpisać do komórki E8, by obliczyć, jaka data była 4 dni wcześniej?",
+    "odpowiedz": "=E7-4",
+    "formula": "=E7-4",
+    "uzasadnienie": "W Excelu odejmowanie liczby od daty odejmuje liczbę dni.",
+    "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 6",
+    "klucze": [
+      "zawsze wyświetlała się data, która będzie za 15 dni",
+      "za 15 dni"
+    ],
+    "pytanie": "Jaką formułę należy wpisać, aby w komórce zawsze wyświetlała się data, która będzie za 15 dni?",
+    "odpowiedz": "=DZIŚ()+15",
+    "formula": "=DZIŚ()+15",
+    "uzasadnienie": "Funkcja DZIŚ() zwraca datę bieżącą, dodanie 15 daje datę za 15 dni.",
+    "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 6",
+    "klucze": [
+      "2022-05-22",
+      "2022-03-24",
+      "ile dni upłynęło",
+      "d1",
+      "d2",
+      "d3"
+    ],
+    "pytanie": "W komórce D1 wpisana jest data 2022-05-22 a w komórce D2 data 2022-03-24. Jaką formułę należy wpisać do komórki D3, aby obliczyć ile dni upłynęło od jednej daty do drugiej?",
+    "odpowiedz": "=D1-D2",
+    "formula": "=D1-D2",
+    "uzasadnienie": "Różnica dwóch dat w Excelu zwraca liczbę dni między nimi.",
+    "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 6",
+    "klucze": [
+      "numerach: dnia, miesiąca i roku",
+      "otrzymać z nich datę",
+      "b1;b2;b3"
+    ],
+    "pytanie": "W załączonym wycinku arkusza znajdują się informacje o numerach: dnia, miesiąca i roku. Jaką formułę należy wpisać, aby otrzymać z nich datę.",
+    "odpowiedz": "=DATA(B1;B2;B3) (lub =DATA(B3;B2;B1) w zależności od ułożenia: ROK; MIESIĄC; DZIEŃ)",
+    "formula": "=DATA(B1;B2;B3)",
+    "uzasadnienie": "Składnia Excela: DATA(rok; miesiąc; dzień).",
+    "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 6",
+    "klucze": [
+      "komórce a7 wpisana jest data",
+      "numer dnia tej daty"
+    ],
+    "pytanie": "W komórce A7 wpisana jest data. Jaką formułę należy wpisać, aby obliczyć numer dnia tej daty?",
+    "odpowiedz": "=DZIEŃ(A7)",
+    "formula": "=DZIEŃ(A7)",
+    "uzasadnienie": "Funkcja DZIEŃ() wyodrębnia dzień miesiąca (1-31).",
+    "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 7",
+    "klucze": [
+      "spis wykresów",
+      "wykresy sprzedaży w poszczególnych miesiącach"
+    ],
+    "pytanie": "W dokumencie dla zarządu umieszczono wykresy sprzedaży w poszczególnych miesiącach. Aby na końcu dokumentu pojawił się spis wykresów, należy:",
+    "odpowiedz": "skorzystać z opcji Wstaw podpis, następnie Wstaw spis ilustracji",
+    "uzasadnienie": "W programie Word spisy tabel, wykresów i rysunków generuje się mechanizmem 'Wstaw spis ilustracji' po wcześniejszym podpisaniu obiektów.",
+    "typ": "jednokrotny_wybor"
+  },
+  {
+    "quiz": "Quiz 7",
+    "klucze": [
+      "antynomia",
+      "objaśnienie",
+      "po wydrukowaniu"
+    ],
+    "pytanie": "W dokumencie, w zdaniu zostało użyte słowo „antynomia”. Ponieważ nie wszystkie osoby, które będą czytały ten dokument po wydrukowaniu, wiedzą co to słowo oznacza, powinniśmy umieścić jego objaśnienie. W tym celu należy:",
+    "odpowiedz": "wstawić przypis dolny",
+    "uzasadnienie": "Przypis dolny (footnote) drukuje się na dole strony i służy do objaśnień terminów.",
+    "typ": "jednokrotny_wybor"
+  },
+  {
+    "quiz": "Quiz 7",
+    "klucze": [
+      "wstępną wersję sprawozdania",
+      "zbyt szczegółowy",
+      "uwagę tę powinieneś mu przekazać"
+    ],
+    "pytanie": "Od współpracownika otrzymałeś wstępną wersję sprawozdania ze zrealizowanych prac z prośbą, byś ją sprawdził. Uważasz, że jeden z opisów jest zbyt szczegółowy i powinien zostać uogólniony. Uwagę tę powinieneś mu przekazać:",
+    "odpowiedz": "w komentarzu",
+    "uzasadnienie": "Komentarz w Wordzie służy do recenzowania i przekazywania uwag autorowi.",
+    "typ": "jednokrotny_wybor"
+  },
+  {
+    "quiz": "Quiz 7",
+    "klucze": [
+      "7 stron",
+      "trzeciej stronie",
+      "przypis końcowy",
+      "opis do tego przypisu pojawi się"
+    ],
+    "pytanie": "W dokumencie zawierającym 7 stron wstawiamy na trzeciej stronie przypis końcowy. Opis do tego przypisu pojawi się:",
+    "odpowiedz": "na końcu dokumentu",
+    "uzasadnienie": "Przypisy końcowe (endnotes) umieszczane są zawsze na samym końcu całego dokumentu (lub sekcji).",
+    "typ": "jednokrotny_wybor"
+  },
+  {
+    "quiz": "Quiz 7",
+    "klucze": [
+      "na dole każdej strony pojawiło się imię i nazwisko",
+      "dole każdej strony"
+    ],
+    "pytanie": "Aby na dole każdej strony pojawiło się imię i nazwisko, powinniśmy:",
+    "odpowiedz": "wstawić stopkę, następnie wpisać w niej imię i nazwisko",
+    "uzasadnienie": "Stopka (footer) powtarza się automatycznie na dole każdej strony.",
+    "typ": "jednokrotny_wybor"
+  },
+  {
+    "quiz": "Quiz 7",
+    "klucze": [
+      "nagłówek 1, nagłówek 2, nagłówek 3",
+      "zastosujemy, gdy"
+    ],
+    "pytanie": "Nagłówek 1, Nagłówek 2, Nagłówek 3, itd. zastosujemy, gdy:",
+    "odpowiedz": "chcemy utworzyć spis treści",
+    "uzasadnienie": "Automatyczny spis treści w Wordzie generowany jest na podstawie stylów nagłówkowych.",
+    "typ": "jednokrotny_wybor"
+  },
+  {
+    "quiz": "Quiz 7",
+    "klucze": [
+      "spis tabel",
+      "ikony"
+    ],
+    "pytanie": "W dokumencie umieściliśmy kilka tabel. Aby utworzyć spis tabel najpierw należy wstawić podpisy nad tabelami a następnie wygenerować spis tabel za pomocą ikony:",
+    "odpowiedz": "wstaw spis ilustracji",
+    "uzasadnienie": "Wstążka Odwołania -> ikona 'Wstaw spis ilustracji' (z etykietą Tabela).",
+    "typ": "jednokrotny_wybor"
+  },
+  {
+    "quiz": "Quiz 7",
+    "klucze": [
+      "h2o",
+      "cyfrę 2 należy wstawić/sformatować jako"
+    ],
+    "pytanie": "Chcąc w dokumencie umieścić fragment teksu \"Unikalną cechą H2O jest to, że powstała z dwóch gazów – tlenu i wodoru\" cyfrę 2 należy wstawić/sformatować jako:",
+    "odpowiedz": "indeks dolny",
+    "uzasadnienie": "Wzory chemiczne (H₂O) formatuje się jako indeks dolny (subscript).",
+    "typ": "jednokrotny_wybor"
   }
 ]
