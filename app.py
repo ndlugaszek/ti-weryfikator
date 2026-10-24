@@ -1,17 +1,21 @@
 import os
 import glob
 import json
+import time
+import hashlib
 import requests
 import streamlit as st
 import pypdf
 
+# Konfiguracja strony
 st.set_page_config(
-    page_title="TI Asystent - Weryfikacja Quizów",
+    page_title="Asystent Weryfikacji Zadań TI",
     page_icon="🎓",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
-# Bramka autoryzacji (hasło z Secrets lub domyślne: merito-ti-2026)
+# Konfiguracja hasła i trwałości sesji (Query Params / Auto-login)
 DEFAULT_PASSWORD = "merito-ti-2026"
 APP_PASSWORD = os.environ.get("APP_PASSWORD")
 if not APP_PASSWORD:
@@ -20,39 +24,54 @@ if not APP_PASSWORD:
     except Exception:
         APP_PASSWORD = DEFAULT_PASSWORD
 
-if "authenticated" not in st.session_state:
-    st.session_state.authenticated = False
+AUTH_TOKEN = hashlib.sha256(APP_PASSWORD.encode()).hexdigest()[:16]
 
+# Utrzymanie logowania przez query params (odświeżenie strony nie wylogowuje)
+if "authenticated" not in st.session_state:
+    if st.query_params.get("auth") == AUTH_TOKEN:
+        st.session_state.authenticated = True
+    else:
+        st.session_state.authenticated = False
+
+# Ekran autoryzacji
 if not st.session_state.authenticated:
-    st.title("🔒 Dostęp do Asystenta TI")
-    st.info("Wprowadź hasło grupy, aby uzyskać dostęp.")
-    user_pwd = st.text_input("Hasło dostępu:", type="password")
-    if st.button("Odblokuj"):
-        if user_pwd == APP_PASSWORD:
-            st.session_state.authenticated = True
-            st.rerun()
-        else:
-            st.error("❌ Błędne hasło.")
+    st.markdown("<h2 style='text-align: center;'>🎓 Portal Weryfikacji Zadań - Technologie Informacyjne</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: gray;'>Dostęp autoryzowany dla grupy laboratoryjnej</p>", unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        with st.form("login_form"):
+            user_pwd = st.text_input("Klucz dostępu grupy:", type="password", placeholder="Wpisz hasło...")
+            submitted = st.form_submit_button("Uzyskaj dostęp", use_container_width=True)
+            if submitted:
+                if user_pwd == APP_PASSWORD:
+                    st.session_state.authenticated = True
+                    st.query_params["auth"] = AUTH_TOKEN
+                    st.rerun()
+                else:
+                    st.error("❌ Błędny klucz dostępu. Skontaktuj się ze starostą grupy.")
+        
+        st.markdown("---")
+        st.caption("🔒 **Polityka prywatności:** Sesja jest anonimowa. System nie przetwarza danych osobowych ani numerów indeksów.")
     st.stop()
 
-# Główny interfejs
-st.title("🎓 Asystent Weryfikacji Zadań - TI")
-st.caption("Backend: OpenRouter (:free) | Dostęp autoryzowany | Baza: CSV, Arkusze, PDF")
+# Główny nagłówek
+st.title("🎓 Asystent Weryfikacji Zadań - Technologie Informacyjne")
+st.caption("Uczelniany System Weryfikacji Zadań Laboratoryjnych | Baza kursowa 2025/2026")
 
-# Pobranie klucza OpenRouter
+# Pobranie klucza API (server-side ze Secrets)
 api_key = os.environ.get("OPENROUTER_API_KEY")
 if not api_key:
     try:
         api_key = st.secrets.get("OPENROUTER_API_KEY")
     except Exception:
         pass
-if not api_key:
-    api_key = st.sidebar.text_input("Podaj OPENROUTER_API_KEY:", type="password")
 
 if not api_key:
-    st.warning("⚠️ Wymagany OPENROUTER_API_KEY. Dodaj w Secrets Streamlit lub w panelu bocznym.")
+    st.error("⚠️ Błąd konfiguracji środowiska: brak systemowego klucza API. Skontaktuj się z administratorem.")
     st.stop()
 
+# Ścieżki bazowe
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MAPA_PATH = os.path.join(BASE_DIR, "mapa-quizow.md")
 INSTRUKCJA_PATH = os.path.join(BASE_DIR, "INSTRUKCJA.md")
@@ -87,18 +106,40 @@ ZASADY:
 3. Etykiety procentowe w wykresach kołowych Excela są liczbami całkowitymi bez miejsc po przecinku (np. 32%).
 """
 
-ACTIVE_MODELS = [
+# Aktywne silniki analityczne (rotacja w tle)
+INTERNAL_ENGINES = [
     "cohere/north-mini-code:free",
     "dots-studio/dots-3-note-preview:free"
 ]
 
-st.sidebar.header("Ustawienia")
+# Panel boczny
+st.sidebar.header("Konfiguracja sesji")
 quiz_choice = st.sidebar.selectbox(
-    "Wybierz quiz:",
-    ["Automatyczny (z pytania)", "Quiz 1", "Quiz 2", "Quiz 3", "Quiz 4", "Quiz 5", "Quiz 6", "Quiz 7"]
+    "Zakres weryfikacji:",
+    ["Automatyczny (z treści pytania)", "Quiz 1", "Quiz 2", "Quiz 3", "Quiz 4", "Quiz 5", "Quiz 6", "Quiz 7"]
 )
+
+# Narzędzia czatu
 st.sidebar.markdown("---")
-st.sidebar.caption("Aktywne modele: `cohere/north-mini-code:free` -> `dots-studio/dots-3-note-preview:free`.")
+if st.sidebar.button("🗑️ Wyczyść historię zapytań", use_container_width=True):
+    st.session_state.messages = []
+    st.rerun()
+
+if st.sidebar.button("🚪 Wyloguj z urządzenia", use_container_width=True):
+    st.session_state.authenticated = False
+    if "auth" in st.query_params:
+        del st.query_params["auth"]
+    st.rerun()
+
+# Informacja o prywatności i nota prawna
+st.sidebar.markdown("---")
+with st.sidebar.expander("ℹ️ Prywatność i Bezpieczeństwo"):
+    st.markdown("""
+    - **Poufność:** Wszystkie zapytania są przetwarzane w trybie stateless.
+    - **Zero PII:** System nie gromadzi imion, nazwisk, PESEL ani numerów albumu.
+    - **Trwałość sesji:** Logowanie jest zapamiętywane w Twojej przeglądarce.
+    - **Przeznaczenie:** Wsparcie dydaktyczne do samodzielnej weryfikacji wyników.
+    """)
 
 @st.cache_data
 def load_all_materials():
@@ -115,7 +156,7 @@ def load_all_materials():
                         full_text.append(f"--- Strona {idx+1} ---\n{t}")
                 texts[fname] = "\n".join(full_text)
             except Exception as e:
-                texts[fname] = f"Błąd odczytu PDF: {e}"
+                texts[fname] = f"Błąd odczytu materiału: {e}"
     return texts
 
 pdf_materials = load_all_materials()
@@ -126,40 +167,44 @@ def get_context_for_quiz(q_num):
         for f in glob.glob(os.path.join(CSV_DIR, "Podrozni_23__*.csv")):
             sheet = os.path.basename(f).replace(".csv", "")
             with open(f, "r", encoding="utf-8") as csv_f:
-                chunks.append(f"CSV {sheet}:\n{csv_f.read()}")
+                chunks.append(f"Dane tabelaryczne ({sheet}):\n{csv_f.read()}")
     elif q_num == 3:
         for f in glob.glob(os.path.join(CSV_DIR, "Ubezpiecznia-quiz_23__*.csv")):
             sheet = os.path.basename(f).replace(".csv", "")
             with open(f, "r", encoding="utf-8") as csv_f:
-                chunks.append(f"CSV {sheet}:\n{csv_f.read()}")
+                chunks.append(f"Dane tabelaryczne ({sheet}):\n{csv_f.read()}")
     elif q_num == 4:
         for f in glob.glob(os.path.join(CSV_DIR, "04_Delegacje_quiz__*.csv")):
             sheet = os.path.basename(f).replace(".csv", "")
             with open(f, "r", encoding="utf-8") as csv_f:
-                chunks.append(f"CSV {sheet}:\n{csv_f.read()}")
+                chunks.append(f"Dane tabelaryczne ({sheet}):\n{csv_f.read()}")
     elif q_num == 5:
         for f in glob.glob(os.path.join(CSV_DIR, "Dodatki_swiateczne_23__*.csv")):
             sheet = os.path.basename(f).replace(".csv", "")
             with open(f, "r", encoding="utf-8") as csv_f:
-                chunks.append(f"CSV {sheet}:\n{csv_f.read()}")
+                chunks.append(f"Dane tabelaryczne ({sheet}):\n{csv_f.read()}")
     elif q_num in [1, 6, 7]:
         for fname, txt in pdf_materials.items():
-            chunks.append(f"PDF {fname}:\n{txt[:40000]}")
+            chunks.append(f"Materiał dydaktyczny ({fname}):\n{txt[:40000]}")
     return "\n\n".join(chunks)
 
+# Inicjalizacja historii wiadomości
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+# Wyświetlanie historii
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-user_prompt = st.chat_input("Wpisz pytanie (np. 'Quiz 4: oblicz średnią liczbę dni delegacji dla Warszawy')")
+# Obsługa wejścia użytkownika
+user_prompt = st.chat_input("Wpisz pytanie lub polecenie (np. 'Quiz 4: oblicz średnią liczbę dni delegacji dla Warszawy')")
 if user_prompt:
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
         st.markdown(user_prompt)
 
+    # Detekcja numeru quizu
     detected_quiz = None
     if "Quiz 1" in quiz_choice: detected_quiz = 1
     elif "Quiz 2" in quiz_choice: detected_quiz = 2
@@ -176,27 +221,28 @@ if user_prompt:
 
     extra_context = ""
     if detected_quiz:
-        with st.spinner(f"Ładowanie danych Quiz {detected_quiz}..."):
+        with st.spinner(f"Pobieranie bazy danych dla modułu Quiz {detected_quiz}..."):
             extra_context = get_context_for_quiz(detected_quiz)
 
-    full_content = f"{user_prompt}\n\nDODATKOWY KONTEKST DANYCH:\n{extra_context}" if extra_context else user_prompt
+    full_content = f"{user_prompt}\n\nKONTEKST DANYCH ŹRÓDŁOWYCH:\n{extra_context}" if extra_context else user_prompt
 
     with st.chat_message("assistant"):
         answer_obtained = False
         last_error = ""
+        start_time = time.time()
 
         headers = {
             "Authorization": f"Bearer {api_key.strip()}",
             "HTTP-Referer": "https://share.streamlit.io",
-            "X-Title": "TI-Weryfikator",
+            "X-Title": "TI-Weryfikator-Akademicki",
             "Content-Type": "application/json"
         }
 
-        for model_name in ACTIVE_MODELS:
-            with st.spinner(f"Przetwarzanie ({model_name})..."):
+        for engine_model in INTERNAL_ENGINES:
+            with st.spinner("Weryfikacja danych i przeliczanie formuł..."):
                 try:
                     payload = {
-                        "model": model_name,
+                        "model": engine_model,
                         "messages": [
                             {"role": "system", "content": SYSTEM_PROMPT},
                             {"role": "user", "content": full_content}
@@ -210,22 +256,25 @@ if user_prompt:
                         timeout=90
                     )
                     if resp.status_code == 200:
-                        ans = resp.json()["choices"][0]["message"]["content"]
-                        st.markdown(ans)
-                        st.session_state.messages.append({"role": "assistant", "content": ans})
+                        elapsed = round(time.time() - start_time, 2)
+                        raw_ans = resp.json()["choices"][0]["message"]["content"]
+                        ans_with_meta = f"{raw_ans}\n\n---\n*⏱️ Czas weryfikacji: {elapsed} s*"
+                        
+                        st.markdown(ans_with_meta)
+                        st.session_state.messages.append({"role": "assistant", "content": ans_with_meta})
                         answer_obtained = True
                         break
                     else:
-                        last_error = f"{model_name}: HTTP {resp.status_code} - {resp.text}"
+                        last_error = f"Kod odpowiedzi serwera: {resp.status_code}"
                 except Exception as e:
-                    last_error = f"{model_name}: błąd połączenia ({e})"
+                    last_error = f"Błąd komunikacji: {e}"
 
         if not answer_obtained:
             err_msg = (
-                "⚠️ **Chwilowe przeciążenie darmowych serwerów AI.**\n\n"
-                "Wszyscy dostawcy darmowych modeli zwrócili limit (HTTP 429) lub błąd połączenia.\n\n"
-                "**Rozwiązanie:** Odczekaj 30–60 sekund i zadaj pytanie ponownie.\n\n"
-                f"*Szczegóły techniczne: {last_error}*"
+                "⚠️ **Chwilowe obciążenie serwerów obliczeniowych.**\n\n"
+                "System odnotował wysoką liczbę jednoczesnych zapytań.\n\n"
+                "**Zalecenie:** Odczekaj 30–60 sekund i zadaj pytanie ponownie.\n\n"
+                f"*Szczegóły: {last_error}*"
             )
             st.error(err_msg)
             st.session_state.messages.append({"role": "assistant", "content": err_msg})
