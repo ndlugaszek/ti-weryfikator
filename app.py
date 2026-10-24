@@ -11,17 +11,46 @@ st.set_page_config(
     layout="wide"
 )
 
+# Bramka autoryzacji (hasło z Secrets lub domyślne: merito-ti-2026)
+DEFAULT_PASSWORD = "merito-ti-2026"
+APP_PASSWORD = os.environ.get("APP_PASSWORD")
+if not APP_PASSWORD:
+    try:
+        APP_PASSWORD = st.secrets.get("APP_PASSWORD", DEFAULT_PASSWORD)
+    except Exception:
+        APP_PASSWORD = DEFAULT_PASSWORD
+
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
+if not st.session_state.authenticated:
+    st.title("🔒 Dostęp do Asystenta TI")
+    st.info("Wprowadź hasło grupy, aby uzyskać dostęp.")
+    user_pwd = st.text_input("Hasło dostępu:", type="password")
+    if st.button("Odblokuj"):
+        if user_pwd == APP_PASSWORD:
+            st.session_state.authenticated = True
+            st.rerun()
+        else:
+            st.error("❌ Błędne hasło.")
+    st.stop()
+
+# Główny interfejs
 st.title("🎓 Asystent Weryfikacji Zadań - TI")
-st.caption("Backend: OpenRouter (Autonomiczny dobór modelu :free) | 100% Darmowy | Baza: CSV, Arkusze, PDF")
+st.caption("Backend: OpenRouter (:free) | Dostęp autoryzowany | Baza: CSV, Arkusze, PDF")
 
 # Pobranie klucza OpenRouter
 api_key = os.environ.get("OPENROUTER_API_KEY")
+if not api_key:
+    try:
+        api_key = st.secrets.get("OPENROUTER_API_KEY")
+    except Exception:
+        pass
 if not api_key:
     api_key = st.sidebar.text_input("Podaj OPENROUTER_API_KEY:", type="password")
 
 if not api_key:
     st.warning("⚠️ Wymagany OPENROUTER_API_KEY. Dodaj w Secrets Streamlit lub w panelu bocznym.")
-    st.info("Klucz pobierzesz za darmo z: https://openrouter.ai/keys")
     st.stop()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -58,7 +87,6 @@ ZASADY:
 3. Etykiety procentowe w wykresach kołowych Excela są liczbami całkowitymi bez miejsc po przecinku (np. 32%).
 """
 
-# Sprawdzone, stabilne modele free z automatycznym przełączaniem
 ACTIVE_MODELS = [
     "cohere/north-mini-code:free",
     "dots-studio/dots-3-note-preview:free"
@@ -70,7 +98,7 @@ quiz_choice = st.sidebar.selectbox(
     ["Automatyczny (z pytania)", "Quiz 1", "Quiz 2", "Quiz 3", "Quiz 4", "Quiz 5", "Quiz 6", "Quiz 7"]
 )
 st.sidebar.markdown("---")
-st.sidebar.caption("Aktywne modele: `cohere/north-mini-code:free` z automatycznym fallbackiem do `dots-studio/dots-3-note-preview:free`.")
+st.sidebar.caption("Aktywne modele: `cohere/north-mini-code:free` -> `dots-studio/dots-3-note-preview:free`.")
 
 @st.cache_data
 def load_all_materials():
@@ -165,7 +193,7 @@ if user_prompt:
         }
 
         for model_name in ACTIVE_MODELS:
-            with st.spinner(f"Przetwarzanie zapytania ({model_name})..."):
+            with st.spinner(f"Przetwarzanie ({model_name})..."):
                 try:
                     payload = {
                         "model": model_name,
