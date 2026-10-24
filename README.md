@@ -11,4 +11,4 @@ pinned: false
 
 # Asystent Weryfikacji Zadań - TI
 Aplikacja weryfikująca odpowiedzi do zadań i quizów z Technologii Informacyjnych.
-Model: Gemini 3.8 Flash + Code Execution.
+Model: OpenRouter (:free models - Llama 3.3 70B, Gemini 2.0 Flash Exp, Qwen 2.5 72B).
