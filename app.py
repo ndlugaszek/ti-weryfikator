@@ -361,9 +361,23 @@ def has_conflict(q1, q2):
             return True
     return False
 
+def clean_moodle_prompt(text):
+    # Usunięcie nagłówków platformy Moodle (Question X, Information text, punkty)
+    text = re.sub(r"Information.*?Information text\s*", "", text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r"Question \d+.*?Question text\s*", "", text, flags=re.DOTALL | re.IGNORECASE)
+    # Odcięcie opcji wyboru (Select one, a. b. c. d., Question XAnswer)
+    m = re.search(r"^(.*?)(?=(?:Question \d+Select one|Question \d+Answer|Select one:|Answera\.|[a-d]\.\s|[A-D]\.\s|\n[a-d]\.|\n[A-D]\.))", text, flags=re.DOTALL)
+    if m:
+        text = m.group(1)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
 def normalize_exact_text(text):
+    text = clean_moodle_prompt(text)
     text = text.lower().replace(",", ".")
     text = re.sub(r"(?:wynik|odpowiedź|formułę)[^.]*wpisz poniżej[:.]?", "", text)
+    # Usunięcie zduplikowanych słów typu "w wierszu w wierszu" z pytań Moodle
+    text = re.sub(r"\bw wierszu w wierszu\b", "w wierszu", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
 
@@ -373,10 +387,18 @@ def exact_match(query):
     q_norm = normalize_exact_text(query)
     if not q_norm:
         return None
+    # 1. Exact direct
     for item in known_db:
         t_norm = normalize_exact_text(item.get("pytanie", ""))
         if q_norm == t_norm:
             return item
+    # 2. Match without punctuation
+    q_alphanumeric = re.sub(r"[^a-ząćęłńóśźż0-9]", "", q_norm)
+    for item in known_db:
+        t_alphanumeric = re.sub(r"[^a-ząćęłńóśźż0-9]", "", normalize_exact_text(item.get("pytanie", "")))
+        if q_alphanumeric and t_alphanumeric:
+            if q_alphanumeric == t_alphanumeric or q_alphanumeric in t_alphanumeric or t_alphanumeric in q_alphanumeric:
+                return item
     return None
 
 def calculate_from_csv(query):
