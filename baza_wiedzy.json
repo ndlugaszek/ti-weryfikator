@@ -563,10 +563,21 @@
     "quiz": "Quiz 3",
     "klucze": [
       "komórce a1 w arkuszu zestawienie",
+      "łączną kwotę ubezpieczenia"
+    ],
+    "pytanie": "Co należy wpisać w komórce A1 w arkuszu Zestawienie, aby obliczyć w niej łączną kwotę ubezpieczenia wszystkich klientów? Odpowiedź wpisz poniżej:",
+    "odpowiedz": "=SUMA('Ubezpieczenia 1'!C7:C388) (lub =suma('Ubezpieczenia 1'!C7:C388))",
+    "uzasadnienie": "Formuła sumująca kwotę ubezpieczenia z kolumny C w wierszach 7-388.",
+    "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "komórce a1 w arkuszu zestawienie",
       "łączną kwotę do zapłaty"
     ],
     "pytanie": "Co należy wpisać w komórce A1 w arkuszu Zestawienie, aby obliczyć w niej łączną kwotę do zapłaty wszystkich klientów? Odpowiedź wpisz poniżej:",
-    "odpowiedz": "=SUMA('Ubezpieczenia 1'!J7:J388)",
+    "odpowiedz": "=SUMA('Ubezpieczenia 1'!J7:J388) (lub =suma('Ubezpieczenia 1'!J7:J388))",
     "uzasadnienie": "Formuła sumująca kwotę do zapłaty z kolumny J w wierszach 7-388.",
     "typ": "formula"
   },

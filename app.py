@@ -240,8 +240,12 @@ def solve_deterministic_question(q):
                 return "=MIN('Ubezpieczenia 1'!C7:C388)", "Formuła na najniższą kwotę ubezpieczenia w komórce A4: =MIN('Ubezpieczenia 1'!C7:C388)"
             return "=MIN('Ubezpieczenia 1'!J7:J388)", "Formuła na najniższą kwotę do zapłaty w komórce A4: =MIN('Ubezpieczenia 1'!J7:J388)"
         if "a1" in q_low or "w komórce a1" in q_low:
+            if "ubezpiecz" in q_low:
+                return "=SUMA('Ubezpieczenia 1'!C7:C388)", "Formuła na łączną kwotę ubezpieczenia w komórce A1: =SUMA('Ubezpieczenia 1'!C7:C388)"
             return "=SUMA('Ubezpieczenia 1'!J7:J388)", "Formuła na łączną kwotę do zapłaty w komórce A1: =SUMA('Ubezpieczenia 1'!J7:J388)"
         if "a2" in q_low or "w komórce a2" in q_low:
+            if "ubezpiecz" in q_low:
+                return "=ŚREDNIA('Ubezpieczenia 1'!C7:C388)", "Formuła na średnią kwotę ubezpieczenia w komórce A2: =ŚREDNIA('Ubezpieczenia 1'!C7:C388)"
             return "=ŚREDNIA('Ubezpieczenia 1'!J7:J388)", "Formuła na średnią kwotę do zapłaty w komórce A2: =ŚREDNIA('Ubezpieczenia 1'!J7:J388)"
 
     if "mniej niż 15 dni" in q_low or ("nie będą korzystać" in q_low and "samochod" in q_low):
