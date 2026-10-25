@@ -4,6 +4,7 @@ import json
 import time
 import hashlib
 import re
+import csv
 import difflib
 import requests
 import streamlit as st
@@ -360,6 +361,136 @@ def has_conflict(q1, q2):
             return True
     return False
 
+def normalize_exact_text(text):
+    text = text.lower().replace(",", ".")
+    text = re.sub(r"(?:wynik|odpowiedź|formułę)[^.]*wpisz poniżej[:.]?", "", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+def exact_match(query):
+    if not known_db:
+        return None
+    q_norm = normalize_exact_text(query)
+    if not q_norm:
+        return None
+    for item in known_db:
+        t_norm = normalize_exact_text(item.get("pytanie", ""))
+        if q_norm == t_norm:
+            return item
+    return None
+
+def calculate_from_csv(query):
+    q_low = query.lower().replace(",", ".")
+    
+    # 1. QUIZ 3: UBEZPIECZENIA 1
+    if any(k in q_low for k in ["ubezpiecz", "do zapłaty", "car assistance", "samochód zastępczy", "samochodu zastępczego", "autoalarm", "immobilizer", "blokad"]):
+        csv_path = os.path.join(CSV_DIR, "Ubezpiecznia-quiz_23__Ubezpieczenia_1.csv")
+        if os.path.exists(csv_path):
+            with open(csv_path, "r", encoding="utf-8") as f:
+                rows = list(csv.reader(f))[4:]
+
+            # Specjalne warunki kombinowane:
+            # A) Bagaż standard + samochód >= 5 dni
+            if "standard" in q_low and ("co najmniej 5" in q_low or ">= 5" in q_low or ">=5" in q_low):
+                filtered = [r for r in rows if r[7].strip().lower() == "standard" and r[9].strip() in ["5", "15"]]
+                if "do zapłaty" in q_low and "średni" in q_low:
+                    avg = sum(float(r[10]) for r in filtered) / len(filtered)
+                    return f"{round(avg, 1)}", f"Średnia kwota do zapłaty dla bagaż standard i samochód >= 5 dni ({len(filtered)} klientów) = {round(avg, 1)}"
+
+            # B) Wyposażenie "nie" + samochód < 15 dni
+            if "mniej niż 15" in q_low or ("nie będą korzystać" in q_low and "samochod" in q_low):
+                filtered = [r for r in rows if r[8].strip() == "nie" and r[9].strip() in ["2", "5"]]
+                s = sum(float(r[3]) for r in filtered)
+                return str(int(s)), f"Łączna kwota ubezpieczenia dla wyposażenie='nie' i samochód < 15 dni ({len(filtered)} klientów) = {int(s)}"
+
+            # C) Autoalarm + Blokada
+            if "autoalarm" in q_low and "blokad" in q_low:
+                filtered = [r for r in rows if r[4].strip() == "+" and r[6].strip() == "+"]
+                if "do zapłaty" in q_low:
+                    s = sum(float(r[10]) for r in filtered)
+                    return str(int(s)), f"Łączna kwota do zapłaty (Autoalarm + Blokada; {len(filtered)} klientów) = {int(s)}"
+                if "kwota ubezpieczenia" in q_low or "kwotę ubezpieczenia" in q_low:
+                    s = sum(float(r[3]) for r in filtered)
+                    return str(int(s)), f"Łączna kwota ubezpieczenia (Autoalarm + Blokada; {len(filtered)} klientów) = {int(s)}"
+
+            # D) Bagaż VIP + wyposażenie "tak"
+            if "vip" in q_low and ("dodatkow" in q_low or "wyposażeni" in q_low):
+                filtered = [r for r in rows if r[7].strip().lower() == "vip" and r[8].strip() == "tak"]
+                if "do zapłaty" in q_low and "średni" in q_low:
+                    avg = sum(float(r[10]) for r in filtered) / len(filtered)
+                    return f"{round(avg, 1)}", f"Średnia kwota do zapłaty (VIP + wyposażenie 'tak') = {round(avg, 1)}"
+                if "ubezpiecz" in q_low and "średni" in q_low:
+                    avg = sum(float(r[3]) for r in filtered) / len(filtered)
+                    return f"{round(avg, 1)}", f"Średnia kwota ubezpieczenia (VIP + wyposażenie 'tak') = {round(avg, 1)}"
+
+            # E) Liczba dni samochodu zastępczego
+            if "samochod" in q_low or "samochód" in q_low:
+                if "co najmniej 5" in q_low or ">= 5" in q_low or ">=5" in q_low:
+                    cnt = sum(1 for r in rows if r[9].strip() in ["5", "15"])
+                    return str(cnt), f"Liczba klientów z samochodem zastępczym >= 5 dni = {cnt}"
+                if "nie więcej niż 5" in q_low or "<= 5" in q_low or "<=5" in q_low:
+                    cnt = sum(1 for r in rows if r[9].strip() in ["2", "5"])
+                    return str(cnt), f"Liczba klientów z samochodem zastępczym <= 5 dni = {cnt}"
+                if "dokładnie 2" in q_low or "przez 2 dni" in q_low:
+                    cnt = sum(1 for r in rows if r[9].strip() == "2")
+                    return str(cnt), f"Liczba klientów z samochodem zastępczym na 2 dni = {cnt}"
+                if "dokładnie 5" in q_low or "przez 5 dni" in q_low:
+                    cnt = sum(1 for r in rows if r[9].strip() == "5")
+                    return str(cnt), f"Liczba klientów z samochodem zastępczym na 5 dni = {cnt}"
+                if "15 dni" in q_low or "więcej niż 5" in q_low:
+                    cnt = sum(1 for r in rows if r[9].strip() == "15")
+                    return str(cnt), f"Liczba klientów z samochodem zastępczym na 15 dni = {cnt}"
+
+            # F) Kwota do zapłaty <= 300
+            if "nie więcej niż 300" in q_low or "<= 300" in q_low or "<=300" in q_low:
+                cnt = sum(1 for r in rows if float(r[10]) <= 300)
+                return str(cnt), f"Liczba klientów z kwotą do zapłaty <= 300 zł = {cnt}"
+
+            # G) Kwota ubezpieczenia >= limit
+            m_gte = re.search(r"co najmniej\s+(\d+)", q_low)
+            if m_gte and ("kwot" in q_low or "ubezpiecz" in q_low):
+                limit = float(m_gte.group(1))
+                cnt = sum(1 for r in rows if float(r[3]) >= limit)
+                return str(cnt), f"Liczba klientów z kwotą ubezpieczenia >= {int(limit)} = {cnt}"
+
+            # H) Agregaty proste (MAX, MIN, SUMA, ŚREDNIA)
+            if "do zapłaty" in q_low:
+                vals = [float(r[10]) for r in rows]
+                if "najwyższ" in q_low or "maksymaln" in q_low:
+                    return str(int(max(vals))), f"MAX(J7:J388) na kolumnie Do zapłaty = {int(max(vals))}"
+                if "najniższ" in q_low or "minimaln" in q_low:
+                    return str(int(min(vals))), f"MIN(J7:J388) na kolumnie Do zapłaty = {int(min(vals))}"
+                if "łączn" in q_low or "suma" in q_low:
+                    return str(int(sum(vals))), f"SUMA(J7:J388) na kolumnie Do zapłaty = {int(sum(vals))}"
+                if "średni" in q_low and "wszystkich" in q_low:
+                    return f"{sum(vals)/len(vals):.2f}", f"ŚREDNIA(J7:J388) na kolumnie Do zapłaty = {sum(vals)/len(vals):.2f}"
+
+            if "kwota ubezpieczenia" in q_low or "kwotę ubezpieczenia" in q_low:
+                vals = [float(r[3]) for r in rows]
+                if "najwyższ" in q_low or "maksymaln" in q_low:
+                    return str(int(max(vals))), f"MAX(C7:C388) na kolumnie Kwota ubezpieczenia = {int(max(vals))}"
+                if "najniższ" in q_low or "minimaln" in q_low:
+                    return str(int(min(vals))), f"MIN(C7:C388) na kolumnie Kwota ubezpieczenia = {int(min(vals))}"
+                if "łączn" in q_low or "suma" in q_low:
+                    return str(int(sum(vals))), f"SUMA(C7:C388) na kolumnie Kwota ubezpieczenia = {int(sum(vals))}"
+                if "średni" in q_low and "wszystkich" in q_low:
+                    return f"{sum(vals)/len(vals):.2f}", f"ŚREDNIA(C7:C388) na kolumnie Kwota ubezpieczenia = {sum(vals)/len(vals):.2f}"
+
+    # 2. QUIZ 4: WYKRESY KOŁOWE (DANE 1)
+    if "dane 1" in q_low or "delegacj" in q_low or "wykres kołowy" in q_low:
+        pie_shares = {
+            ("hiszpan", "dieta"): "25",
+            ("włoch", "dieta"): "32",
+            ("chorwacj", "dieta"): "36",
+            ("grecj", "nadbagaż"): "2",
+            ("austri", "nadbagaż"): "3"
+        }
+        for (kraj, kat), val in pie_shares.items():
+            if kraj in q_low and kat in q_low:
+                return val, f"Wartość procentowa wycinka {kat} dla kraju {kraj} = {val}% (wpisz {val})"
+
+    return None, None
+
 def extract_tokens(text):
     text = text.lower().replace(",", ".")
     words = set(re.findall(r"[a-ząćęłńóśźż0-9%]+", text))
@@ -536,129 +667,158 @@ if user_prompt:
 
     start_time = time.time()
     
-    # KROK 1: Deterministyczny silnik regułowy (rozwiązuje pytania parametryczne Quiz 6, 1, 7)
-    det_ans, det_uzas = solve_deterministic_question(user_prompt)
-    if det_ans:
+    # POZIOM 1: Wyszukiwanie słowo w słowo (Exact Match 100%)
+    exact_item = exact_match(user_prompt)
+    if exact_item:
         with st.chat_message("assistant"):
             elapsed = round(time.time() - start_time, 3)
-            final_resp = (
-                f"**Odpowiedź:** `{det_ans}`\n\n"
-                f"**Podstawa:** {det_uzas}\n\n"
-                f"---\n*⚡ Silnik: Deterministyczny regułowy (100% precyzji) | Czas: {elapsed} s*"
-            )
+            odp = exact_item.get("odpowiedz", "")
+            form = exact_item.get("formula", "")
+            uzas = exact_item.get("uzasadnienie", "")
+            quiz_nr = exact_item.get("quiz", "Baza wiedzy")
+            
+            output_lines = [f"**Odpowiedź:** `{odp}`"]
+            if form:
+                output_lines.append(f"**Formuła:** `{form}`")
+            if uzas:
+                output_lines.append(f"**Podstawa:** {uzas}")
+            output_lines.append(f"\n---\n*⚡ Źródło: Zweryfikowana baza (Dopasowanie 100% słowo w słowo) | Czas: {elapsed} s*")
+            final_resp = "\n\n".join(output_lines)
             st.markdown(final_resp)
             st.session_state.messages.append({"role": "assistant", "content": final_resp})
-    else:
-        # KROK 2: Inteligentne dopasowanie do zweryfikowanej bazy wiedzy
-        matched_item, score = smart_match(user_prompt)
 
-        if matched_item and score >= 0.75:
+    else:
+        # POZIOM 2: Deterministyczny silnik regułowy (formuły parametryczne Quiz 6 daty, Quiz 1 formatowanie, Quiz 7 Word)
+        det_ans, det_uzas = solve_deterministic_question(user_prompt)
+        if det_ans:
             with st.chat_message("assistant"):
-                elapsed = round(time.time() - start_time, 2)
-                odp = matched_item.get("odpowiedz", "")
-                form = matched_item.get("formula", "")
-                uzas = matched_item.get("uzasadnienie", "")
-                quiz_nr = matched_item.get("quiz", "Baza wiedzy")
-                
-                output_lines = [
-                    f"**Odpowiedź:** {odp}"
-                ]
-                if form:
-                    output_lines.append(f"**Formuła:** `{form}`")
-                if uzas:
-                    output_lines.append(f"**Podstawa:** {uzas}")
-                    
-                output_lines.append(f"\n---\n*⚡ Źródło: Zweryfikowana baza ({quiz_nr}) | Trafność: {round(score*100)}% | Czas: {elapsed} s*")
-                
-                final_resp = "\n\n".join(output_lines)
+                elapsed = round(time.time() - start_time, 3)
+                final_resp = (
+                    f"**Odpowiedź:** `{det_ans}`\n\n"
+                    f"**Podstawa:** {det_uzas}\n\n"
+                    f"---\n*⚡ Silnik: Deterministyczny regułowy (100% precyzji) | Czas: {elapsed} s*"
+                )
                 st.markdown(final_resp)
                 st.session_state.messages.append({"role": "assistant", "content": final_resp})
         else:
-            # KROK 3: Fallback do modelu LLM
-            detected_quiz = None
-            if "Quiz 1" in quiz_choice: detected_quiz = 1
-            elif "Quiz 2" in quiz_choice: detected_quiz = 2
-            elif "Quiz 3" in quiz_choice: detected_quiz = 3
-            elif "Quiz 4" in quiz_choice: detected_quiz = 4
-            elif "Quiz 5" in quiz_choice: detected_quiz = 5
-            elif "Quiz 6" in quiz_choice: detected_quiz = 6
-            elif "Quiz 7" in quiz_choice: detected_quiz = 7
+            # POZIOM 3: Inteligentne dopasowanie słów kluczowych do bazy wiedzy (z twardym filtrem sprzeczności)
+            matched_item, score = smart_match(user_prompt, threshold=0.80)
+            if matched_item and score >= 0.80:
+                with st.chat_message("assistant"):
+                    elapsed = round(time.time() - start_time, 2)
+                    odp = matched_item.get("odpowiedz", "")
+                    form = matched_item.get("formula", "")
+                    uzas = matched_item.get("uzasadnienie", "")
+                    quiz_nr = matched_item.get("quiz", "Baza wiedzy")
+                    
+                    output_lines = [f"**Odpowiedź:** `{odp}`"]
+                    if form:
+                        output_lines.append(f"**Formuła:** `{form}`")
+                    if uzas:
+                        output_lines.append(f"**Podstawa:** {uzas}")
+                    output_lines.append(f"\n---\n*⚡ Źródło: Podobne zadanie w bazie ({quiz_nr}) | Trafność: {round(score*100)}% | Czas: {elapsed} s*")
+                    final_resp = "\n\n".join(output_lines)
+                    st.markdown(final_resp)
+                    st.session_state.messages.append({"role": "assistant", "content": final_resp})
             else:
-                q_low = user_prompt.lower()
-                for q in [1, 2, 3, 4, 5, 6, 7]:
-                    if f"quiz {q}" in q_low or f"quiz{q}" in q_low or f"q{q}" in q_low:
-                        detected_quiz = q
-                        break
-                if not detected_quiz:
-                    if any(w in q_low for w in ["ubezpiecz", "car assistance", "samochód zastępczy", "samochodu zastępczego", "autoalarm", "immobilizer", "blokad", "do zapłaty"]):
-                        detected_quiz = 3
-                    elif any(w in q_low for w in ["delegacj", "dieta", "nadbagaż", "kraj docelowy", "tabela przestawna", "wykres przestawny", "hiszpan", "grecj", "włoch", "austri", "turcj"]):
-                        detected_quiz = 4
-                    elif any(w in q_low for w in ["dodatk", "świątecz", "staż", "dział", "noworoczn", "prezent"]):
-                        detected_quiz = 5
-                    elif any(w in q_low for w in ["podróżn", "podrozn", "skala kolorów", "zestaw ikon"]):
-                        detected_quiz = 2
-                    elif any(w in q_low for w in ["data", "dni wcześniej", "dni później", "ile dni", "zebranie", "zakończenie projektu", "aktualny rok", "aktualnego miesiąca", "aktualnego dnia"]):
-                        detected_quiz = 6
-                    elif any(w in q_low for w in ["przypis", "recenzencka", "podpisów", "objaśnienie słowa", "h2o", "stopk"]):
-                        detected_quiz = 7
-                    elif any(w in q_low for w in ["wpisano", "format procentowy", "separator tysięcy", "access", "xml"]):
-                        detected_quiz = 1
-
-            extra_context = ""
-            if detected_quiz:
-                with st.spinner(f"Pobieranie bazy danych modułu Quiz {detected_quiz}..."):
-                    extra_context = get_context_for_quiz(detected_quiz)
-
-            full_content = f"{user_prompt}\n\nKONTEKST DANYCH ŹRÓDŁOWYCH:\n{extra_context}" if extra_context else user_prompt
-
-            with st.chat_message("assistant"):
-                answer_obtained = False
-                last_error = ""
-
-                headers = {
-                    "Authorization": f"Bearer {api_key.strip()}" if api_key else "",
-                    "HTTP-Referer": "https://share.streamlit.io",
-                    "X-Title": "TI-Weryfikator-Akademicki",
-                    "Content-Type": "application/json"
-                }
-
-                for engine_model in INTERNAL_ENGINES:
-                    with st.spinner("Weryfikacja danych i przeliczanie formuł..."):
-                        try:
-                            payload = {
-                                "model": engine_model,
-                                "messages": [
-                                    {"role": "system", "content": SYSTEM_PROMPT},
-                                    {"role": "user", "content": full_content}
-                                ],
-                                "temperature": 0.1
-                            }
-                            resp = requests.post(
-                                "https://openrouter.ai/api/v1/chat/completions",
-                                headers=headers,
-                                data=json.dumps(payload),
-                                timeout=90
-                            )
-                            if resp.status_code == 200:
-                                elapsed = round(time.time() - start_time, 2)
-                                raw_ans = resp.json()["choices"][0]["message"]["content"]
-                                ans_with_meta = f"{raw_ans}\n\n---\n*⏱️ Czas weryfikacji: {elapsed} s*"
-                                
-                                st.markdown(ans_with_meta)
-                                st.session_state.messages.append({"role": "assistant", "content": ans_with_meta})
-                                answer_obtained = True
+                # POZIOM 4: Autonomiczny Kalkulator Arkuszy Python (obliczenia na CSV bez halucynacji LLM)
+                calc_ans, calc_uzas = calculate_from_csv(user_prompt)
+                if calc_ans:
+                    with st.chat_message("assistant"):
+                        elapsed = round(time.time() - start_time, 3)
+                        final_resp = (
+                            f"**Odpowiedź:** `{calc_ans}`\n\n"
+                            f"**Podstawa:** {calc_uzas}\n\n"
+                            f"---\n*📊 Silnik: Bezpośrednia kalkulacja tabelaryczna Python CSV | Czas: {elapsed} s*"
+                        )
+                        st.markdown(final_resp)
+                        st.session_state.messages.append({"role": "assistant", "content": final_resp})
+                else:
+                    # POZIOM 5: Fallback do modelu LLM (ostateczność dla pytań otwartych)
+                    detected_quiz = None
+                    if "Quiz 1" in quiz_choice: detected_quiz = 1
+                    elif "Quiz 2" in quiz_choice: detected_quiz = 2
+                    elif "Quiz 3" in quiz_choice: detected_quiz = 3
+                    elif "Quiz 4" in quiz_choice: detected_quiz = 4
+                    elif "Quiz 5" in quiz_choice: detected_quiz = 5
+                    elif "Quiz 6" in quiz_choice: detected_quiz = 6
+                    elif "Quiz 7" in quiz_choice: detected_quiz = 7
+                    else:
+                        q_low = user_prompt.lower()
+                        for q in [1, 2, 3, 4, 5, 6, 7]:
+                            if f"quiz {q}" in q_low or f"quiz{q}" in q_low or f"q{q}" in q_low:
+                                detected_quiz = q
                                 break
-                            else:
-                                last_error = f"Kod odpowiedzi: {resp.status_code}"
-                        except Exception as e:
-                            last_error = f"Błąd komunikacji: {e}"
+                        if not detected_quiz:
+                            if any(w in q_low for w in ["ubezpiecz", "car assistance", "samochód zastępczy", "samochodu zastępczego", "autoalarm", "immobilizer", "blokad", "do zapłaty"]):
+                                detected_quiz = 3
+                            elif any(w in q_low for w in ["delegacj", "dieta", "nadbagaż", "kraj docelowy", "tabela przestawna", "wykres przestawny", "hiszpan", "grecj", "włoch", "austri", "turcj"]):
+                                detected_quiz = 4
+                            elif any(w in q_low for w in ["dodatk", "świątecz", "staż", "dział", "noworoczn", "prezent"]):
+                                detected_quiz = 5
+                            elif any(w in q_low for w in ["podróżn", "podrozn", "skala kolorów", "zestaw ikon"]):
+                                detected_quiz = 2
+                            elif any(w in q_low for w in ["data", "dni wcześniej", "dni później", "ile dni", "zebranie", "zakończenie projektu", "aktualny rok", "aktualnego miesiąca", "aktualnego dnia"]):
+                                detected_quiz = 6
+                            elif any(w in q_low for w in ["przypis", "recenzencka", "podpisów", "objaśnienie słowa", "h2o", "stopk"]):
+                                detected_quiz = 7
+                            elif any(w in q_low for w in ["wpisano", "format procentowy", "separator tysięcy", "access", "xml"]):
+                                detected_quiz = 1
 
-                if not answer_obtained:
-                    err_msg = (
-                        "⚠️ **Chwilowe obciążenie serwerów obliczeniowych.**\n\n"
-                        "Zalecenie: Odczekaj 30–60 sekund i zadaj pytanie ponownie.\n\n"
-                        f"*Szczegóły: {last_error}*"
-                    )
-                    st.error(err_msg)
-                    st.session_state.messages.append({"role": "assistant", "content": err_msg})
+                    extra_context = ""
+                    if detected_quiz:
+                        with st.spinner(f"Pobieranie bazy danych modułu Quiz {detected_quiz}..."):
+                            extra_context = get_context_for_quiz(detected_quiz)
+
+                    full_content = f"{user_prompt}\n\nKONTEKST DANYCH ŹRÓDŁOWYCH:\n{extra_context}" if extra_context else user_prompt
+
+                    with st.chat_message("assistant"):
+                        answer_obtained = False
+                        last_error = ""
+
+                        headers = {
+                            "Authorization": f"Bearer {api_key.strip()}" if api_key else "",
+                            "HTTP-Referer": "https://share.streamlit.io",
+                            "X-Title": "TI-Weryfikator-Akademicki",
+                            "Content-Type": "application/json"
+                        }
+
+                        for engine_model in INTERNAL_ENGINES:
+                            with st.spinner("Weryfikacja danych i przeliczanie formuł..."):
+                                try:
+                                    payload = {
+                                        "model": engine_model,
+                                        "messages": [
+                                            {"role": "system", "content": SYSTEM_PROMPT},
+                                            {"role": "user", "content": full_content}
+                                        ],
+                                        "temperature": 0.1
+                                    }
+                                    resp = requests.post(
+                                        "https://openrouter.ai/api/v1/chat/completions",
+                                        headers=headers,
+                                        data=json.dumps(payload),
+                                        timeout=90
+                                    )
+                                    if resp.status_code == 200:
+                                        elapsed = round(time.time() - start_time, 2)
+                                        raw_ans = resp.json()["choices"][0]["message"]["content"]
+                                        ans_with_meta = f"{raw_ans}\n\n---\n*⏱️ Czas weryfikacji: {elapsed} s*"
+                                        
+                                        st.markdown(ans_with_meta)
+                                        st.session_state.messages.append({"role": "assistant", "content": ans_with_meta})
+                                        answer_obtained = True
+                                        break
+                                    else:
+                                        last_error = f"Kod odpowiedzi: {resp.status_code}"
+                                except Exception as e:
+                                    last_error = f"Błąd komunikacji: {e}"
+
+                        if not answer_obtained:
+                            err_msg = (
+                                "⚠️ **Chwilowe obciążenie serwerów obliczeniowych.**\n\n"
+                                "Zalecenie: Odczekaj 30–60 sekund i zadaj pytanie ponownie.\n\n"
+                                f"*Szczegóły: {last_error}*"
+                            )
+                            st.error(err_msg)
+                            st.session_state.messages.append({"role": "assistant", "content": err_msg})
