@@ -81,19 +81,31 @@ def solve_deterministic_question(q):
     q_low = q.lower().replace(",", ".")
     
     # QUIZ 6: FORMUŁY DATOWE (Parametryczne)
-    # 1. Liczba dni do wydarzenia w komórce: =CELL-DZIŚ()
-    m_dni_do = re.search(r"w komórce\s+([a-z]\d+).*?za ile dni", q_low)
-    if m_dni_do:
-        cell = m_dni_do.group(1).upper()
-        return f"={cell}-DZIŚ()", f"Formuła obliczająca liczbę dni do terminu w komórce {cell} (wyłącznie polska funkcja DZIŚ)"
+    # 1. Liczba dni do / od wydarzenia w komórce:
+    # A) W przeszłości: "ile dni temu" / "odbyło się" -> =DZIŚ()-CELL
+    m_temu = re.search(r"w komórce\s+([a-z]\d+).*?(?:ile dni temu|odbyło się)", q_low)
+    if m_temu:
+        cell = m_temu.group(1).upper()
+        return f"=DZIŚ()-{cell}", f"Wydarzenie z przeszłości (ile dni temu odbyło się zebranie): =DZIŚ()-{cell}"
 
-    # 2. Przesunięcie o N dni z komórki: =CELL+N lub =CELL-N
+    # B) W przyszłości: "za ile dni będzie" / "zbliżającego się" -> =CELL-DZIŚ()
+    m_za_ile = re.search(r"w komórce\s+([a-z]\d+).*?(?:za ile dni|będzie)", q_low)
+    if m_za_ile:
+        cell = m_za_ile.group(1).upper()
+        return f"={cell}-DZIŚ()", f"Wydarzenie w przyszłości (za ile dni będzie): ={cell}-DZIŚ()"
+
+    # 2. Przesunięcie o N dni / tydzień z komórki: =CELL+N lub =CELL-N
     m_cell = re.search(r"w komórce\s+([a-z]\d+)", q_low)
     if m_cell and ("później" in q_low or "wcześniej" in q_low):
         cell = m_cell.group(1).upper()
-        m_days = re.search(r"(\d+)\s+dni", q_low)
-        if m_days:
-            days = m_days.group(1)
+        days = None
+        if "tydzień" in q_low or "tygodnia" in q_low:
+            days = "7"
+        else:
+            m_days = re.search(r"(\d+)\s+dni", q_low)
+            if m_days:
+                days = m_days.group(1)
+        if days:
             if "później" in q_low or "za " in q_low:
                 return f"={cell}+{days}", f"Dodanie {days} dni do daty w komórce {cell}"
             else:
@@ -101,9 +113,14 @@ def solve_deterministic_question(q):
 
     # 3. Zawsze data od dziś: =DZIŚ()+N lub =DZIŚ()-N
     if "zawsze" in q_low and "data" in q_low:
-        m_days = re.search(r"(\d+)\s+dni", q_low)
-        if m_days:
-            days = m_days.group(1)
+        days = None
+        if "tydzień" in q_low or "tygodnia" in q_low:
+            days = "7"
+        else:
+            m_days = re.search(r"(\d+)\s+dni", q_low)
+            if m_days:
+                days = m_days.group(1)
+        if days:
             if "wcześniej" in q_low or "temu" in q_low:
                 return f"=DZIŚ()-{days}", f"Odjęcie {days} dni od bieżącej daty (wyłącznie funkcja DZIŚ)"
             else:
@@ -120,7 +137,9 @@ def solve_deterministic_question(q):
         if "dzień" in q_low or "dnia" in q_low:
             return f"=DZIEŃ({cell})", f"Polska funkcja DZIEŃ({cell}) wyodrębniająca dzień"
 
-    # 5. Aktualny miesiąc / rok / dzień
+    # 5. Aktualny dzień / miesiąc / rok
+    if "aktualnego dnia" in q_low or "dnia w miesiącu" in q_low or ("aktualnego" in q_low and "dnia" in q_low):
+        return "=DZIEŃ(DZIŚ())", "Numer bieżącego dnia w miesiącu z funkcji DZIŚ()"
     if "aktualnego miesiąca" in q_low:
         return "=MIESIĄC(DZIŚ())", "Numer bieżącego miesiąca z funkcji DZIŚ()"
     if "aktualnego roku" in q_low:
