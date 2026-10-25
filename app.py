@@ -137,13 +137,13 @@ def solve_deterministic_question(q):
         if "dzień" in q_low or "dnia" in q_low:
             return f"=DZIEŃ({cell})", f"Polska funkcja DZIEŃ({cell}) wyodrębniająca dzień"
 
-    # 5. Aktualny dzień / miesiąc / rok
-    if "aktualnego dnia" in q_low or "dnia w miesiącu" in q_low or ("aktualnego" in q_low and "dnia" in q_low):
-        return "=DZIEŃ(DZIŚ())", "Numer bieżącego dnia w miesiącu z funkcji DZIŚ()"
-    if "aktualnego miesiąca" in q_low:
-        return "=MIESIĄC(DZIŚ())", "Numer bieżącego miesiąca z funkcji DZIŚ()"
-    if "aktualnego roku" in q_low:
-        return "=ROK(DZIŚ())", "Numer bieżącego roku z funkcji DZIŚ()"
+    # 5. Aktualny dzień / miesiąc / rok (niezależnie od formy gramatycznej)
+    if ("aktualn" in q_low or "bieżąc" in q_low) and "rok" in q_low:
+        return "=ROK(DZIŚ())", "Formuła zwracająca bieżący rok z funkcji DZIŚ()"
+    if ("aktualn" in q_low or "bieżąc" in q_low) and ("dzień" in q_low or "dnia" in q_low):
+        return "=DZIEŃ(DZIŚ())", "Formuła zwracająca numer bieżącego dnia w miesiącu z funkcji DZIŚ()"
+    if ("aktualn" in q_low or "bieżąc" in q_low) and ("miesiąc" in q_low or "miesiąca" in q_low):
+        return "=MIESIĄC(DZIŚ())", "Formuła zwracająca numer bieżącego miesiąca z funkcji DZIŚ()"
 
     # 6. Różnica dwóch dat: zawsze [data późniejsza] - [data wcześniejsza]
     m_diff = re.search(r"w komórce\s+([a-z]\d+)\s+wpisana jest data\s+(\d{4}-\d{2}-\d{2}).*?w komórce\s+([a-z]\d+)\s+data\s+(\d{4}-\d{2}-\d{2}).*?ile dni upłynęło", q_low)
