@@ -1593,5 +1593,31 @@
       "arkuszu zestawienie",
       "najwyższą kwotę do zapłaty"
     ]
+  },
+  {
+    "quiz": "Quiz 3",
+    "pytanie": "Oblicz łączną kwotę do zapłaty klientów, którzy zadeklarowali, że nie będą korzystać z ubezpieczenia wyposażenia dodatkowego i równocześnie mają możliwość skorzystania z samochodu zastępczego przez mniej niż 15 dni. Wynik wpisz poniżej.",
+    "odpowiedz": "55512",
+    "formula": null,
+    "uzasadnienie": "SUMA.WARUNKÓW na kolumnie kwoty do zapłaty J7:J388 dla wyposażenie='nie' i samochód w (2, 5) = 55512.",
+    "typ": "wartosc",
+    "klucze": [
+      "łączną kwotę do zapłaty",
+      "nie będą korzystać z ubezpieczenia wyposażenia dodatkowego",
+      "mniej niż 15 dni"
+    ]
+  },
+  {
+    "quiz": "Quiz 3",
+    "pytanie": "Co należy wpisać w komórce A2 w arkuszu Zestawienie, aby obliczyć w niej średnią kwotę ubezpieczenia wszystkich klientów? Odpowiedź wpisz poniżej:",
+    "odpowiedz": "=ŚREDNIA('Ubezpieczenia 1'!C7:C388) (lub =średnia('Ubezpieczenia 1'!C7:C388))",
+    "formula": "=ŚREDNIA('Ubezpieczenia 1'!C7:C388)",
+    "uzasadnienie": "Funkcja ŚREDNIA na kolumnie kwoty ubezpieczenia C7:C388.",
+    "typ": "formula",
+    "klucze": [
+      "w komórce a2",
+      "arkuszu zestawienie",
+      "średnią kwotę ubezpieczenia"
+    ]
   }
 ]

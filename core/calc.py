@@ -43,9 +43,15 @@ def calculate_from_csv(query: str, csv_cache: Dict[str, List[List[str]]]) -> Tup
                         return f"{avg:.2f}", f"Średnia kwota ubezpieczenia (Standard + Samochód >= 5 dni; {len(filtered)} klientów) = {avg:.2f}"
 
             if "mniej niż 15" in q_low or ("nie będą korzystać" in q_low and "samochod" in q_low):
-                filtered = [r for r in data_rows if r[8].strip() == "nie" and r[9].strip() in ["2", "5"]]
-                s = sum(float(r[3]) for r in filtered)
-                return str(int(s)), f"Łączna kwota ubezpieczenia dla wyposażenie='nie' i samochód < 15 dni ({len(filtered)} klientów) = {int(s)}"
+                filtered = [r for r in data_rows if r[8].strip().lower() == "nie" and r[9].strip() in ["2", "5"]]
+                if "do zapłaty" in q_low:
+                    s = sum(float(r[10]) for r in filtered)
+                    return str(int(s)), f"Łączna kwota do zapłaty dla wyposażenie='nie' i samochód < 15 dni ({len(filtered)} klientów) = {int(s)}"
+                if "ubezpiecz" in q_low:
+                    s = sum(float(r[3]) for r in filtered)
+                    return str(int(s)), f"Łączna kwota ubezpieczenia dla wyposażenie='nie' i samochód < 15 dni ({len(filtered)} klientów) = {int(s)}"
+                s = sum(float(r[10]) for r in filtered) if "zapłat" in q_low else sum(float(r[3]) for r in filtered)
+                return str(int(s)), f"Kalkulacja dla wyposażenie='nie' i samochód < 15 dni ({len(filtered)} klientów) = {int(s)}"
 
             if "autoalarm" in q_low and "blokad" in q_low:
                 filtered = [r for r in data_rows if r[4].strip() == "+" and r[6].strip() == "+"]
