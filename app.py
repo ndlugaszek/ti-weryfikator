@@ -278,6 +278,11 @@ def solve_deterministic_question(q):
                 return "=SUMA('Ubezpieczenia 1'!J7:J388)", "Funkcja SUMA na kolumnie kwot do zapłaty J7:J388."
             if "wszystkich" in q_low or "klientów" in q_low:
                 return "368352", "Łączna kwota do zapłaty wszystkich klientów: SUMA(J7:J388) = 368352."
+        if "bagaż" in q_low or "bagażu" in q_low:
+            if "standard" in q_low and "co najmniej 5" in q_low:
+                return "1066.9 (lub 1066,9)", "Średnia kwota do zapłaty (bagaż standard + samochód zastępczy >= 5 dni; 55 klientów, suma 58680 zł) = 1066,9."
+            if "vip" in q_low and "dodatkow" in q_low:
+                return "2567.2 (lub 2567,2)", "ŚREDNIA.WARUNKÓW na kwocie do zapłaty dla bagaż='vip' i dodatkowe='tak' = 2567,2."
         if "średni" in q_low:
             if "komórce" in q_low or "formuł" in q_low or "zestawienie" in q_low:
                 return "=ŚREDNIA('Ubezpieczenia 1'!J7:J388)", "Funkcja ŚREDNIA na kolumnie kwot do zapłaty J7:J388."

@@ -689,6 +689,18 @@
     "quiz": "Quiz 3",
     "klucze": [
       "średnią kwotę do zapłaty",
+      "bagażu standard",
+      "co najmniej 5 dni"
+    ],
+    "pytanie": "Oblicz średnią kwotę do zapłaty klientów, którzy posiadają ubezpieczenie bagażu standard i równocześnie mają możliwość skorzystania z samochodu zastępczego przez co najmniej 5 dni. Wynik, z dokładnością do jednego miejsca po przecinku, wpisz poniżej.",
+    "odpowiedz": "1066.9 (lub 1066,9)",
+    "uzasadnienie": "55 klientów spełniających warunki (bagaż='standard', samochód w (5, 15)). Suma do zapłaty = 58 680 zł, średnia = 1066,9 zł.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "średnią kwotę do zapłaty",
       "bagażu vip oraz ubezpieczenie bagażu dodatkowego"
     ],
     "pytanie": "Oblicz średnią kwotę do zapłaty klientów, którzy posiadają równocześnie ubezpieczenie bagażu vip oraz ubezpieczenie bagażu dodatkowego. Wynik, z dokładnością do jednego miejsca po przecinku, wpisz poniżej.",
