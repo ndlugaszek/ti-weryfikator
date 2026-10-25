@@ -12,11 +12,35 @@ def calculate_from_csv(query: str, csv_cache: Dict[str, List[List[str]]]) -> Tup
         if rows:
             data_rows = rows[4:]
 
-            if "standard" in q_low and ("co najmniej 5" in q_low or ">= 5" in q_low or ">=5" in q_low):
-                filtered = [r for r in data_rows if r[7].strip().lower() == "standard" and r[9].strip() in ["5", "15"]]
-                if "do zapłaty" in q_low and "średni" in q_low:
-                    avg = sum(float(r[10]) for r in filtered) / len(filtered)
-                    return f"{round(avg, 1)}", f"Średnia kwota do zapłaty dla bagaż standard i samochód >= 5 dni ({len(filtered)} klientów) = {round(avg, 1)}"
+            # Zliczanie wyposażenia dodatkowego
+            if "wyposażeni" in q_low and "dodatkow" in q_low and not any(k in q_low for k in ["vip", "mniej niż 15", "samochod", "bagaż"]):
+                if "nie zadeklarowało" in q_low:
+                    cnt = sum(1 for r in data_rows if r[8].strip() == "")
+                    return str(cnt), f"Liczba klientów, którzy nie zadeklarowali wyposażenia = {cnt}"
+                if "nie skorzysta" in q_low or "nie będą korzystać" in q_low:
+                    cnt = sum(1 for r in data_rows if r[8].strip().lower() == "nie")
+                    return str(cnt), f"Liczba klientów, którzy nie skorzystają z wyposażenia = {cnt}"
+                if "skorzysta" in q_low or "korzysta" in q_low:
+                    cnt = sum(1 for r in data_rows if r[8].strip().lower() == "tak")
+                    return str(cnt), f"Liczba klientów korzystających z wyposażenia = {cnt}"
+
+            if "standard" in q_low and ("samochod" in q_low or "samochód" in q_low or "dni" in q_low):
+                if "więcej niż 5" in q_low or "> 5" in q_low or ">5" in q_low or "15 dni" in q_low:
+                    filtered = [r for r in data_rows if r[7].strip().lower() == "standard" and r[9].strip() == "15"]
+                    if "kwot" in q_low and "ubezpiecz" in q_low:
+                        avg = sum(float(r[3]) for r in filtered) / len(filtered)
+                        return f"{avg:.2f}", f"Średnia kwota ubezpieczenia (Standard + Samochód > 5 dni / 15 dni; {len(filtered)} klientów) = {avg:.2f}"
+                    if "do zapłaty" in q_low:
+                        avg = sum(float(r[10]) for r in filtered) / len(filtered)
+                        return f"{avg:.2f}", f"Średnia kwota do zapłaty (Standard + Samochód > 5 dni / 15 dni; {len(filtered)} klientów) = {avg:.2f}"
+                elif "co najmniej 5" in q_low or ">= 5" in q_low or ">=5" in q_low:
+                    filtered = [r for r in data_rows if r[7].strip().lower() == "standard" and r[9].strip() in ["5", "15"]]
+                    if "do zapłaty" in q_low:
+                        avg = sum(float(r[10]) for r in filtered) / len(filtered)
+                        return f"{round(avg, 1)}", f"Średnia kwota do zapłaty (Standard + Samochód >= 5 dni; {len(filtered)} klientów) = {round(avg, 1)}"
+                    if "kwot" in q_low and "ubezpiecz" in q_low:
+                        avg = sum(float(r[3]) for r in filtered) / len(filtered)
+                        return f"{avg:.2f}", f"Średnia kwota ubezpieczenia (Standard + Samochód >= 5 dni; {len(filtered)} klientów) = {avg:.2f}"
 
             if "mniej niż 15" in q_low or ("nie będą korzystać" in q_low and "samochod" in q_low):
                 filtered = [r for r in data_rows if r[8].strip() == "nie" and r[9].strip() in ["2", "5"]]
@@ -41,7 +65,7 @@ def calculate_from_csv(query: str, csv_cache: Dict[str, List[List[str]]]) -> Tup
                     avg = sum(float(r[3]) for r in filtered) / len(filtered)
                     return f"{round(avg, 1)}", f"Średnia kwota ubezpieczenia (VIP + wyposażenie 'tak') = {round(avg, 1)}"
 
-            if "samochod" in q_low or "samochód" in q_low:
+            if ("samochod" in q_low or "samochód" in q_low) and not any(k in q_low for k in ["standard", "vip", "bagaż", "wyposażeni", "kwot", "do zapłaty", "średni"]):
                 if "co najmniej 5" in q_low or ">= 5" in q_low or ">=5" in q_low:
                     cnt = sum(1 for r in data_rows if r[9].strip() in ["5", "15"])
                     return str(cnt), f"Liczba klientów z samochodem zastępczym >= 5 dni = {cnt}"

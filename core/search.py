@@ -14,16 +14,21 @@ CONFLICT_PAIRS = [
     ({"wcześniej", "temu", "przed"}, {"później", "po"}),
     ({"nie ubezpiecza", "bez ubezpieczenia"}, {"ubezpiecza bagaż", "posiada ubezpieczenie bagażu"}),
     ({"nie korzysta"}, {"korzysta"}),
-    ({"nie skorzysta"}, {"skorzysta"}),
-    ({"nie zadeklarowało"}, {"zadeklarowało", "podjęło decyzję"}),
+    ({"nie skorzysta", "nie będą korzystać"}, {"skorzysta", "korzysta", "będą korzystać"}),
+    ({"nie zadeklarowało"}, {"zadeklarowało", "podjęło decyzję", "korzysta", "skorzysta"}),
     ({"kwotę do zapłaty", "kwota do zapłaty", "do zapłaty"}, {"kwota ubezpieczenia", "kwotę ubezpieczenia"}),
     ({"rok", "roku"}, {"miesiąc", "miesiąca"}),
     ({"miesiąc", "miesiąca"}, {"dzień", "dnia"}),
     ({"rok", "roku"}, {"dzień", "dnia"}),
-    ({"nie więcej niż 5", "<= 5"}, {"co najmniej 5", ">= 5", "dokładnie 2", "dokładnie 5", "15 dni"}),
-    ({"co najmniej 5", ">= 5"}, {"nie więcej niż 5", "<= 5", "dokładnie 2", "dokładnie 5"}),
-    ({"w komórce a3", "komórce a3"}, {"w komórce a4", "komórce a4", "w komórce a1", "w komórce a2"}),
-    ({"w komórce a4", "komórce a4"}, {"w komórce a3", "komórce a3", "w komórce a1", "w komórce a2"})
+    ({"nie więcej niż 5", "<= 5", "<=5"}, {"co najmniej 5", ">= 5", ">=5", "dokładnie 2", "dokładnie 5", "15 dni", "więcej niż 5", "> 5", ">5"}),
+    ({"co najmniej 5", ">= 5", ">=5"}, {"nie więcej niż 5", "<= 5", "<=5", "dokładnie 2", "dokładnie 5", "więcej niż 5", "> 5", ">5"}),
+    ({"więcej niż 5", "> 5", ">5", "15 dni"}, {"co najmniej 5", "nie więcej niż 5", "<= 5", "<=5", "dokładnie 2", "dokładnie 5", "< 5", "mniej niż 5"}),
+    ({"dokładnie 2", "przez 2 dni"}, {"dokładnie 5", "przez 5 dni", "15 dni", "co najmniej 5", "nie więcej niż 5"}),
+    ({"dokładnie 5", "przez 5 dni"}, {"dokładnie 2", "przez 2 dni", "15 dni", "co najmniej 5", "nie więcej niż 5"}),
+    ({"w komórce a1", "komórce a1"}, {"komórce a2", "komórce a3", "komórce a4"}),
+    ({"w komórce a2", "komórce a2"}, {"komórce a1", "komórce a3", "komórce a4"}),
+    ({"w komórce a3", "komórce a3"}, {"komórce a1", "komórce a2", "komórce a4"}),
+    ({"w komórce a4", "komórce a4"}, {"komórce a1", "komórce a2", "komórce a3"})
 ]
 
 @lru_cache(maxsize=1024)

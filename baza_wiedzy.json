@@ -1553,5 +1553,45 @@
     "odpowiedz": "indeks dolny",
     "uzasadnienie": "Wzory chemiczne (H₂O) formatuje się jako indeks dolny (subscript).",
     "typ": "jednokrotny_wybor"
+  },
+  {
+    "quiz": "Quiz 3",
+    "pytanie": "Oblicz, ilu klientów korzysta z ubezpieczenia wyposażenia dodatkowego. Wynik wpisz poniżej.",
+    "odpowiedz": "167",
+    "formula": null,
+    "uzasadnienie": "Liczba komórek z wartością 'tak' w kolumnie wyposażenia dodatkowego (H7:H388) = 167.",
+    "typ": "wartosc",
+    "klucze": [
+      "ilu klientów",
+      "korzysta",
+      "ubezpieczenia wyposażenia dodatkowego"
+    ]
+  },
+  {
+    "quiz": "Quiz 3",
+    "pytanie": "Oblicz średnią kwotę ubezpieczenia klientów, którzy posiadają ubezpieczenie bagażu standard i równocześnie mają możliwość skorzystania z samochodu zastępczego przez więcej niż 5 dni. Wynik, z dokładnością do dwóch miejsc po przecinku, wpisz poniżej.",
+    "odpowiedz": "3536.84",
+    "formula": null,
+    "uzasadnienie": "ŚREDNIA.WARUNKÓW na kolumnie kwoty ubezpieczenia (C7:C388) dla bagaż='standard' i samochód=15 dni (19 klientów) = 3536,84.",
+    "typ": "wartosc",
+    "klucze": [
+      "średnią kwotę ubezpieczenia",
+      "bagażu standard",
+      "samochodu zastępczego",
+      "więcej niż 5 dni"
+    ]
+  },
+  {
+    "quiz": "Quiz 3",
+    "pytanie": "Co należy wpisać w komórce A3 w arkuszu Zestawienie, aby obliczyć w niej najwyższą kwotę do zapłaty wszystkich klientów? Odpowiedź wpisz poniżej:",
+    "odpowiedz": "=MAX('Ubezpieczenia 1'!J7:J388) (lub =max('Ubezpieczenia 1'!J7:J388))",
+    "formula": "=MAX('Ubezpieczenia 1'!J7:J388)",
+    "uzasadnienie": "Funkcja MAX na kolumnie kwoty do zapłaty J7:J388.",
+    "typ": "formula",
+    "klucze": [
+      "w komórce a3",
+      "arkuszu zestawienie",
+      "najwyższą kwotę do zapłaty"
+    ]
   }
 ]
