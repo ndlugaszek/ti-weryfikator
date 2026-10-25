@@ -230,8 +230,19 @@ def solve_deterministic_question(q):
         return "indeks dolny", "Cyfra w indeksie dolnym (H₂O)"
 
     # QUIZ 3: UBEZPIECZENIA 1 (Deterministyczne agregacje z arkusza)
-    if "zestawienie" in q_low and ("a3" in q_low or "w komórce a3" in q_low):
-        return "=MAX('Ubezpieczenia 1'!C7:C388)", "Formuła na najwyższą kwotę ubezpieczenia w komórce A3 Zestawienie: =MAX('Ubezpieczenia 1'!C7:C388)"
+    if "zestawienie" in q_low:
+        if "a3" in q_low or "w komórce a3" in q_low:
+            if "ubezpiecz" in q_low:
+                return "=MAX('Ubezpieczenia 1'!C7:C388)", "Formuła na najwyższą kwotę ubezpieczenia w komórce A3: =MAX('Ubezpieczenia 1'!C7:C388)"
+            return "=MAX('Ubezpieczenia 1'!J7:J388)", "Formuła na najwyższą kwotę do zapłaty w komórce A3: =MAX('Ubezpieczenia 1'!J7:J388)"
+        if "a4" in q_low or "w komórce a4" in q_low:
+            if "ubezpiecz" in q_low:
+                return "=MIN('Ubezpieczenia 1'!C7:C388)", "Formuła na najniższą kwotę ubezpieczenia w komórce A4: =MIN('Ubezpieczenia 1'!C7:C388)"
+            return "=MIN('Ubezpieczenia 1'!J7:J388)", "Formuła na najniższą kwotę do zapłaty w komórce A4: =MIN('Ubezpieczenia 1'!J7:J388)"
+        if "a1" in q_low or "w komórce a1" in q_low:
+            return "=SUMA('Ubezpieczenia 1'!J7:J388)", "Formuła na łączną kwotę do zapłaty w komórce A1: =SUMA('Ubezpieczenia 1'!J7:J388)"
+        if "a2" in q_low or "w komórce a2" in q_low:
+            return "=ŚREDNIA('Ubezpieczenia 1'!J7:J388)", "Formuła na średnią kwotę do zapłaty w komórce A2: =ŚREDNIA('Ubezpieczenia 1'!J7:J388)"
 
     if "mniej niż 15 dni" in q_low or ("nie będą korzystać" in q_low and "samochod" in q_low):
         return "462600", "Łączna kwota ubezpieczenia dla wyposażenie='nie' i samochód zastępczy < 15 dni (2 lub 5 dni) = 462600."
@@ -240,6 +251,8 @@ def solve_deterministic_question(q):
         return "135", "Liczba klientów z kwotą do zapłaty <= 300 zł: LICZ.JEŻELI(J7:J388; '<=300') = 135."
 
     if "samochod" in q_low or "samochód" in q_low:
+        if "co najmniej 5" in q_low or ">= 5" in q_low or ">=5" in q_low:
+            return "205", "Liczba klientów z liczbą dni >= 5 (5 dni: 105 osób + 15 dni: 100 osób) = 205."
         if "nie więcej niż 5" in q_low or "<= 5" in q_low or "<=5" in q_low:
             return "213", "Liczba klientów z liczbą dni <= 5 (2 dni: 108 osób + 5 dni: 105 osób) = 213."
         if "dokładnie 2" in q_low or "przez 2 dni" in q_low:
@@ -321,7 +334,10 @@ CONFLICT_PAIRS = [
     ({"rok", "roku"}, {"miesiąc", "miesiąca"}),
     ({"miesiąc", "miesiąca"}, {"dzień", "dnia"}),
     ({"rok", "roku"}, {"dzień", "dnia"}),
-    ({"nie więcej niż 5", "<= 5"}, {"dokładnie 2", "dokładnie 5", "15 dni"})
+    ({"nie więcej niż 5", "<= 5"}, {"co najmniej 5", ">= 5", "dokładnie 2", "dokładnie 5", "15 dni"}),
+    ({"co najmniej 5", ">= 5"}, {"nie więcej niż 5", "<= 5", "dokładnie 2", "dokładnie 5"}),
+    ({"w komórce a3", "komórce a3"}, {"w komórce a4", "komórce a4", "w komórce a1", "w komórce a2"}),
+    ({"w komórce a4", "komórce a4"}, {"w komórce a3", "komórce a3", "w komórce a1", "w komórce a2"})
 ]
 
 def has_conflict(q1, q2):

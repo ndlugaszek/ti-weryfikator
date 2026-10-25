@@ -625,12 +625,34 @@
     "quiz": "Quiz 3",
     "klucze": [
       "komórce a4 w arkuszu zestawienie",
+      "najniższą kwotę ubezpieczenia"
+    ],
+    "pytanie": "Co należy wpisać w komórce A4 w arkuszu Zestawienie, aby obliczyć w niej najniższą kwotę ubezpieczenia wszystkich klientów? Odpowiedź wpisz poniżej:",
+    "odpowiedz": "=MIN('Ubezpieczenia 1'!C7:C388) (lub =min('Ubezpieczenia 1'!C7:C388))",
+    "uzasadnienie": "Funkcja MIN na kolumnie kwoty ubezpieczenia C7:C388.",
+    "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "komórce a4 w arkuszu zestawienie",
       "najniższą kwotę do zapłaty"
     ],
     "pytanie": "Co należy wpisać w komórce A4 w arkuszu Zestawienie, aby obliczyć w niej najniższą kwotę do zapłaty wszystkich klientów? Odpowiedź wpisz poniżej:",
-    "odpowiedz": "=MIN('Ubezpieczenia 1'!J7:J388)",
-    "uzasadnienie": "Funkcja MIN na kolumnie J7:J388.",
+    "odpowiedz": "=MIN('Ubezpieczenia 1'!J7:J388) (lub =min('Ubezpieczenia 1'!J7:J388))",
+    "uzasadnienie": "Funkcja MIN na kolumnie do zapłaty J7:J388.",
     "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "samochodu zastępczego przez co najmniej 5 dni",
+      "co najmniej 5 dni"
+    ],
+    "pytanie": "Oblicz, ilu klientów ma możliwość skorzystania z samochodu zastępczego przez co najmniej 5 dni. Wynik wpisz poniżej.",
+    "odpowiedz": "205",
+    "uzasadnienie": "Liczba klientów z liczbą dni >= 5 (5 dni: 105 + 15 dni: 100) = 205.",
+    "typ": "wartosc"
   },
   {
     "quiz": "Quiz 3",
