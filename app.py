@@ -230,6 +230,15 @@ def solve_deterministic_question(q):
         return "indeks dolny", "Cyfra w indeksie dolnym (H₂O)"
 
     # QUIZ 3: UBEZPIECZENIA 1 (Deterministyczne agregacje z arkusza)
+    if "zestawienie" in q_low and ("a3" in q_low or "w komórce a3" in q_low):
+        return "=MAX('Ubezpieczenia 1'!C7:C388)", "Formuła na najwyższą kwotę ubezpieczenia w komórce A3 Zestawienie: =MAX('Ubezpieczenia 1'!C7:C388)"
+
+    if "mniej niż 15 dni" in q_low or ("nie będą korzystać" in q_low and "samochod" in q_low):
+        return "462600", "Łączna kwota ubezpieczenia dla wyposażenie='nie' i samochód zastępczy < 15 dni (2 lub 5 dni) = 462600."
+
+    if ("nie więcej niż 300" in q_low or "<= 300" in q_low or "<=300" in q_low) and "zapłaty" in q_low:
+        return "135", "Liczba klientów z kwotą do zapłaty <= 300 zł: LICZ.JEŻELI(J7:J388; '<=300') = 135."
+
     if "samochod" in q_low or "samochód" in q_low:
         if "nie więcej niż 5" in q_low or "<= 5" in q_low or "<=5" in q_low:
             return "213", "Liczba klientów z liczbą dni <= 5 (2 dni: 108 osób + 5 dni: 105 osób) = 213."

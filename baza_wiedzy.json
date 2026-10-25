@@ -698,12 +698,34 @@
     "quiz": "Quiz 3",
     "klucze": [
       "komórce a3 w arkuszu zestawienie",
-      "najwyższą kwotę do zapłaty"
+      "najwyższą kwotę ubezpieczenia"
     ],
-    "pytanie": "Co należy wpisać w komórce A3 w arkuszu Zestawienie, aby obliczyć w niej najwyższą kwotę do zapłaty wszystkich klientów? Odpowiedź wpisz poniżej:",
-    "odpowiedz": "=MAX('Ubezpieczenia 1'!J7:J388)",
-    "uzasadnienie": "Funkcja MAX na kolumnie J7:J388.",
+    "pytanie": "Co należy wpisać w komórce A3 w arkuszu Zestawienie, aby obliczyć w niej najwyższą kwotę ubezpieczenia wszystkich klientów? Odpowiedź wpisz poniżej:",
+    "odpowiedz": "=MAX('Ubezpieczenia 1'!C7:C388) (lub =max('Ubezpieczenia 1'!C7:C388))",
+    "uzasadnienie": "Funkcja MAX na kolumnie kwoty ubezpieczenia C7:C388.",
     "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "nie będą korzystać z ubezpieczenia wyposażenia dodatkowego",
+      "mniej niż 15 dni"
+    ],
+    "pytanie": "Oblicz łączną kwotę ubezpieczenia klientów, którzy zadeklarowali, że nie będą korzystać z ubezpieczenia wyposażenia dodatkowego i równocześnie mają możliwość skorzystania z samochodu zastępczego przez mniej niż 15 dni. Wynik wpisz poniżej.",
+    "odpowiedz": "462600",
+    "uzasadnienie": "Suma kwot ubezpieczenia (kolumna C) dla warunków wyposażenie='nie' i samochód w (2, 5) = 462600.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "nie więcej niż 300 zł",
+      "do zapłaty"
+    ],
+    "pytanie": "Oblicz, ilu klientów ma do zapłaty nie więcej niż 300 zł. Wynik wpisz poniżej.",
+    "odpowiedz": "135",
+    "uzasadnienie": "LICZ.JEŻELI('Ubezpieczenia 1'!J7:J388; '<=300') = 135.",
+    "typ": "wartosc"
   },
   {
     "quiz": "Quiz 3",
