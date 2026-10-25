@@ -126,9 +126,28 @@ def solve_deterministic_question(q):
     if "aktualnego roku" in q_low:
         return "=ROK(DZIŚ())", "Numer bieżącego roku z funkcji DZIŚ()"
 
-    # 6. Tworzenie daty z wycinka
+    # 6. Różnica dwóch dat: zawsze [data późniejsza] - [data wcześniejsza]
+    m_diff = re.search(r"w komórce\s+([a-z]\d+)\s+wpisana jest data\s+(\d{4}-\d{2}-\d{2}).*?w komórce\s+([a-z]\d+)\s+data\s+(\d{4}-\d{2}-\d{2}).*?ile dni upłynęło", q_low)
+    if m_diff:
+        cell1, d1, cell2, d2 = m_diff.group(1).upper(), m_diff.group(2), m_diff.group(3).upper(), m_diff.group(4)
+        if d2 > d1:
+            return f"={cell2}-{cell1}", f"Różnica dat (zawsze późniejsza od wcześniejszej: {d2} minus {d1}): ={cell2}-{cell1}"
+        else:
+            return f"={cell1}-{cell2}", f"Różnica dat (zawsze późniejsza od wcześniejszej: {d1} minus {d2}): ={cell1}-{cell2}"
+
+    m_diff_gen = re.search(r"w komórce\s+([a-z]\d+).*?w komórce\s+([a-z]\d+).*?ile dni upłynęło", q_low)
+    if m_diff_gen:
+        c1, c2 = m_diff_gen.group(1).upper(), m_diff_gen.group(2).upper()
+        return f"={c2}-{c1} (jeśli {c2} jest późniejsza) lub ={c1}-{c2} (jeśli {c1} jest późniejsza)", "Zasada w Excelu: od daty późniejszej odejmujemy datę wcześniejszą"
+
+    # 7. Tworzenie daty z wycinka arkusza (Zasada: ROK, MIESIĄC, DZIEŃ)
     if "dnia, miesiąca i roku" in q_low or "otrzymać z nich datę" in q_low:
-        return "=DATA(C2;B2;A2)", "Funkcja DATA(rok; miesiąc; dzień). W układzie poziomym w wierszu 2: C2=rok, B2=miesiąc, A2=dzień -> =DATA(C2;B2;A2). Jeśli pionowo w kolumnie B: =DATA(B3;B2;B1)"
+        return (
+            "=DATA(C2;B2;A2) lub =DATA(B3;B2;B1)",
+            "ZASADA EXCELA: =DATA(ROK; MIESIĄC; DZIEŃ). Sprawdź układ komórek na zrzucie w pytaniu:\n"
+            "• Układ poziomy (wiersz 2, C2=rok, B2=miesiąc, A2=dzień): wpisz `=DATA(C2;B2;A2)`\n"
+            "• Układ pionowy (kolumna B, B3=rok, B2=miesiąc, B1=dzień): wpisz `=DATA(B3;B2;B1)`"
+        )
 
     # QUIZ 1: FORMATOWANIE I TEORIA (Parametryczne)
     # Wpisano X%. Jaką wartość ma komórka?
