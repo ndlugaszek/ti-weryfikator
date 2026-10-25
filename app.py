@@ -58,7 +58,7 @@ if not st.session_state.authenticated:
 
 # Główny nagłówek
 st.title("🎓 Asystent Weryfikacji Zadań - Technologie Informacyjne")
-st.caption("Uczelniany System Weryfikacji Zadań Laboratoryjnych | Baza kursowa 2025/2026")
+st.caption("Uczelniany System Weryfikacji Zadań Laboratoryjnych | Silnik: GPT-4o-mini | Baza kursowa 2025/2026")
 
 # Ścieżki bazowe
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -292,8 +292,8 @@ ZASADY:
 """
 
 INTERNAL_ENGINES = [
-    "cohere/north-mini-code:free",
-    "dots-studio/dots-3-note-preview:free"
+    "openai/gpt-4o-mini",
+    "deepseek/deepseek-chat"
 ]
 
 # Panel boczny
