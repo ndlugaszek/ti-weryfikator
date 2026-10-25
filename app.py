@@ -229,6 +229,52 @@ def solve_deterministic_question(q):
     if "h2o" in q_low:
         return "indeks dolny", "Cyfra w indeksie dolnym (H₂O)"
 
+    # QUIZ 3: UBEZPIECZENIA 1 (Deterministyczne agregacje z arkusza)
+    if "samochod" in q_low or "samochód" in q_low:
+        if "nie więcej niż 5" in q_low or "<= 5" in q_low or "<=5" in q_low:
+            return "213", "Liczba klientów z liczbą dni <= 5 (2 dni: 108 osób + 5 dni: 105 osób) = 213."
+        if "dokładnie 2" in q_low or "przez 2 dni" in q_low:
+            return "108", "Liczba komórek z wartością 2 w kolumnie Samochód zastępczy = 108."
+        if "dokładnie 5" in q_low or "przez 5 dni" in q_low:
+            return "105", "Liczba komórek z wartością 5 w kolumnie Samochód zastępczy = 105."
+        if "15 dni" in q_low or "więcej niż 5" in q_low:
+            return "100", "Liczba komórek z wartością 15 w kolumnie Samochód zastępczy = 100."
+
+    if "do zapłaty" in q_low:
+        if "najwyższ" in q_low or "maksymaln" in q_low:
+            if "komórce" in q_low or "formuł" in q_low or "zestawienie" in q_low:
+                return "=MAX('Ubezpieczenia 1'!J7:J388)", "Funkcja MAX na kolumnie kwot do zapłaty J7:J388."
+            return "12000", "Maksymalna kwota do zapłaty: MAX(J7:J388) = 12000."
+        if "najniższ" in q_low or "minimaln" in q_low:
+            if "komórce" in q_low or "formuł" in q_low or "zestawienie" in q_low:
+                return "=MIN('Ubezpieczenia 1'!J7:J388)", "Funkcja MIN na kolumnie kwot do zapłaty J7:J388."
+            return "144", "Minimalna kwota do zapłaty: MIN(J7:J388) = 144."
+        if "łączn" in q_low or "suma" in q_low:
+            if "komórce" in q_low or "formuł" in q_low or "zestawienie" in q_low:
+                return "=SUMA('Ubezpieczenia 1'!J7:J388)", "Funkcja SUMA na kolumnie kwot do zapłaty J7:J388."
+            return "368352", "Łączna kwota do zapłaty: SUMA(J7:J388) = 368352."
+        if "średni" in q_low:
+            if "komórce" in q_low or "formuł" in q_low or "zestawienie" in q_low:
+                return "=ŚREDNIA('Ubezpieczenia 1'!J7:J388)", "Funkcja ŚREDNIA na kolumnie kwot do zapłaty J7:J388."
+            if "bagaż" not in q_low and "dodatkow" not in q_low:
+                return "964.27 (lub 964,27)", "Średnia kwota do zapłaty wszystkich klientów: ŚREDNIA(J7:J388) = 964,27."
+
+    if "car assistance" in q_low:
+        if "nie korzysta" in q_low or "bez car" in q_low or "brakiem" in q_low or "nie ma" in q_low:
+            return "69", "Liczba klientów z brakiem Car Assistance = 69."
+        if "korzysta" in q_low:
+            return "313", "Liczba klientów korzystających z Car Assistance (382 - 69) = 313."
+
+    if "kwota ubezpieczenia" in q_low or "kwotę ubezpieczenia" in q_low:
+        if "najwyższ" in q_low or "maksymaln" in q_low:
+            return "100000", "Maksymalna kwota ubezpieczenia: MAX(C7:C388) = 100000."
+        if "najniższ" in q_low or "minimaln" in q_low:
+            return "1200", "Minimalna kwota ubezpieczenia: MIN(C7:C388) = 1200."
+        if "łączn" in q_low and "autoalarm" in q_low and "blokad" in q_low:
+            return "830400", "=SUMA.WARUNKÓW dla autoalarm='tak' i blokada='tak' = 830400."
+        if "średni" in q_low and "wszystkich" in q_low:
+            return "8034.29 (lub 8034,29)", "Średnia kwota ubezpieczenia: ŚREDNIA(C7:C388) = 8034,29."
+
     return None, None
 
 # Wczytanie bazy wiedzy znanych zadań
@@ -252,6 +298,31 @@ STOPWORDS = {
     "pytanie", "odpowiedź", "zadanie", "należy", "znajduje", "znajdują"
 }
 
+CONFLICT_PAIRS = [
+    ({"najwyższ", "maksymaln"}, {"najniższ", "minimaln"}),
+    ({"wcześniej", "temu", "przed"}, {"później", "po"}),
+    ({"nie ubezpiecza", "bez ubezpieczenia"}, {"ubezpiecza bagaż", "posiada ubezpieczenie bagażu"}),
+    ({"nie korzysta"}, {"korzysta"}),
+    ({"nie skorzysta"}, {"skorzysta"}),
+    ({"nie zadeklarowało"}, {"zadeklarowało", "podjęło decyzję"}),
+    ({"kwotę do zapłaty", "kwota do zapłaty", "do zapłaty"}, {"kwota ubezpieczenia", "kwotę ubezpieczenia"}),
+    ({"rok", "roku"}, {"miesiąc", "miesiąca"}),
+    ({"miesiąc", "miesiąca"}, {"dzień", "dnia"}),
+    ({"rok", "roku"}, {"dzień", "dnia"}),
+    ({"nie więcej niż 5", "<= 5"}, {"dokładnie 2", "dokładnie 5", "15 dni"})
+]
+
+def has_conflict(q1, q2):
+    q1_low, q2_low = q1.lower(), q2.lower()
+    for grp_a, grp_b in CONFLICT_PAIRS:
+        in_a1 = any(w in q1_low for w in grp_a)
+        in_b1 = any(w in q1_low for w in grp_b)
+        in_a2 = any(w in q2_low for w in grp_a)
+        in_b2 = any(w in q2_low for w in grp_b)
+        if (in_a1 and in_b2 and not in_b1) or (in_b1 and in_a2 and not in_a1):
+            return True
+    return False
+
 def extract_tokens(text):
     text = text.lower().replace(",", ".")
     words = set(re.findall(r"[a-ząćęłńóśźż0-9%]+", text))
@@ -272,6 +343,11 @@ def smart_match(query, threshold=0.75):
         t_pytanie = item.get("pytanie", "")
         t_klucze = " ".join(item.get("klucze", []))
         target_text = (t_pytanie + " " + t_klucze).lower()
+
+        # Odrzucenie sprzecznych pojęć (np. najwyższa vs najniższa)
+        if has_conflict(query, target_text):
+            continue
+
         t_words, t_nums = extract_tokens(target_text)
 
         # Precyzyjna zgodność liczb
@@ -319,14 +395,14 @@ SYSTEM_PROMPT = f"""
 MAPA QUIZÓW:
 {mapa_txt}
 
-ZASADY:
-1. Odpowiadaj krótko i po polsku:
-   Odpowiedź: [dokładny wynik/wartość]
-   Ocena: poprawna / błędna / niejednoznaczna (jeśli podano propozycję użytkownika)
-   Podstawa: [arkusz, komórki, strona PDF, formuła lub zarys obliczenia]
-2. Nazwy funkcji Excela podawaj WYŁĄCZNIE w języku polskim: =DZIŚ(), =DATA(), =MIESIĄC(), =ROK(), =DZIEŃ(), =SUMA(), =ŚREDNIA(), =JEŻELI(), =ZAOKR(). Bezwzględny zakaz nazw angielskich (TODAY, DATE, MONTH, SUM, IF).
-3. Dokładnie analizuj załączone dane tabelaryczne CSV i PDF.
-4. Etykiety procentowe w wykresach kołowych Excela są liczbami całkowitymi bez miejsc po przecinku (np. 32%).
+BEZWZGLĘDNE REGUŁY ODPOWIEDZI:
+1. Odpowiadaj natychmiast i zwięźle po polsku:
+   **Odpowiedź:** [dokładny wynik, liczba lub polska formuła Excela]
+   **Podstawa:** [zwięzłe uzasadnienie, komórki, funkcja lub obliczenie]
+2. BEZWZGLĘDNY ZAKAZ generowania tekstu narracyjnego, zapowiedzi ("Zaraz to obliczę", "Przeanalizuję", "Przeprowadzam obliczenia", "Chętnie pomogę") oraz przeprosin.
+3. Jeśli do zapytania dołączono dane CSV, NATYCHMIAST wykonaj obliczenie na danych i podaj ostateczną liczbę.
+4. Nazwy funkcji Excela podawaj WYŁĄCZNIE w języku polskim: =DZIŚ(), =DATA(), =MIESIĄC(), =ROK(), =DZIEŃ(), =SUMA(), =ŚREDNIA(), =JEŻELI(), =MAX(), =MIN(), =LICZ.JEŻELI(). Bezwzględny zakaz nazw angielskich (TODAY, DATE, MONTH, SUM, IF).
+5. Etykiety procentowe w wykresach kołowych Excela są liczbami całkowitymi bez miejsc po przecinku (np. 25).
 """
 
 INTERNAL_ENGINES = [
@@ -471,10 +547,26 @@ if user_prompt:
             elif "Quiz 6" in quiz_choice: detected_quiz = 6
             elif "Quiz 7" in quiz_choice: detected_quiz = 7
             else:
+                q_low = user_prompt.lower()
                 for q in [1, 2, 3, 4, 5, 6, 7]:
-                    if f"quiz {q}" in user_prompt.lower() or f"quiz{q}" in user_prompt.lower() or f"q{q}" in user_prompt.lower():
+                    if f"quiz {q}" in q_low or f"quiz{q}" in q_low or f"q{q}" in q_low:
                         detected_quiz = q
                         break
+                if not detected_quiz:
+                    if any(w in q_low for w in ["ubezpiecz", "car assistance", "samochód zastępczy", "samochodu zastępczego", "autoalarm", "immobilizer", "blokad", "do zapłaty"]):
+                        detected_quiz = 3
+                    elif any(w in q_low for w in ["delegacj", "dieta", "nadbagaż", "kraj docelowy", "tabela przestawna", "wykres przestawny", "hiszpan", "grecj", "włoch", "austri", "turcj"]):
+                        detected_quiz = 4
+                    elif any(w in q_low for w in ["dodatk", "świątecz", "staż", "dział", "noworoczn", "prezent"]):
+                        detected_quiz = 5
+                    elif any(w in q_low for w in ["podróżn", "podrozn", "skala kolorów", "zestaw ikon"]):
+                        detected_quiz = 2
+                    elif any(w in q_low for w in ["data", "dni wcześniej", "dni później", "ile dni", "zebranie", "zakończenie projektu", "aktualny rok", "aktualnego miesiąca", "aktualnego dnia"]):
+                        detected_quiz = 6
+                    elif any(w in q_low for w in ["przypis", "recenzencka", "podpisów", "objaśnienie słowa", "h2o", "stopk"]):
+                        detected_quiz = 7
+                    elif any(w in q_low for w in ["wpisano", "format procentowy", "separator tysięcy", "access", "xml"]):
+                        detected_quiz = 1
 
             extra_context = ""
             if detected_quiz:

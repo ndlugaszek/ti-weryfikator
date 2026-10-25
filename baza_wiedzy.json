@@ -685,6 +685,149 @@
     "typ": "formula"
   },
   {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "najwyższą kwotę do zapłaty"
+    ],
+    "pytanie": "Oblicz najwyższą kwotę do zapłaty. Wynik wpisz poniżej.",
+    "odpowiedz": "12000",
+    "uzasadnienie": "MAX(J7:J388) = 12000.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "komórce a3 w arkuszu zestawienie",
+      "najwyższą kwotę do zapłaty"
+    ],
+    "pytanie": "Co należy wpisać w komórce A3 w arkuszu Zestawienie, aby obliczyć w niej najwyższą kwotę do zapłaty wszystkich klientów? Odpowiedź wpisz poniżej:",
+    "odpowiedz": "=MAX('Ubezpieczenia 1'!J7:J388)",
+    "uzasadnienie": "Funkcja MAX na kolumnie J7:J388.",
+    "typ": "formula"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "łączną kwotę do zapłaty wszystkich klientów"
+    ],
+    "pytanie": "Oblicz łączną kwotę do zapłaty wszystkich klientów. Wynik wpisz poniżej.",
+    "odpowiedz": "368352",
+    "uzasadnienie": "SUMA(J7:J388) = 368352.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "średnią kwotę do zapłaty wszystkich klientów"
+    ],
+    "pytanie": "Oblicz średnią kwotę do zapłaty wszystkich klientów. Wynik, z dokładnością do dwóch miejsc po przecinku, wpisz poniżej.",
+    "odpowiedz": "964.27 (lub 964,27)",
+    "uzasadnienie": "ŚREDNIA(J7:J388) = 964,27.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "samochodu zastępczego przez nie więcej niż 5 dni",
+      "samochodu zastępczego"
+    ],
+    "pytanie": "Oblicz, ilu klientów ma możliwość skorzystania z samochodu zastępczego przez nie więcej niż 5 dni. Wynik wpisz poniżej.",
+    "odpowiedz": "213",
+    "uzasadnienie": "Liczba klientów z liczbą dni <= 5 (2 dni: 108 osób + 5 dni: 105 osób) = 213.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "samochodu zastępczego przez dokładnie 2 dni"
+    ],
+    "pytanie": "Oblicz, ilu klientów ma możliwość skorzystania z samochodu zastępczego przez dokładnie 2 dni. Wynik wpisz poniżej.",
+    "odpowiedz": "108",
+    "uzasadnienie": "Liczba komórek z wartością '2' w kolumnie Samochód zastępczy = 108.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "samochodu zastępczego przez dokładnie 5 dni"
+    ],
+    "pytanie": "Oblicz, ilu klientów ma możliwość skorzystania z samochodu zastępczego przez dokładnie 5 dni. Wynik wpisz poniżej.",
+    "odpowiedz": "105",
+    "uzasadnienie": "Liczba komórek z wartością '5' w kolumnie Samochód zastępczy = 105.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "samochodu zastępczego przez 15 dni",
+      "samochodu zastępczego przez więcej niż 5 dni"
+    ],
+    "pytanie": "Oblicz, ilu klientów ma możliwość skorzystania z samochodu zastępczego przez 15 dni. Wynik wpisz poniżej.",
+    "odpowiedz": "100",
+    "uzasadnienie": "Liczba komórek z wartością '15' w kolumnie Samochód zastępczy = 100.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "korzysta z ubezpieczenia car assistance"
+    ],
+    "pytanie": "Oblicz, ilu klientów korzysta z ubezpieczenia Car Assistance. Wynik wpisz poniżej.",
+    "odpowiedz": "313",
+    "uzasadnienie": "382 klientów ogółem - 69 klientów z brakiem assistance = 313.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "najniższą kwotę ubezpieczenia"
+    ],
+    "pytanie": "Oblicz najniższą kwotę ubezpieczenia. Wynik wpisz poniżej.",
+    "odpowiedz": "1200",
+    "uzasadnienie": "MIN(C7:C388) = 1200.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "łączną kwotę ubezpieczenia wszystkich klientów"
+    ],
+    "pytanie": "Oblicz łączną kwotę ubezpieczenia wszystkich klientów. Wynik wpisz poniżej.",
+    "odpowiedz": "3069100",
+    "uzasadnienie": "SUMA(C7:C388) = 3069100.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "posiada autoalarm"
+    ],
+    "pytanie": "Oblicz, ilu klientów posiada autoalarm. Wynik wpisz poniżej.",
+    "odpowiedz": "219",
+    "uzasadnienie": "Liczba komórek ze znakiem '+' w kolumnie Autoalarm = 219.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "posiada immobilizer"
+    ],
+    "pytanie": "Oblicz, ilu klientów posiada immobilizer. Wynik wpisz poniżej.",
+    "odpowiedz": "171",
+    "uzasadnienie": "Liczba komórek ze znakiem '+' w kolumnie Immobilizer = 171.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "posiada blokadę skrzyni biegów"
+    ],
+    "pytanie": "Oblicz, ilu klientów posiada blokadę skrzyni biegów. Wynik wpisz poniżej.",
+    "odpowiedz": "105",
+    "uzasadnienie": "Liczba komórek ze znakiem '+' w kolumnie Blokada skrzyni biegów = 105.",
+    "typ": "wartosc"
+  },
+  {
     "quiz": "Quiz 4",
     "klucze": [
       "hiszpanii",
