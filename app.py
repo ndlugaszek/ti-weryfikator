@@ -259,9 +259,12 @@ def solve_deterministic_question(q):
                 return "=MIN('Ubezpieczenia 1'!J7:J388)", "Funkcja MIN na kolumnie kwot do zapłaty J7:J388."
             return "144", "Minimalna kwota do zapłaty: MIN(J7:J388) = 144."
         if "łączn" in q_low or "suma" in q_low:
+            if "autoalarm" in q_low and "blokad" in q_low:
+                return "99648", "=SUMA.WARUNKÓW na kwocie do zapłaty (J7:J388) dla autoalarm='+' i blokada='+' = 99648."
             if "komórce" in q_low or "formuł" in q_low or "zestawienie" in q_low:
                 return "=SUMA('Ubezpieczenia 1'!J7:J388)", "Funkcja SUMA na kolumnie kwot do zapłaty J7:J388."
-            return "368352", "Łączna kwota do zapłaty: SUMA(J7:J388) = 368352."
+            if "wszystkich" in q_low or "klientów" in q_low:
+                return "368352", "Łączna kwota do zapłaty wszystkich klientów: SUMA(J7:J388) = 368352."
         if "średni" in q_low:
             if "komórce" in q_low or "formuł" in q_low or "zestawienie" in q_low:
                 return "=ŚREDNIA('Ubezpieczenia 1'!J7:J388)", "Funkcja ŚREDNIA na kolumnie kwot do zapłaty J7:J388."

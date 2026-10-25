@@ -531,11 +531,22 @@
     "quiz": "Quiz 3",
     "klucze": [
       "autoalarm i blokadę skrzyni biegów",
+      "łączną kwotę do zapłaty"
+    ],
+    "pytanie": "Oblicz łączną kwotę do zapłaty klientów, którzy posiadają równocześnie dwa zabezpieczenia antykradzieżowe: autoalarm i blokadę skrzyni biegów. Wynik wpisz poniżej.",
+    "odpowiedz": "99648",
+    "uzasadnienie": "=SUMA.WARUNKÓW na kolumnie kwoty do zapłaty (J7:J388) dla autoalarm='+' i blokada='+' = 99648.",
+    "typ": "wartosc"
+  },
+  {
+    "quiz": "Quiz 3",
+    "klucze": [
+      "autoalarm i blokadę skrzyni biegów",
       "łączną kwotę ubezpieczenia"
     ],
     "pytanie": "Oblicz łączną kwotę ubezpieczenia klientów, którzy posiadają równocześnie dwa zabezpieczenia antykradzieżowe: autoalarm i blokadę skrzyni biegów. Wynik wpisz poniżej.",
     "odpowiedz": "830400",
-    "uzasadnienie": "=SUMA.WARUNKÓW na kolumnie kwoty ubezpieczenia dla autoalarm='tak' i blokada='tak'.",
+    "uzasadnienie": "=SUMA.WARUNKÓW na kolumnie kwoty ubezpieczenia (C7:C388) dla autoalarm='+' i blokada='+' = 830400.",
     "typ": "wartosc"
   },
   {
